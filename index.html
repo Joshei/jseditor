@@ -1,0 +1,250 @@
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+  <script src="cursorMovements.js"></script>
+  <script src="recursive.js"></script>
+  <script>
+    //other classes
+    const CursorMovements = new CursorMovementsClass()
+    const Recursive = new RecursiveClass() 
+    //constant height value
+    let FIRSTSETHEIGHT = 200
+    let DASH = '-'
+    </script>
+    <canvas
+      id="canvas_id"
+      width="220"
+      height=FIRSTSETHEIGHT
+      style="border: 1px solid #550233"
+    > </canvas>
+    <div id="xAndY"></div>
+    <div id = "stylingHere">
+      <button id = "insert" >Insert</button>
+      <div id="insertMessage"></div>
+    </div>
+  <script>
+  let horizontalCursorPosition = 0
+  let verticalCursorPosition = 0
+  let MAXROWS = 15
+  
+  // The grid, last row is a padding for recursion. 
+    let gridArray = [
+    ["Z", "A", "A", "A", DASH, DASH , DASH, "1", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , "B"  ],
+    ["1", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , "C"  ],
+    ["2", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , DASH  ],
+    ["3", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , DASH ],
+
+    ["a", "b", "c", DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , DASH ],
+    ["e", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , DASH ],
+    ["1", "2", "3", DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, "E", DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , DASH ],
+    ["4", "5", "6", DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , DASH],
+
+    ["1", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , "1" ],
+    ["2", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , DASH ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , DASH ],
+    ["y" ,"y", "y", DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH ,DASH ],
+
+    ["1", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , DASH ],
+    ["2", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , DASH ],
+    ["3", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH,DASH, "W", DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH, DASH,DASH, DASH, DASH, DASH, DASH ,DASH , "D" ],
+    //["!", "!", "!", "!", "!", "!" , "!", "!", "!", "!", "!", "!", "!" , "!", "!", "!", "!", "!", "!", "!" , "!", "!","!", "!", "!", "!", "!" , "!" ],
+    ];
+  
+
+  /*
+    let gridArray = [
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, "1" , "2" ],
+    ["q", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, "A" , "B" ],
+    ["m", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, "I" , "J" ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , "1" ],
+
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , "2" ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , "3" ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , "4" ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, "1", "A" , "B" ],
+
+    ["P", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH ,DASH ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , "6" ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, "1", DASH, DASH , "E" ],
+    ["1", "2", "3", DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , "7" ],
+
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , "8" ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, "1" ,"2" ],
+    ["0", "1", DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, "A" , "B" ],
+    //["!", "!", "!", "!", "!", "!" , "!", "!", "!", "!", "!", "!", "!" , "!", "!", "!", "!", "!", "!", "!" , "!", "!","!", "!", "!", "!", "!" , "!" ],
+    ];
+    */
+    
+  //canvas
+  let WIDTH = 28
+  let HEIGHT = 15
+  let ORIGINALHEIGHT = 15
+  const VOFFSET = 32
+  const HOFFSET = 35
+  var canvas = document.getElementById('canvas_id')
+  var insertOn = document.getElementById('insert')
+  let textBox = [[]]
+  let rows = WIDTH
+  let cols = HEIGHT
+  let ctx = canvas.getContext('2d')
+  var size = 220
+  canvas.style.width = size + 'px'
+  canvas.style.height = size + 'px'
+  var scale = window.devicePixelRatio 
+  canvas.width = size * scale
+  canvas.height = size * scale
+  ctx.scale(scale, scale)
+  ctx.fillStyle = '#ffffff'
+  ctx.fillRect(0, 0, 800, 800)
+  ctx.fillStyle = '#000000'
+  ctx.font = '10px Monospace'
+  var x = size / 2
+  var y = size / 2
+  
+  //clears out grid
+  function clearArray() {
+    ctx.clearRect(0, 0, 100, 100)
+    ctx.fillStyle = '#ffffff'
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
+    ctx.fillStyle = '#000000'
+  }
+  
+  function makeCanvas(verticalSize = FIRSTSETHEIGHT){
+  var size = verticalSize
+  let hsize = 200
+  canvas.style.width = hsize + 'px'
+  canvas.style.height = size + 'px'
+  var scale = window.devicePixelRatio 
+  canvas.width = hsize * scale
+  canvas.height = size * scale
+  ctx.scale(scale, scale)
+  ctx.fillStyle = '#ffffff'
+  ctx.fillRect(0, 0, 800, 800)
+  ctx.font = '10px Monospace'
+  ctx.textAlign = 'center'
+ 
+  }
+  
+  //draws grid
+  function drawGrid(iValue = HEIGHT, jValue = WIDTH) {
+    let extraHeightRows = HEIGHT - ORIGINALHEIGHT
+    let totalVert = extraHeightRows*10 + 200
+    makeCanvas(totalVert)
+    clearArray()
+    ctx.fillStyle = 'black'
+    for (let i = 0; i < iValue; i++) {
+    for (let j = 0; j < jValue ; j++) {
+    console.log("na: ", gridArray)
+    if(gridArray && gridArray[i] && gridArray[i][j]){
+    ctx.fillText(gridArray[i][j], j * 5 + 30 , i * 10 + 33)
+    console.log("ZZZ: ", {j}, {i})
+    }else{
+      continue
+    }
+    }
+  }
+}
+
+  //draws cursor on grid
+  function drawCursor(x,y){
+    //28 tiles times 5 is 140
+    if(x === HOFFSET + 140){
+      if(x == HOFFSET + (WIDTH * 5))
+      x = 0 + HOFFSET;
+      y =y + 10
+    }
+    ctx.font = '10px Monospace'
+    ctx.fillStyle = 'red'
+    console.log("y: ", y)
+    ctx.fillText('_', x - 5, y)
+    }
+
+    function changeInsert(){
+      alert("here")
+    }
+
+    let gKey = ''
+    var keyState = {}
+    let eventKeyCode = ""
+    let down = false
+    let InsertOn = true
+    
+    document.getElementById("insertMessage").innerHTML = "Inserting"
+    var insertOn = document.getElementById('insert')
+    insertOn.addEventListener("click", function(){
+      InsertOn = !InsertOn
+        if(InsertOn){
+          document.getElementById("insertMessage").innerHTML = "Inserting"
+        }else{
+          document.getElementById("insertMessage").innerHTML = "         "
+        }
+    })
+    document.body.addEventListener('keydown', function(e){
+    keyState[e.keyCode || e.which] = true;
+    eventKeyCode = e.keyCode
+    gKey = e.key
+    if (down) return
+    down = true
+    cursorAndFunctionCalls()
+    }, false)
+    document.addEventListener('keyup', function(e){
+    keyState[e.keyCode || e.which] = false;
+    gKey = e.key
+    eventKeyCode = e.keyCode
+    down = false
+    }, false)
+     
+    function cursorAndFunctionCalls() {
+    //right
+    if(keyState[39]){
+    //?
+    Recursive.advanceHorizontalOneTime()
+    CursorMovements.cursorRight() 
+    }
+    //left
+    else if(keyState[37]){
+      CursorMovements.cursorLeft()
+    }
+    //up
+    else if(keyState[38]){
+      CursorMovements.cursorUp()
+    }
+    //down
+    else if(keyState[40]){
+      CursorMovements.cursorDown()
+    } 
+    //these are the funcitons for keystorkes other than cursor movement keys
+    else if(gKey === 'Delete')
+    {
+       console.log("nested array3: ", gridArray);
+       gridArray = Recursive.deleteACharacter([], verticalCursorPosition/10, horizontalCursorPosition/5-1,  gridArray)
+    }
+    else if(gKey == "Enter"){
+      gridArray = Recursive.pressedEnter(gridArray, verticalCursorPosition/10, horizontalCursorPosition/5, "",true, HEIGHT-1)
+    }
+    else if(gKey !== ""){
+      Recursive.lastCharacetrOnLineEndThereAlready = false
+      if(gridArray[verticalCursorPosition/10][WIDTH-1] !=  "-"){
+      Recursive.LastCharacetrOnLineEndThereAlready = true
+    }
+    if(InsertOn){
+      gridArray = Recursive.initialInsert(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey)
+    }else{
+      //destructive text display here
+    }
+    //gridArray = Recursive.pushWords(gridArray, [""],  0)
+    Recursive.CursorOnLastColumn = false
+    Recursive.LastRowIndexToPushOn = -1
+    }
+
+    drawGrid(HEIGHT, WIDTH)
+    Recursive.displayGridAndCursor()  
+    } 
+     cursorAndFunctionCalls()
+    </script>
+    </body>
