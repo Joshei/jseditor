@@ -42,7 +42,7 @@ class RecursiveClass {
     //this.deleteRow(grid, rowIndex+1) 
     //add a new row of nulls
     
-    grid.push(["T", "-", "-", "-", "-", "-" , "-", "-", "-", "T", "-", "-", "-" , "-", "-", "-", "-", "-", "-", "-" , "-","-", "-", "-", "-", "-", "-" , "-" ]),
+    grid.push(["-", "-", "-", "-", "-", "-" , "-", "-", "-", "-", "-", "-", "-" , "-", "-", "-", "-", "-", "-", "-" , "-","-", "-", "-", "-", "-", "-" , "-" ]),
     
     //add exclamation marks at end again, which is for padding
     //grid.push(["!", "!", "!", "!", "!", "!" , "!", "!", "!", "!", "!", "!", "!" , "!", "!", "!", "!", "!", "!", "!" , "!", "!","!", "!", "!", "!", "!" , "!" ]),
@@ -668,6 +668,27 @@ return grid
     //  insert on last row, both with last character and null
     //  CHECK FULL ROWS
     //  //FIX INSERT ON RIGHT MOST COLUMN
+
+    //check in-between in main code:  1
+    //check in-between in main code, with one character on end:
+    //check in-between in main code, with one character on end, aand a character on left edge:  1
+    //check in-between in main code, with one character on end, aand a character on left edge, and a character in middle:  1
+   //check in-between in main code, with one character on end, aand a character on left edge, and a      character in middle, and on n ext end:  1
+   //same above except 3rd row has left : 1
+   ////same above except 3rd row has middle : 1
+   ////same above except 3rd row has right: 1
+  //same as above but empty row 4 and one on row 5: 1
+  //On , last row in middle, on left, and on right: 1
+  //same above but characetr on left: 1
+  //try on first character: 1
+  //on last row, 1 vars:  1
+  //on last row, 2 vars:  1
+  //on last row, 3 vars:  1
+  //onadded row: 1 vars:
+  //onadded row: 2 vars: 
+  //onadded row: 3 vars:
+
+
     initialInsert(rowIndex, colIndex, grid, leftOverChar){
       //checks if dash at end of current row, used for prevention of continuation on other rows
       let IsADash = false
@@ -678,8 +699,8 @@ return grid
       //for displaying
       let horizString =  (horizontalCursorPosition/5).toString()
       let vertString = (verticalCursorPosition/10).toString() 
-      let a = document.getElementById("xAndY")
-      a.innerHTML = 'Horizontal' + horizString + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + 'Vertical: '+ vertString
+      //let a = document.getElementById("xAndY")
+      //a.innerHTML = 'Horizontal' + horizString + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + 'Vertical: '+ vertString
       this.checkOnLastLineSoCreateRow = true;
       //from row now to end of each row, check for dash throug ending row
       //if no dashes, then don't create new row below

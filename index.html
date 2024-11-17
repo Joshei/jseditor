@@ -46,14 +46,14 @@
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , DASH  ],
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , DASH  ],
    
-    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , DASH  ],
-    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , DASH  ],
-    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , DASH  ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, "C", DASH, DASH, DASH, DASH, DASH , DASH, "B", DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , "D"  ],
+    ["E", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, "F", DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , "G"  ],
+    ["H", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, "I", DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , "I"  ],
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , DASH  ],
    
+    ["J", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , DASH  ],
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , DASH  ],
-    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , DASH  ],
-    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , DASH  ],
+    ["M", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH , DASH  ],
      //["!", "!", "!", "!", "!", "!" , "!", "!", "!", "!", "!", "!", "!" , "!", "!", "!", "!", "!", "!", "!" , "!", "!","!", "!", "!", "!", "!" , "!" ],
     ];
   
@@ -190,12 +190,14 @@
         }
     })
     document.body.addEventListener('keydown', function(e){
+   
     keyState[e.keyCode || e.which] = true;
     eventKeyCode = e.keyCode
     gKey = e.key
     if (down) return
     down = true
     cursorAndFunctionCalls()
+    displayCursorLocations()
     }, false)
     document.addEventListener('keyup', function(e){
     keyState[e.keyCode || e.which] = false;
@@ -204,7 +206,14 @@
     down = false
     }, false)
      
+   
+    function displayCursorLocations(){
+      let a = document.getElementById("xAndY")
+      a.innerHTML = 'Horizontal: ' + horizontalCursorPosition/5 + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + 'Vertical: '+ verticalCursorPosition/10
+
+    }
     function cursorAndFunctionCalls() {
+    displayCursorLocations()
     //right
     if(keyState[39]){
     //?
@@ -256,5 +265,7 @@
     Recursive.displayGridAndCursor()  
     } 
      cursorAndFunctionCalls()
+
+     
     </script>
     </body>
