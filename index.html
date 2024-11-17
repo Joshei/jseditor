@@ -8,6 +8,7 @@
   <body>
   <script src="cursorMovements.js"></script>
   <script src="recursive.js"></script>
+  <link rel= 'stylesheet' href='styles.css'>
   <script>
     //other classes
     const CursorMovements = new CursorMovementsClass()
@@ -18,12 +19,13 @@
     </script>
     <canvas
       id="canvas_id"
-      width="220"
+      width="220px"
       height=FIRSTSETHEIGHT
       style="border: 1px solid #550233"
     > </canvas>
     <div id="xAndY"></div>
     <div id = "stylingHere">
+      
       <button id = "insert" >Insert</button>
       <div id="insertMessage"></div>
     </div>
@@ -105,6 +107,7 @@
   ctx.font = '10px Monospace'
   var x = size / 2
   var y = size / 2
+  var insertOn = true
   
   //clears out grid
   function clearArray() {
@@ -172,16 +175,18 @@
     var keyState = {}
     let eventKeyCode = ""
     let down = false
-    let InsertOn = true
-    
-    document.getElementById("insertMessage").innerHTML = "Inserting"
-    var insertOn = document.getElementById('insert')
-    insertOn.addEventListener("click", function(){
-      InsertOn = !InsertOn
-        if(InsertOn){
-          document.getElementById("insertMessage").innerHTML = "Inserting"
+    //var insertOn = document.getElementById('insert')/
+     document.addEventListener("click", function(){
+      if (insertOn === true){
+      insertOn = false}
+      else{
+      insertOn = true
+      }
+        if(insertOn == true){
+          document.getElementById("insert").innerHTML = "Insert"
         }else{
-          document.getElementById("insertMessage").innerHTML = "         "
+          document.getElementById("insert").innerHTML = "On Top"
+          
         }
     })
     document.body.addEventListener('keydown', function(e){
@@ -219,10 +224,14 @@
       CursorMovements.cursorDown()
     } 
     //these are the funcitons for keystorkes other than cursor movement keys
-    else if(gKey === 'Delete')
+    else if(gKey === 'Delete' )
     {
        console.log("nested array3: ", gridArray);
-       gridArray = Recursive.deleteACharacter([], verticalCursorPosition/10, horizontalCursorPosition/5-1,  gridArray)
+       gridArray = Recursive.deleteAndPullCharacters([], verticalCursorPosition/10, horizontalCursorPosition/5-1,  gridArray)
+    }
+    else if(gKey === "Backspace"){
+
+      gridArray = Recursive.deleteCharacterWithoutPull(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey)
     }
     else if(gKey == "Enter"){
       gridArray = Recursive.pressedEnter(gridArray, verticalCursorPosition/10, horizontalCursorPosition/5, "",true, HEIGHT-1)
@@ -232,10 +241,11 @@
       if(gridArray[verticalCursorPosition/10][WIDTH-1] !=  "-"){
       Recursive.LastCharacetrOnLineEndThereAlready = true
     }
-    if(InsertOn){
+    if(insertOn === true){
       gridArray = Recursive.initialInsert(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey)
     }else{
       //destructive text display here
+      gridArray = Recursive.placeCharacterWithoutInsert(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey)
     }
     //gridArray = Recursive.pushWords(gridArray, [""],  0)
     Recursive.CursorOnLastColumn = false

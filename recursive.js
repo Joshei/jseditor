@@ -73,12 +73,22 @@ class RecursiveClass {
   return {leftSide: left, rightSide: rightWordAtEndOfRowOne}
 }
 
+
+placeCharacterWithoutInsert(rowIndex, colIndex, grid, character){
+   grid[rowIndex][colIndex] = character;
+   return grid
+}
+deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
+  grid[rowIndex][colIndex] = "-";
+  return grid
+}
+
 //8/13/24
 //over border in middle
 //right on row end without pushing
 //three pushes at one time.+
 //top row
-//CHECK FULL ROWS
+//CHECK FULL ROWS/
  
   pushWords(grid, remainder, rowIndex)
   {
@@ -506,7 +516,7 @@ return grid
   //test this, delete without character on first colmun of second row
   ////CHECK FULL ROWS
   //FIX DELETE ON FIRST COLUMN AND ROW
-  deleteACharacter(remainder, rowIndex, columnIndex,  grid) {
+  deleteAndPullCharacters(remainder, rowIndex, columnIndex,  grid) {
     let counterOfUsedRows = 0
     let rowIndexInLoop = rowIndex
     //bails out of recursion - top row is the last row on the grid
