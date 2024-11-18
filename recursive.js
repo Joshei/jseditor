@@ -678,17 +678,21 @@ return grid
   //onadded row: 3 vars:  1
   
   //!!!!!!!!!!!!CONSIDER ROWS 2 AND 3!!!!!!!!!!!!!!!!!!!
+  
+  //Each section needs to be checked for two rows beneath row
+  
+  
+  //WASNT ALLOWING PRINTING?
   //FIRST LINE
   //row 1:
-  //WASNT ALLOWING PRINTING?
   //one character:     *
   //two: characters:   *
   //three: characters: *       
   //row 2:
-  //one character:     
-  //two: characters:   
-  //three: characters:     
-  //row 3:
+  //one character:     *
+  //two: characters:   *
+  //three: characters: *    
+  //row3 
   //one character:     
   //two: characters:   
   //three: characters:     
@@ -697,29 +701,29 @@ return grid
   //row 1:
   //one character:     *
   //two: characters:   *
-  //three: characters: *    
-  //row 2:
+  //three: characters: *       
+  //row2 
   //one character:     
   //two: characters:   
   //three: characters:     
-  //row 3:
+  //with row3 
   //one character:     
   //two: characters:   
-  //three: characters:     
+  //three: characters:       
 
   //LAST LINES
   //row 1:
   //one character:     
   //two: characters:   
   //three: characters:      
-  //row 2:
+  //row2
   //one character:     
   //two: characters:   
   //three: characters:     
-  //row 3:
+  //row3 
   //one character:     
   //two: characters:   
-  //three: characters:     
+  //three: characters:      
 
 
     initialInsert(rowIndex, colIndex, grid, leftOverChar){
