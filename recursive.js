@@ -669,24 +669,57 @@ return grid
     //  CHECK FULL ROWS
     //  //FIX INSERT ON RIGHT MOST COLUMN
 
-    //check in-between in main code:  1
-    //check in-between in main code, with one character on end:
-    //check in-between in main code, with one character on end, aand a character on left edge:  1
-    //check in-between in main code, with one character on end, aand a character on left edge, and a character in middle:  1
-   //check in-between in main code, with one character on end, aand a character on left edge, and a      character in middle, and on n ext end:  1
-   //same above except 3rd row has left : 1
-   ////same above except 3rd row has middle : 1
-   ////same above except 3rd row has right: 1
-  //same as above but empty row 4 and one on row 5: 1
-  //On , last row in middle, on left, and on right: 1
-  //same above but characetr on left: 1
-  //try on first character: 1
   //on last row, 1 vars:  1
   //on last row, 2 vars:  1
   //on last row, 3 vars:  1
-  //onadded row: 1 vars:
-  //onadded row: 2 vars: 
-  //onadded row: 3 vars:
+  //SOME SORT OF FAILURE TO PRINT CHARACTER, COULDN'T DUPLICATE
+  //onadded row: 1 vars:  1
+  //onadded row: 2 vars:  1
+  //onadded row: 3 vars:  1
+  
+  //!!!!!!!!!!!!CONSIDER ROWS 2 AND 3!!!!!!!!!!!!!!!!!!!
+  //FIRST LINE
+  //row 1:
+  //WASNT ALLOWING PRINTING?
+  //one character:     *
+  //two: characters:   *
+  //three: characters: *       
+  //row 2:
+  //one character:     
+  //two: characters:   
+  //three: characters:     
+  //row 3:
+  //one character:     
+  //two: characters:   
+  //three: characters:     
+
+  //MIDDLE LINES
+  //row 1:
+  //one character:     *
+  //two: characters:   *
+  //three: characters: *    
+  //row 2:
+  //one character:     
+  //two: characters:   
+  //three: characters:     
+  //row 3:
+  //one character:     
+  //two: characters:   
+  //three: characters:     
+
+  //LAST LINES
+  //row 1:
+  //one character:     
+  //two: characters:   
+  //three: characters:      
+  //row 2:
+  //one character:     
+  //two: characters:   
+  //three: characters:     
+  //row 3:
+  //one character:     
+  //two: characters:   
+  //three: characters:     
 
 
     initialInsert(rowIndex, colIndex, grid, leftOverChar){
