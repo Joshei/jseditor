@@ -399,12 +399,12 @@ if(leftTopRowLength === 0){
    
 }else{
   for(let i = leftTopRowLength; i < WIDTH; i++){
-    grid[rowIndex][i] = 'I'
+    grid[rowIndex][i] = '-'
 
   }
 
   for(let i = WIDTH - leftTopRowLength ; i < WIDTH; i++){
-    grid[rowIndex+1][i] = 'Q'
+    grid[rowIndex+1][i] = '-'
 
   }
 
@@ -460,6 +460,11 @@ return grid
 
   //// ENTER ON FIRST COLUMN, LAST ROW
 
+
+  //first line (3) : *
+  //mid line (3) :
+  //last line (3) :
+  
   pressedEnter(//
     grid,
     rowIndex,
@@ -468,6 +473,7 @@ return grid
     IsFirstTime,
     counter
     ) {
+
 
        
       this.COPYOFFINALGRIDROW = grid[HEIGHT-1]
@@ -657,7 +663,7 @@ return grid
 
   //TESTING : 11/19/24: For debugging, right hand side values move to first left.  All othher values move one to right.
   //if right hand value is empty, insert stops at that line.
-   
+
   //sporadic testing, see above.  More complicated arrangements.
   //FIRST LINE
   //row 1:
