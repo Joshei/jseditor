@@ -681,6 +681,9 @@ return grid
   
   //Each section needs to be checked for two rows beneath row
   
+
+
+  //CHECK THIS :  last character repeated til end and one before
   
   //WASNT ALLOWING PRINTING?
   //FIRST LINE
@@ -693,9 +696,9 @@ return grid
   //two: characters:   *
   //three: characters: *    
   //row3 
-  //one character:     
+  //one character:     *
   //two: characters:   
-  //three: characters:     
+  //three: characters: *    //
 
   //MIDDLE LINES
   //row 1:
@@ -703,27 +706,29 @@ return grid
   //two: characters:   *
   //three: characters: *       
   //row2 
-  //one character:     
+  //one character:     *
   //two: characters:   
-  //three: characters:     
+  //three: characters: *    
   //with row3 
-  //one character:     
+  //one character:     *
   //two: characters:   
-  //three: characters:       
+  //three: characters:  *
+       
 
   //LAST LINES
   //row 1:
-  //one character:     
+  //one character:     *
   //two: characters:   
-  //three: characters:      
+  //three: characters: *     
   //row2
-  //one character:     
+  //one character:     *
   //two: characters:   
-  //three: characters:     
+  //three: characters:  *   
   //row3 
-  //one character:     
-  //two: characters:   
-  //three: characters:      
+  //one character:     !
+  //two: characters:   !
+  //three: characters: ! //this was last
+       
 
 
     initialInsert(rowIndex, colIndex, grid, leftOverChar){
