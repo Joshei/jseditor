@@ -697,8 +697,8 @@ return grid
   //three: characters: *    
   //row3 
   //one character:     *
-  //two: characters:   
-  //three: characters: *    //
+  //two: characters:   *
+  //three: characters: *    
 
   //MIDDLE LINES
   //row 1:
@@ -707,12 +707,12 @@ return grid
   //three: characters: *       
   //row2 
   //one character:     *
-  //two: characters:   
+  //two: characters:   *
   //three: characters: *    
   //with row3 
   //one character:     *
-  //two: characters:   
-  //three: characters:  *
+  //two: characters:   *
+  //three: characters: *
        
 
   //LAST LINES
