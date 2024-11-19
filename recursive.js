@@ -655,8 +655,10 @@ return grid
   }
 
 
-  //TESTING : 11/19/24
-  
+  //TESTING : 11/19/24: For debugging, right hand side values move to first left.  All othher values move one to right.
+  //if right hand value is empty, insert stops at that line.
+   
+  //sporadic testing, see above.  More complicated arrangements.
   //FIRST LINE
   //row 1:
   //one character:     *
@@ -699,6 +701,7 @@ return grid
   //one character:     !
   //two: characters:   !
   //three: characters: ! 
+  //
        
 
 
