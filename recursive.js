@@ -654,38 +654,9 @@ return grid
   }
   }
 
-///////////////////////from cleanupPushword?
 
-    //  push with letter on end  and a character in middle, push on left// 
-    //  push with letter on end  and a character in middle, push on middle
-    //  push with two rows on end, both move to next row
-    //  two digits before two end points on end, all move correctly
-    //  insert on empty row
-    //  insert on row with chracters
-    //  insert on last column with and without on last row and two there
-    //  insert with dash on last character, otherwise full.
-    //  insert with dash on last character, otherwise full, second line no dash on last character
-    //  insert on last row, both with last character and null
-    //  CHECK FULL ROWS
-    //  //FIX INSERT ON RIGHT MOST COLUMN
-
-  //on last row, 1 vars:  1
-  //on last row, 2 vars:  1
-  //on last row, 3 vars:  1
-  //SOME SORT OF FAILURE TO PRINT CHARACTER, COULDN'T DUPLICATE
-  //onadded row: 1 vars:  1
-  //onadded row: 2 vars:  1
-  //onadded row: 3 vars:  1
+  //TESTING : 11/19/24
   
-  //!!!!!!!!!!!!CONSIDER ROWS 2 AND 3!!!!!!!!!!!!!!!!!!!
-  
-  //Each section needs to be checked for two rows beneath row
-  
-
-
-  //CHECK THIS :  last character repeated til end and one before
-  
-  //WASNT ALLOWING PRINTING?
   //FIRST LINE
   //row 1:
   //one character:     *
@@ -718,16 +689,16 @@ return grid
   //LAST LINES
   //row 1:
   //one character:     *
-  //two: characters:   
+  //two: characters:   *
   //three: characters: *     
   //row2
   //one character:     *
-  //two: characters:   
-  //three: characters:  *   
+  //two: characters:   *   
+  //three: characters: *   
   //row3 
   //one character:     !
   //two: characters:   !
-  //three: characters: ! //this was last
+  //three: characters: ! 
        
 
 
