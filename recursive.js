@@ -26,8 +26,6 @@ class RecursiveClass {
   this.checkOnLastLineSoCreateRow = false
   this.bottomRow = -1
   this.bottomRowFromLastRound = []
-  this.COPYOFFINALGRIDROW = []
-  
 }
 
   deleteRow(arr, rowNumber) 
@@ -344,54 +342,15 @@ return arrayToChange;
     return [front, back];
   }
 
-  //6/19/24
-  //  top empty row - 
-  //  top on characters -
-  //  on first column -
-  //  on middle column -
-  //  on last column -
-  //  mid text - 
-  //  last row, first, middle, last  
-  //  //CHECK FULL ROWS
-  
-  pasteCopiedRowToLastRow(grid, rowIndex, colIndex){
-
-    let topRow = grid[HEIGHT-1]
-    
-    let [leftTopRow, rightTopRow] = this.splitAtIndex(
-    topRow,
-    colIndex
-    );
-
-    //grid[HEIGHT-1] = this.COPYOFFINALGRIDROW
-    //grid[HEIGHT-1] = leftTopRow
-    grid[HEIGHT] = grid[HEIGHT-1]
-    //drawGrid(HEIGHT, WIDTH)
-    return grid
-  
- }
-
- //uncomment two sets of grid
- divideFirstRowAsNeeded(grid, colIndex, rowIndex){
-
-  //return grid
-
-//maxrows = 14
-//index = 1
+//takes care of starting row, puts row after cursor on next row, and fill remaining spaces with dashes
+divideFirstRowAsNeeded(grid, colIndex, rowIndex){
 let topRow = grid[rowIndex]
 let [leftTopRow, rightTopRow] = this.splitAtIndex(
     topRow,
     colIndex
 );
-
-////////////////////////////////////
-
-//change these to correct index, dynamic
-//
-
 grid[rowIndex] = leftTopRow
 grid[rowIndex+1] = rightTopRow
-
 //make all dashes
 let leftTopRowLength = leftTopRow.length
 if(leftTopRowLength === 0){
@@ -400,72 +359,35 @@ if(leftTopRowLength === 0){
 }else{
   for(let i = leftTopRowLength; i < WIDTH; i++){
     grid[rowIndex][i] = '-'
-
-  }
-
+ }
   for(let i = WIDTH - leftTopRowLength ; i < WIDTH; i++){
     grid[rowIndex+1][i] = '-'
-
   }
-
-
 }
-
-
-///////////////////////////////////
-
-//drawGrid(HEIGHT, WIDTH)
 return grid
- 
 }
 
-///////////
-
-//move only at rowIndex and less
-//divide discontinued
-
-
-
-// enter on last row first column has failing cursor
-//////////
+  //just copy from above to below check for this case to do last row 
   copyTopColumnToBottomColumn(counter, grid, colIndex, rowIndex){
-    //counter strats as 14 - on bottom-most row
-    if(counter === rowIndex){
-      //discontinued
+   if(counter === rowIndex){
       this.divideFirstRowAsNeeded(grid, colIndex, rowIndex)
       return grid
     }
-    grid[counter+1] = grid[counter]
-    this.copyTopColumnToBottomColumn(counter-1, grid, colIndex, rowIndex)
-    return grid
+    let stringOfGrid = grid[counter]
+    grid[counter+1] = stringOfGrid
+   drawGrid(HEIGHT, WIDTH)
+   this.copyTopColumnToBottomColumn(counter-1, grid, colIndex, rowIndex)
+   return grid
   }
 
- 
-  //could, check with charactedr beneath
-  //middle
+  //TESTED: 11/20/24
+  //looked over, could check 1 variable, 2 variable, 3 variable; on each line.  Because, I understood the 
+  //simple code, I just checked each row with three characters, first, middle, last.  Checked 5 tests for each row below.
+  //first line (4) :  *
+  //mid line (4) :    *    
+  //last line (4) :   *
   
-  //front middle last : f,m,l  - beneath: f, m , l
-
-
-  //top
- 
-  //front, middle, last:   beneath: f,m,l
- 
-
-  //bottom
-  
-  //front, middle, last:  f,m,l : done twice (9 combinations)
-  
-
-
-  //// ENTER ON FIRST COLUMN, LAST ROW
-
-
-  //first line (3) : *
-  //mid line (3) :
-  //last line (3) :
-  
-  pressedEnter(//
+  pressedEnter(
     grid,
     rowIndex,
     colIndex,
@@ -473,45 +395,18 @@ return grid
     IsFirstTime,
     counter
     ) {
-
-
-       
-      this.COPYOFFINALGRIDROW = grid[HEIGHT-1]
       this.createRow(grid, rowIndex)
       this.copyTopColumnToBottomColumn(counter, grid, colIndex, rowIndex)
-      this.pasteCopiedRowToLastRow(grid, rowIndex, colIndex)
-      
-      drawGrid(HEIGHT , WIDTH)
-      //return grid
-    
-
-   drawGrid(HEIGHT , WIDTH)
-    
     //set for cursor on next line, first column
     horizontalCursorPosition = 0
+    verticalCursorPosition = verticalCursorPosition + 10
     drawCursor(
       horizontalCursorPosition + HOFFSET,
       verticalCursorPosition + VOFFSET
     );
-
-    /*
-    //enter effects next row here
-    this.pressedEnter(
-      grid,
-      rowIndex - 1,
-      colIndex,
-      "",
-      false,
-      counter - 1
-    );
-    */
-
     return grid;
   }
-
-  
-
-  //delete middle without dash at end and character on next line doesnt move
+   //delete middle without dash at end and character on next line doesnt move
   //delete on last row, 2 and one on dash
   //delete on last row, 2 and none on dash
   //character on last row, delete middle and next row moves, row after doesn't
