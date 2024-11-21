@@ -94,7 +94,8 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
       
       
     //CHECK FOR BAIL OUT AND IS NOT ON LAST ROW
-    if(rowIndex <= HEIGHT-1 && rowIndex > this.lastRowIndexToPushOn  && this.lastRowIndexToPushOn != -1){
+    //if(rowIndex <= HEIGHT-1 && rowIndex > this.lastRowIndexToPushOn  && this.lastRowIndexToPushOn != -1){
+    if(rowIndex <= HEIGHT){
       return grid
     }
     //PUSHING IS HAPPENING, IF ON ROW ABOVE LAST AND THERE IS A CHARACTER ON LAST ROW ON BOTTOM ROW, THAN CREATE ROW
@@ -605,7 +606,7 @@ return grid
   //
        
 
-
+    //!!!!CONSIDER PROBABLY CODE DOWN BELOW
     initialInsert(rowIndex, colIndex, grid, leftOverChar){
       //checks if dash at end of current row, used for prevention of continuation on other rows
       let IsADash = false
@@ -646,7 +647,7 @@ return grid
       let [finishedTopRow, leftOver] = this.splitAtIndex(combineTopRow, WIDTH)
       //there is a character on last row, do call function which is recursive
       //if (grid[rowIndex][WIDTH-1] != DASH)
-        {
+        
         //push rows right because of insert
         grid[rowIndex] = finishedTopRow
 
@@ -657,35 +658,31 @@ return grid
         if(horizontalCursorPosition/5 === WIDTH-1){
           this.CursorOnLastColumn = true
         }
+        
+        //!!!!!Possibly incorporate this with pushWords setting a variable: lastRowIndexToPush; or maybe a function call here 
+        //if(grid[rowIndex][WIDTH-1] === "-" && this.lastRowIndexToPushOn === -1 && rowIndex > horizontalCursorPosition/5){
+        if(grid[rowIndex][WIDTH-1] === "-" || grid[rowIndex+1] = === "-"){
 
-        if(grid[rowIndex][WIDTH-1] === "-" && this.lastRowIndexToPushOn === -1 && rowIndex > horizontalCursorPosition/5){
-          //sets row to bail out on in pushwords
-          this.lastRowIndexToPushOn = rowIndex+1
-          //CursorMovements.cursorRight()
-          //return grid
-        }
-        else{
-          this.lastRowIndexToPushOn == HEIGHT-1
-        }
+        }else{
 
-        /////////////////////////////////END
-
-       // WAS DASH AT FIRST LINE OF INSERT'S END
+        } 
+        // WAS DASH AT FIRST LINE OF INSERT'S END
        if (IsADash === true){ 
         return grid
        }
         this.pushRowRight(rowIndex+1, colIndex, grid, leftOver)
         //On zero, because there will be a cursorright
-        if(horizontalCursorPosition/5-1 === 0){
-          //used for setting  cursor
-          this.CursorOnLastColumn = true
-        }
-        CursorMovements.cursorRight()
-        return grid
+        
+        //THIS PROBABLY SHOULD BE USED:
+        //if(horizontalCursorPosition/5-1 === 0){
+        //  //used for setting  cursor
+        //  this.CursorOnLastColumn = true
+        //}
 
-      }
+        CursorMovements.cursorRight()
+        return grid    
     }
-/////////////////////////
+
 
 
 checkOnLastLineSoCreateRow(grid, leftOverChar, rowIndex, colIndex){
@@ -707,21 +704,9 @@ checkOnLastLineSoCreateRow(grid, leftOverChar, rowIndex, colIndex){
 
 pushRowRight(rowIndex, colIndex, grid, leftOverChar){
 
-  /*
-  let CharacterOnAllLastRows = true
-  for(let i = verticalCursorPosition/10 ; i < HEIGHT-2 ; i++){
-      if (grid[i][WIDTH-1] == "-"){
-        CharacterOnAllLastRows = false
-      }
-  }
-  if(CharacterOnAllLastRows == true){
-  //this.createRow(grid, rowIndex)
-  }
-*/
   if(rowIndex > HEIGHT -1){
     return grid
   }
-
   drawGrid(HEIGHT, WIDTH)
   //two rows were using for push
   //let topRow = grid[(rowIndex-1)];
@@ -742,26 +727,13 @@ pushRowRight(rowIndex, colIndex, grid, leftOverChar){
   drawGrid(HEIGHT, WIDTH)
   
   //!!!!!!!!!!CHECK THIS!!!!!!!!!!
-  if(grid[rowIndex][WIDTH-1] === "-" && remainingChars == "" || remainingChars == [""] || remainingChars == "-"){
+  if(grid[rowIndex][WIDTH-1] === "-" && remainingChars === "" || remainingChars == [""] ){
     return grid
   }
-  /*
-  CHECKS FOR LAST INDEX TO PUSH
-  if(rowIndex+2 <= HEIGHT-1 && grid[rowIndex+2][WIDTH-1] === "-"&& this.lastRowIndexToPushOn === -1  && rowIndex > horizontalCursorPosition/5){
-    //sets row to bail out on in pushwords
-    this.lastRowIndexToPushOn = rowIndex + 1
-    //CursorMovements.cursorRight()
-    //return grid
-  }
-  else{
-    this.lastRowIndexToPushOn == HEIGHT-1
-  }
-*/
     drawGrid(HEIGHT, WIDTH)
     //push next row to right(one position)  recursion
     this.pushRowRight(rowIndex+1, 0, grid, remainingChars)
-    
-  return grid
+    return grid
   }
 }
 
