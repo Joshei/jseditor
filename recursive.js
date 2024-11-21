@@ -620,7 +620,7 @@ return grid
       //a.innerHTML = 'Horizontal' + horizString + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + 'Vertical: '+ vertString
       this.checkOnLastLineSoCreateRow = true;
       //from row now to end of each row, check for dash throug ending row
-      //if no dashes, then don't create new row below
+      //if dash, than each line will not be pushed dow
       for(let i = verticalCursorPosition/10; i < HEIGHT; i++){
         if (grid[i][WIDTH-1] === "-"){
         this.checkOnLastLineSoCreateRow = false;
