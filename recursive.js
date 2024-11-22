@@ -422,6 +422,7 @@ return grid
   deleteAndPullCharacters(remainder, rowIndex, columnIndex,  grid) {
    
 
+    // ON PULL FROM LAST ROW,SPLIT ROW WITH ONE AND SET WITH A NULL ON MOST LEFT, CONSIDER BOTH FUNCTIONS!
     //On last row
     if(rowIndex > 13)
     {
