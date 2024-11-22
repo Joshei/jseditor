@@ -421,43 +421,16 @@ return grid
   
   deleteAndPullCharacters(remainder, rowIndex, columnIndex,  grid) {
    
+
+    //On last row
+    if(rowIndex > 13)
+    {
+      return grid
+    }
     let counterOfUsedRows = 0
     let rowIndexInLoop = rowIndex
-    //bails out of recursion - top row is the last row on the grid
-   if(rowIndex == HEIGHT-1){
-    let topRow = grid[rowIndex];
-    //divide the row in to parts, at cursor location
-    let [topRowLeftSide, topRowRightSide] = this.splitAtIndex(topRow, columnIndex+1) ;
-    //strips of the character that was on the right side, so left is phrase without letter 
-    let [removedLetter, rightSideRemovedCharacter] = this.splitAtIndex(topRowRightSide, 1) ;
-    //the letter at cursor was removed so the new position is a null at far right side
-    let combine  =  [...topRowLeftSide, ...rightSideRemovedCharacter, ["-"] ]
-    grid[rowIndex] = combine
-    return grid
-   }
+   
    let topRow = grid[rowIndex]
-  
-   //is a dash - checks if top row has a dash on last character - will delete only on this line and add a null
-  // if (topRow[WIDTH-1] === "-"){
-  //   let topRow = grid[rowIndex]
-  //   //splits row to the two sides of cursor
-  //   let [topRowLeftSide, topRowRightSideWithFrontChar] = this.splitAtIndex(topRow, columnIndex) ;
-  //   //strips off the character that was on the right side
-  //   let [removedThisCharacter, topRightSideRemovedCharacter] = this.splitAtIndex(topRowRightSideWithFrontChar, 1) ;
-  //   let nullCharacter = ["-"]
-  //   //combine the two pieces wihthout the character that was removed, and add a null at end
-  //   let combine = [...topRowLeftSide, ...topRightSideRemovedCharacter, ...nullCharacter]
-  //   grid[rowIndex] = combine
-  //   //CursorMovements.cursorLeft()
-  //   return grid
-  // }
-  //there is a character on end of row, so remove first row and take character from next row, put on toprow left end
-  
-
-
-  ///spaces too?
-  //else if (topRow[WIDTH-1] != "-" ){
-    
     counterOfUsedRows = 0
     //determine how many rows of code with non null right side
     while(true){
@@ -477,68 +450,45 @@ return grid
     }
   //let topRow = grid[rowIndex];
   //row under top row
-  let bottomRow = grid[rowIndex+1]
-
-  
-  
-  let mostBottomRow = grid[rowIndex+2]
-
-  let mostBottomRowLeftmostCharacetr = mostBottomRow[0]
-
-
-
-
+  let middleRow = grid[rowIndex+1]
+  let bottomRow = grid[rowIndex+2]
+  let bottomRowLeftmostCharacter = bottomRow[0]
   //take left most character from top row
   let [frontCharactersTopRow, topWithoutFrontCharacters] = this.splitAtIndex(topRow, columnIndex + 1) ;
   //remove characters from right hand side
   let [left, topRightWithoutDeletedCharacter] = this.splitAtIndex(topWithoutFrontCharacters, 1) ;
   //get character on next (bottom) row, first column
-  let [bottomLeftmostCharacter, bottomWholeRowExceptFinalRow] = this.splitAtIndex(bottomRow, 1) ;
+  let [bottomLeftmostCharacter, bottomWholeRowExceptFinalRow] = this.splitAtIndex(middleRow, 1) ;
   //creates top row using first character from next row
   let combine = [...frontCharactersTopRow, ...topRightWithoutDeletedCharacter, ...bottomLeftmostCharacter ]
   grid[rowIndex] = combine
-  grid[rowIndex+1] = [...bottomWholeRowExceptFinalRow, ...mostBottomRowLeftmostCharacetr]
+  grid[rowIndex+1] = [...bottomWholeRowExceptFinalRow, ...bottomRowLeftmostCharacter]
   
-  //let finalRow = grid[rowIndex+2]
-  //grid[rowIndex] = finalRow[rowIndex][WIDTH-1]
-  
-  //this is a function that has a recursion call.  
-  //drawGrid(HEIGHT, WIDTH)
   this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex+1, grid)
   //CursorMovements.cursorLeft()
   return grid
-  //}
-}
+  }
 
 
   removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(amtOfUsedRows, rowIndex, grid){
     
     //counter is used to check for proper amount of lines to be run
     this.counterOfRows++
-    //if none at all bail or if run for all rows bail out of recursion 
-    // if (amtOfsedRows === 0 || amtOfUsedRows+1 == this.counterOfRows)
-    //   {
-    //     this.counterOfRows = 0
-    //     return grid;
-    //   }
-    //!!!!!I DONT THINK THIS IS NEEDED?
-    if(rowIndex > 13)
-    {
-     this.counterOfRows = 0
+   
+    //code for on last row
+    if(rowIndex > 13){
+      let topRow = grid[rowIndex]
+      let [topRowWithoutLeftCharacter, topRightMostCharacters] = this.splitAtIndex(topRow, 1) ;
+      let remainingString = [...topRightMostCharacters, ...["-"]]
+      this.counterOfRows = 0
       return grid
     }
-
-    if(rowIndex = HEIGHT-1){
+    if(rowIndex > 12){
 
     }
-    
     let topRow = grid[rowIndex]
     //row after top row
     let botttomRow = grid[rowIndex+1]
-
-    //drawGrid(HEIGHT, WIDTH)
-
-    //let nextBottomRow= grid[rowIndex + 2 ]
     //get left most characeter, on bottomrow. Is put on most right side of row above it, top row.
     let leftCharacterofBottomRow = botttomRow[0]
     //on final row and was a deletion so append a null character to end
@@ -549,14 +499,9 @@ return grid
     //let [topLeftmostCharacter, topRowWithoutLeftCharacter] = this.splitAtIndex(topRow, WIDTH-2) ;
     let [topRowWithoutLeftCharacter, topRightMostCharacters] = this.splitAtIndex(topRow, 1) ;
    //recreate the top with the next row's left character, if last row replace last character with null.
-   const [BottomRowLeftCharacter, BottomRowWithoutLeftCharacter] = this.splitAtIndex(botttomRow, 1)
-    
+    const [BottomRowLeftCharacter, BottomRowWithoutLeftCharacter] = this.splitAtIndex(botttomRow, 1)
     let newTopRow = [...topRightMostCharacters, ...leftCharacterofBottomRow]
     grid[rowIndex] = newTopRow
-    
-    //const [ThirdBottomRowWithoutLeftCharacter, ThirdBottomRowRightCharacter] = this.splitAtIndex(nextBottomRow, WIDTH-2)
-    //const combinedBottomRow = [...BottomRowWithoutLeftCharacter, ...ThirdBottomRowRightCharacter]
-    //grid[rowIndex] = combinedBottomRow;
     
     //tail end recursion, runs until end of rows, or dash is encountered after number of rows
     this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(amtOfUsedRows, rowIndex+1, grid)
