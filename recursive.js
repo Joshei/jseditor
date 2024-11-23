@@ -154,24 +154,24 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
     //(grid[rowIndex+1][0] != undefined && grid[rowIndex+1][0] != "-" )) )
     
 
-    if ((grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-")) {//|| 
-    //(grid[rowIndex+1][0] != undefined && grid[rowIndex+1][0] != "-" )) )
-    //{
-
-      let holdthis = rowIndex+1
+    if ((grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-")) {
+   
+    jlet holdthis = rowIndex+1
     //end base case
     let wasVariablegridCheck = []
-    let anothertWordAtEndOfRowOne = []
+    let wordAtEndOfRowOne = []
     let topRow = grid[rowIndex];
     let bottomRow =grid[rowIndex+1];// grid[verticalCursorPosition/10 + 1];
     let characterCounter = 0
     let holder = this.getLastSpaceOrNull(grid,topRow)
     wasVariablegridCheck = holder.leftSide
-    anothertWordAtEndOfRowOne = holder.rightSide
-    let lengthOfRightWordAtRowOne = anothertWordAtEndOfRowOne.length
+    wordAtEndOfRowOne = holder.rightSide
+    let lengthOfRightWordAtRowOne = wordAtEndOfRowOne.length
     //before first space or null, whichever is first  
     let firstIndexOfNullOnBottomRow = bottomRow.indexOf("-");
     let firstIndexOfSpaceOnBottomRow = bottomRow.indexOf(" ");
+    
+    //first index is set to last character of row
     if(firstIndexOfNullOnBottomRow === -1){
       firstIndexOfNullOnBottomRow = 27
     }
@@ -181,37 +181,46 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
     let lastIndexOfFirstWord = 0
     //choose space or null character that is farthest right on row
     if(firstIndexOfSpaceOnBottomRow < firstIndexOfNullOnBottomRow){
-    lastIndexOfFirstWord = firstIndexOfSpaceOnBottomRow -1
+    lastIndexOfFirstWord = firstIndexOfSpaceOnBottomRow 
     }else{
-    lastIndexOfFirstWord = firstIndexOfNullOnBottomRow -1
+    lastIndexOfFirstWord = firstIndexOfNullOnBottomRow 
     }//word id onm left
-    const [firstWordBottomRow, indexAfterLeftWordBottomRow] = this.splitAtIndex(bottomRow, lastIndexOfFirstWord+1 );
+    const [firstWordBottomRow, indexAfterLeftWordBottomRow] = this.splitAtIndex(bottomRow, lastIndexOfFirstWord);
     let lastIndexOffirstWordBottomRow = firstWordBottomRow.length
-    let EmptySpacesAFTERBottomLeftWord = 0
-    let LengthOfNullsAndSpacesAfterLeftWord = 0
+    let LengthOfNullsAndSpacesBeforeLeftMostCharacter = 0
     
     
     
-     //!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //get next dash or space after word on left - bottom row
-    //for(let i = lastIndexOfFirstWord+1 ; i < WIDTH; i++){
-    //  if (grid[rowIndex+2][i] != "-" &&  grid[rowIndex+2][i] != " "){
-    //        break
-    //  }
-    //  LengthOfNullsAndSpacesAfterLeftWord++
+    ////!!!!!!!!!!!!!!!!!!!!!!!!!!
+    ////get next dash or space after word on left - bottom row
+    //for(let i = lastIndexOfFirstWord ; i < WIDTH; i++){
+    // if (grid[rowIndex+2][i] != "-" &&  grid[rowIndex+2][i] != " "){
+    //       break
+    // }
+    // LengthOfNullsAndSpacesBeforeLeftMostCharacter++
     //}
-   
-    LengthOfNullsAndSpacesAfterLeftWord = 9
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    
+
+
+    //!!!!CHECK THESE VALUES : A
+    for(let i = 0 ; i < lastIndexOffirstWordBottomRow ; i++){
+      //if (grid[rowIndex+2][i] != "-" &&  grid[rowIndex+2][i] != " ")
+      if (grid[rowIndex][i] != "-" )
+      {
+            break
+      }
+      LengthOfNullsAndSpacesBeforeLeftMostCharacter++
+     }
+     LengthOfNullsAndSpacesBeforeLeftMostCharacter = 9
     //will word fit below in the spaces and nulls that are before the next real character
-    if(lengthOfRightWordAtRowOne <= LengthOfNullsAndSpacesAfterLeftWord){
+    if(lengthOfRightWordAtRowOne <= LengthOfNullsAndSpacesBeforeLeftMostCharacter){
       let combined = []
     //characters will be moved from top to bottom, the final right side has empty
     //elements that are not assigned yer
-     const [removeThis, afterLeftWordWithReservationForMovingCharacters] = this.splitAtIndex(indexAfterLeftWordBottomRow, lengthOfRightWordAtRowOne );
+    
+    //!!!!!NO LEFT CHARACTERS AFTER LEFT WORD
+     const [removeThis, charactersAfterLeftWordOnBottomRow] = this.splitAtIndex(indexAfterLeftWordBottomRow, lengthOfRightWordAtRowOne );
     //put row together
-    combined = [...anothertWordAtEndOfRowOne, ...firstWordBottomRow, ...afterLeftWordWithReservationForMovingCharacters]
+    combined = [...wordAtEndOfRowOne, ...firstWordBottomRow, ...charactersAfterLeftWordOnBottomRow]
     
     let lengthOfFirstWordBottomRow = firstWordBottomRow.length
     //get remainder for next recursive call - this is one rows worth
@@ -221,6 +230,8 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
     grid[rowIndex+1] = newBottomRow
     ////drawGrid(HEIGHT, WIDTH)
     //set cursor at next row, first column//
+    
+    //!!!!!CHECK THIS, NO RIGHT WORD: A
      if(lengthOfRightWordAtRowOne == 0){
     }else{
     //fill in moved text space with dashes on top row
@@ -234,15 +245,11 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
     //get position before when insert moves cursor right for test
     CursorMovements.cursorLeft()
     
-
-
-
-
     //////////////////////////
     //if cursor is on top right word, than set flag
     //for on top row - !!!!!!!  Verticalcursorposition possibly set here?    !!!!!
     if(rowIndex === verticalCursorPosition/10){
-    for(let i =  WIDTH - anothertWordAtEndOfRowOne.length-1; i < WIDTH; i++){
+    for(let i =  WIDTH - wordAtEndOfRowOne.length-1; i < WIDTH; i++){
       if (i === horizontalCursorPosition/5){
         IsOnLeftTopWordForPushWord = true
       }
@@ -253,12 +260,12 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
    
     if(IsOnLeftTopWordForPushWord){
     //determine where to put cursor on next tow, after insert
-    for(let topLeftWordIndex = WIDTH - (anothertWordAtEndOfRowOne.length)-1; topLeftWordIndex< horizontalCursorPosition/5 - 1; topLeftWordIndex++){
+    for(let topLeftWordIndex = WIDTH - (wordAtEndOfRowOne.length)-1; topLeftWordIndex< horizontalCursorPosition/5 - 1; topLeftWordIndex++){
       characterCounter++
     }
     //change cursor position based on if cursor is on last column
     if(this.CursorOnLastColumn == true){
-      characterCounter = anothertWordAtEndOfRowOne.length
+      characterCounter = wordAtEndOfRowOne.length
       horizontalCursorPosition = 0
       horizontalCursorPosition = characterCounter*5
     }else{
