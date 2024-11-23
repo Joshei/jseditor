@@ -95,27 +95,20 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
       
     //CHECK FOR BAIL OUT AND IS NOT ON LAST ROW
     //if(rowIndex <= HEIGHT-1 && rowIndex > this.lastRowIndexToPushOn  && this.lastRowIndexToPushOn != -1){
-    if(rowIndex <= HEIGHT){
+    if(rowIndex > HEIGHT - 1){
       return grid
     }
-    //PUSHING IS HAPPENING, IF ON ROW ABOVE LAST AND THERE IS A CHARACTER ON LAST ROW ON BOTTOM ROW, THAN CREATE ROW
-    //row on second to  last row
+    
+    
+    //!!!!!CONSIDER THIS
     if(rowIndex === HEIGHT-1){
       //looking if there is a character of bottom row, if so create a row and continue with push
       if(grid[HEIGHT-1][WIDTH-1] != DASH ){
       this.createRow(grid, rowIndex)
       }
-      //return grid
-    }else if (rowIndex > HEIGHT-1){
+     }
 
-      return grid
-    }
-
-   
-    //if (rowIndex == HEIGHT - 1){////
-    //  return grid
-    //}
-
+    /*
     //HEIGHT - ?
     if(rowIndex === false){
     return grid
@@ -154,19 +147,16 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
         verticalCursorPosition + VOFFSET)
       return grid
     }
-
-
-    //DECREASE ALL ROWINDEXES BY ONE
+*/
 
     
+    //if ((grid[rowIndex][WIDTH-1] != "-") && ((grid[rowIndex][WIDTH-2] != "-") || 
+    //(grid[rowIndex+1][0] != undefined && grid[rowIndex+1][0] != "-" )) )
     
-    ////////////////////////////
-    ////////////////////////////
-  //check for a push word situation, a character on last column of row, and a character on next row,
-    //first column
-    if ((grid[rowIndex][WIDTH-1] != "-") && ((grid[rowIndex][WIDTH-2] != "-") || 
-    (grid[rowIndex+1][0] != undefined && grid[rowIndex+1][0] != "-" )) )
-    {
+
+    if ((grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-")) {//|| 
+    //(grid[rowIndex+1][0] != undefined && grid[rowIndex+1][0] != "-" )) )
+    //{
 
       let holdthis = rowIndex+1
     //end base case
@@ -694,21 +684,16 @@ checkOnLastLineSoCreateRow(grid, leftOverChar, rowIndex, colIndex){
   }
   return grid
 }
-////////from:  cleanupPushWord
 
-//called from index
-//should be 12 is 13
-//is 8 on pushword
-//rowindex is top row
-//top row will always be handled by insert
-//topp row is -1 so do indexs started on row 1
 
+
+//11/23/24 - looks good - SEE CHECK THIS
+//stops inserting when last character is a dash!
 pushRowRight(rowIndex, colIndex, grid, leftOverChar){
 
   if(rowIndex > HEIGHT -1){
     return grid
   }
-  drawGrid(HEIGHT, WIDTH)
   //two rows were using for push
   //let topRow = grid[(rowIndex-1)];
   let lowerRow = grid[rowIndex]
@@ -724,11 +709,8 @@ pushRowRight(rowIndex, colIndex, grid, leftOverChar){
   let [bottomRowReady, remainingChars] = this.splitAtIndex(combineToBottomRow, WIDTH)
   //let [left, remainingChars] = this.splitAtIndex(remainingChars, WIDTH)
   grid[rowIndex] = bottomRowReady
-
-  drawGrid(HEIGHT, WIDTH)
-  
   //!!!!!!!!!!CHECK THIS!!!!!!!!!!
-  if(grid[rowIndex][WIDTH-1] === "-" && remainingChars === "" || remainingChars == [""] ){
+  if(grid[rowIndex][WIDTH-1] === "-"){//} && remainingChars === "" || remainingChars == [""] ){
     return grid
   }
     drawGrid(HEIGHT, WIDTH)
