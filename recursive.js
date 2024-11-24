@@ -153,10 +153,15 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
     //if ((grid[rowIndex][WIDTH-1] != "-") && ((grid[rowIndex][WIDTH-2] != "-") || 
     //(grid[rowIndex+1][0] != undefined && grid[rowIndex+1][0] != "-" )) )
     
-
-    if ((grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-")) {
-   
-    jlet holdthis = rowIndex+1
+     //if(rowIndex == 0){
+     // return grid
+     //}
+     if(rowIndex == 0){
+      return grid
+     }
+    if ((grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-") || (grid[rowIndex-1][WIDTH-1] != "-") && (grid[rowIndex][0] != "-")) {
+      //rowIndex = rowIndex + 1
+    let holdthis = rowIndex+1
     //end base case
     let wasVariablegridCheck = []
     let wordAtEndOfRowOne = []
@@ -240,10 +245,9 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
     }
     }
     //check if cursor is on the right word, if so, proceed with below
-    let IsOnLeftTopWordForPushWord = false
-    let IsOnTopRightTextForMove = false
+    let IsOnRightTopWordForPushWord = false
     //get position before when insert moves cursor right for test
-    CursorMovements.cursorLeft()
+    //CursorMovements.cursorLeft()
     
     //////////////////////////
     //if cursor is on top right word, than set flag
@@ -251,16 +255,16 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
     if(rowIndex === verticalCursorPosition/10){
     for(let i =  WIDTH - wordAtEndOfRowOne.length-1; i < WIDTH; i++){
       if (i === horizontalCursorPosition/5){
-        IsOnLeftTopWordForPushWord = true
+        IsOnRightTopWordForPushWord = true
       }
     }
   }
       //resets text to insert position, before above.
-      CursorMovements.cursorRight()
+      //CursorMovements.cursorRight()
    
-    if(IsOnLeftTopWordForPushWord){
+    if(IsOnRightTopWordForPushWord){
     //determine where to put cursor on next tow, after insert
-    for(let topLeftWordIndex = WIDTH - (wordAtEndOfRowOne.length)-1; topLeftWordIndex< horizontalCursorPosition/5 - 1; topLeftWordIndex++){
+    for(let topRightWordIndex = WIDTH - (wordAtEndOfRowOne.length)-1; topRightWordIndex< horizontalCursorPosition/5 - 1; topRightWordIndex++){
       characterCounter++
     }
     //change cursor position based on if cursor is on last column

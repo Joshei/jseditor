@@ -252,6 +252,10 @@
     }
     if(insertOn === true){
       gridArray = Recursive.initialInsert(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey)
+      
+      drawGrid(HEIGHT, WIDTH)
+      
+      
     }else{
       //destructive text display here
       gridArray = Recursive.placeCharacterWithoutInsert(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey)
