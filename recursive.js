@@ -95,7 +95,7 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
     //let newRemainder = []
     //let newBottomRow = []
     
-      
+    
       
     //for putting cursor on row 2 for lefthand words greater than 2
     let TwoOrMoreCharactersAtRightWordAtRowOne = false
@@ -190,10 +190,23 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
      }
      //drawGrid(HEIGHT, WIDTH)
      
+    
      
      //LengthOfNullsAndSpacesBeforeLeftMostCharacter = 9
     //will word fit below in the spaces and nulls that are before the next real character
-    if(lengthOfRightWordAtRowOne < LengthOfNullsAndSpacesAfterFirstLeftMostCharacter){
+    if(lengthOfRightWordAtRowOne < LengthOfNullsAndSpacesAfterFirstLeftMostCharacter && 
+      //!!!!!!
+      lengthOfRightWordAtRowOne > 0){
+     
+      // ten added to verticalcursorposition at pushrowright
+      //if(rowIndex === (verticalCursorPosition/10 - 1)){
+      // 
+      //  verticalCursorPosition = verticalCursorPosition - 10
+      //  
+      //}
+      
+     
+     
 
       //CHECK SITUATION IN PUSHROWRIGHT - DON'T PUSH
 
@@ -235,10 +248,10 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
   
     if( TwoOrMoreCharactersAtRightWordAtRowOne ){
     horizontalCursorPosition = 0
-    horizontalCursorPosition = horizontalCursorPosition + (lengthOfRightWordAtRowOne* 5)
+    horizontalCursorPosition = horizontalCursorPosition = ((lengthOfRightWordAtRowOne + 1) * 5)
     verticalCursorPosition = verticalCursorPosition + 10
   }else{
-    horizontalCursorPosition = horizontalCursorPosition + 5
+    horizontalCursorPosition = horizontalCursorPosition + 10
   }
   TwoOrMoreCharactersAtRightWordAtRowOne = false;
   
@@ -268,9 +281,13 @@ return grid
 }
     
 
+
 }else{
+  
+  
   //advances to next row if grid not set up for this word push
   this.pushWords(grid, [""], rowIndex+1, false)
+ 
   return grid
 }
 
@@ -666,7 +683,14 @@ checkOnLastLineSoCreateRow(grid, leftOverChar, rowIndex, colIndex){
 //stops inserting when last character is a dash!
 pushRowRight(rowIndex, colIndex, grid, leftOverChar){
 
+  //in pushword, in increase verticalcursorposition back 10
+  
+  //verticalCursorPosition = 0
+  //horizontalCursorPosition = 0
+  //verticalCursorPosition = verticalCursorPosition + 10
+  //horizontalCursorPosition = horizontalCursorPosition+10
   if(rowIndex > HEIGHT -1){
+    
     return grid
   }
   //two rows were using for push
@@ -690,7 +714,10 @@ pushRowRight(rowIndex, colIndex, grid, leftOverChar){
   }
     drawGrid(HEIGHT, WIDTH)
     //push next row to right(one position)  recursion
+    
     this.pushRowRight(rowIndex+1, 0, grid, remainingChars)
+    
+    
     return grid
   }
 }
