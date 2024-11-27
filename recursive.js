@@ -126,9 +126,10 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
      (rowIndex != 0 && (grid[rowIndex-1][WIDTH-1] != "-") && (grid[rowIndex][0] != "-"))  )){
 
       //This is for if left hand top word is only one character, all the way to right (pressed twice)
-      if(rowIndex != 0 && fromIndex && (grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-")  ||
-       (rowIndex != 0 && fromIndex && (grid[rowIndex-1][WIDTH-1] != "-") && (grid[rowIndex][0] != "-"))){
-        rowIndex = rowIndex - 1;
+      //(rowIndex != 0 && fromIndex && (grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-") )
+      //if(rowIndex != 0 && fromIndex && (grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-")  ||
+       if(rowIndex != 0 && fromIndex && (grid[rowIndex-1][WIDTH-1] != "-") && (grid[rowIndex][0] != "-")){
+        //rowIndex = rowIndex - 1;
       }
       //rowIndex = rowIndex + 1
     let holdthis = rowIndex+1
@@ -146,6 +147,9 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
       TwoOrMoreCharactersAtRightWordAtRowOne = true
     }
     //before first space or null, whichever is first  
+    if (rowIndex == HEIGHT-1){
+      return grid
+    }
     let firstIndexOfNullOnBottomRow = bottomRow.indexOf("-");
     let firstIndexOfSpaceOnBottomRow = bottomRow.indexOf(" ");
     
@@ -167,7 +171,7 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
     let lastIndexOffirstWordBottomRow = firstWordBottomRow.length
     let LengthOfNullsAndSpacesAfterFirstLeftMostCharacter = 0
     
-    
+    //Top row is last row
     
     ////!!!!!!!!!!!!!!!!!!!!!!!!!!
     ////get next dash or space after word on left - bottom row
@@ -277,20 +281,12 @@ this.pushWords(grid, newRemainder, rowIndex+1, false)
 
 
 return grid  
-
 }
-    
-
-
 }else{
-  
-  
-  //advances to next row if grid not set up for this word push
+ //advances to next row if grid not set up for this word push
   this.pushWords(grid, [""], rowIndex+1, false)
- 
-  return grid
+   return grid
 }
-
 //!!!!!!!
 return grid
 
