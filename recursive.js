@@ -81,6 +81,26 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
   return grid
 }
 
+//ths is for when two letter are entered on last column (pushes to next row)
+lastLineWorkings(grid, rowIndex){
+
+  let topRow = grid[rowIndex-1];
+  let bottomRow =grid[rowIndex];
+  let lastIndexOfNullOnTopRow = topRow.lastIndexOf("-");
+  //get top right word
+  const [leftOfLeftWordTopRow, rightWordTopRow] = this.splitAtIndex(topRow, lastIndexOfNullOnTopRow+1)
+  //get left word for bottom
+  const firstIndexOfNullOnBottomRow = bottomRow.indexOf("-");
+  const [leftWordBottomRow, rightSide] = this.splitAtIndex(bottomRow, firstIndexOfNullOnBottomRow)
+  const combine = [...rightWordTopRow, ...leftWordBottomRow]
+  grid[rowIndex] = combine
+ 
+  for(let i = combine.length; i < WIDTH; i++ ){
+    grid[rowIndex][i] = "-"
+   }
+   return grid
+}
+
 //8/13/24
 //over border in middle
 //right on row end without pushing
@@ -148,8 +168,10 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
     }
     //before first space or null, whichever is first  
     if (rowIndex == HEIGHT-1){
+      this.lastLineWorkings(grid, rowIndex)
       return grid
-    }
+      } 
+    
     let firstIndexOfNullOnBottomRow = bottomRow.indexOf("-");
     let firstIndexOfSpaceOnBottomRow = bottomRow.indexOf(" ");
     
@@ -291,12 +313,6 @@ return grid
 return grid
 
 }
-
-////////////////////////////
-////////////////////////////
-
-
-
 
 fillNullWithDashOnRow(RowIndex, arrayToChange) {
 for (let i = 0; i < WIDTH; i++) {
