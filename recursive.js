@@ -166,11 +166,19 @@ lastLineWorkings(grid, rowIndex){
     if(lengthOfRightWordAtRowOne >= 2){
       TwoOrMoreCharactersAtRightWordAtRowOne = true
     }
+
+    
     //before first space or null, whichever is first  
-    if (rowIndex == HEIGHT-1){
+    if (rowIndex === HEIGHT-1 && grid[rowIndex-1][WIDTH-1] != "-" && grid[rowIndex-1][WIDTH-2] == "-" &&
+      (grid[rowIndex][0] != "-")
+      ){
       this.lastLineWorkings(grid, rowIndex)
       return grid
       } 
+
+      if(rowIndex > 14){
+        return grid
+      }
     
     let firstIndexOfNullOnBottomRow = bottomRow.indexOf("-");
     let firstIndexOfSpaceOnBottomRow = bottomRow.indexOf(" ");
@@ -179,6 +187,7 @@ lastLineWorkings(grid, rowIndex){
     if(firstIndexOfNullOnBottomRow === -1){
       firstIndexOfNullOnBottomRow = 27
     }
+
     if(firstIndexOfSpaceOnBottomRow === -1){
       firstIndexOfSpaceOnBottomRow = 27
     }
