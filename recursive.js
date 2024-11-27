@@ -26,6 +26,7 @@ class RecursiveClass {
   this.checkOnLastLineSoCreateRow = false
   this.bottomRow = -1
   this.bottomRowFromLastRound = []
+  this.characterMovedToBottom = ""
 }
 
   deleteRow(arr, rowNumber) 
@@ -115,7 +116,8 @@ lastLineWorkings(grid, rowIndex){
     //let newRemainder = []
     //let newBottomRow = []
     
-    
+   
+    //if(rowIndex-1 )
       
     //for putting cursor on row 2 for lefthand words greater than 2
     let TwoOrMoreCharactersAtRightWordAtRowOne = false
@@ -169,10 +171,11 @@ lastLineWorkings(grid, rowIndex){
 
     
     //before first space or null, whichever is first  
-    if (rowIndex === HEIGHT-1 && grid[rowIndex-1][WIDTH-1] != "-" && grid[rowIndex-1][WIDTH-2] == "-" &&
-      (grid[rowIndex][0] != "-")
+    if (rowIndex != 0 && grid[rowIndex-1][WIDTH-1] != "-" && grid[rowIndex-1][WIDTH-2] == "-" &&
+      (grid[rowIndex][0] != "-")  &&  (grid[rowIndex][1] === "-")  && (grid[rowIndex][2] === "-")
       ){
       this.lastLineWorkings(grid, rowIndex)
+      horizontalCursorPosition = 10
       return grid
       } 
 
@@ -280,39 +283,45 @@ lastLineWorkings(grid, rowIndex){
     //check length of word, move cursor (one two character presses), check left problems
   
   
-  
-    if( TwoOrMoreCharactersAtRightWordAtRowOne ){
-    horizontalCursorPosition = 0
-    horizontalCursorPosition = horizontalCursorPosition = ((lengthOfRightWordAtRowOne + 1) * 5)
-    verticalCursorPosition = verticalCursorPosition + 10
+  //!!!!!CHECK THIS, NO RIGHT WORD: A
+  if(lengthOfRightWordAtRowOne == 0){
   }else{
-    horizontalCursorPosition = horizontalCursorPosition + 10
+  //fill in moved text space with dashes on top row
+  for(let i =  WIDTH - lengthOfRightWordAtRowOne ; i < WIDTH ; i++){
+    grid[rowIndex][i] = 'A'
+  }
+  }
+
+  if(lengthOfRightWordAtRowOne > LengthOfNullsAndSpacesAfterFirstLeftMostCharacter && lengthOfRightWordAtRowOne != 0 && lengthOfRightWordAtRowOne!= -1){
+
+    horizontalCursorPosition = 10
+  }
+
+  if( TwoOrMoreCharactersAtRightWordAtRowOne ){
+  horizontalCursorPosition = 0
+  horizontalCursorPosition = horizontalCursorPosition = ((lengthOfRightWordAtRowOne + 1) * 5)
+  verticalCursorPosition = verticalCursorPosition + 10
+  }else{
+    //????
+    //horizontalCursorPosition = horizontalCursorPosition + 10
   }
   TwoOrMoreCharactersAtRightWordAtRowOne = false;
-  
-  //////////////////////////
-// //checking bottom row, left word, for cursor on or to next character (blank)
-// let CursorIsInLeftWordOfBottom = false
-
-// if(rowIndex+1 === verticalCursorPosition/10){
-// for(let i =   0 ; i <  firstWordBottomRow.length + 1 ;  i++){
-//   if (i === horizontalCursorPosition/5){
-//     CursorIsInLeftWordOfBottom = true
-//      break
-//   }
-// }
-// }
-// if(CursorIsInLeftWordOfBottom ){
-//   //horizontalCursorPosition = horizontalCursorPosition + 15
-// }
-
-// CursorIsInLeftWordOfBottom = false
-
-this.pushWords(grid, newRemainder, rowIndex+1, false)
-
+  this.pushWords(grid, newRemainder, rowIndex+1, false)
 
 return grid  
+}//ends fits in left hand slot
+
+else{
+  //the right hand word is bigger than the available space
+  if(this.characterMovedToBottom){
+    horizontalCursorPosition = 5
+    verticalCursorPosition = verticalCursorPosition + 10
+
+  }
+  this.characterMovedToBottom = ""
+  
 }
+
 }else{
  //advances to next row if grid not set up for this word push
   this.pushWords(grid, [""], rowIndex+1, false)
@@ -729,6 +738,10 @@ pushRowRight(rowIndex, colIndex, grid, leftOverChar){
   let [bottomRowReady, remainingChars] = this.splitAtIndex(combineToBottomRow, WIDTH)
   //let [left, remainingChars] = this.splitAtIndex(remainingChars, WIDTH)
   grid[rowIndex] = bottomRowReady
+  if(grid[rowIndex][0] != "-"){
+    this.characterMovedToBottom = grid[rowIndex][0] 
+  }
+  
   //!!!!!!!!!!CHECK THIS!!!!!!!!!!
   if(grid[rowIndex][WIDTH-1] === "-"){//} && remainingChars === "" || remainingChars == [""] ){
     return grid
