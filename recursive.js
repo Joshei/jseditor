@@ -193,7 +193,7 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
      
      //LengthOfNullsAndSpacesBeforeLeftMostCharacter = 9
     //will word fit below in the spaces and nulls that are before the next real character
-    if(lengthOfRightWordAtRowOne <= LengthOfNullsAndSpacesAfterFirstLeftMostCharacter){
+    if(lengthOfRightWordAtRowOne < LengthOfNullsAndSpacesAfterFirstLeftMostCharacter){
 
       //CHECK SITUATION IN PUSHROWRIGHT - DON'T PUSH
 
