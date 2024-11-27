@@ -235,7 +235,7 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
   
     if( TwoOrMoreCharactersAtRightWordAtRowOne ){
     horizontalCursorPosition = 0
-    horizontalCursorPosition = horizontalCursorPosition + (lengthOfRightWordAtRowOne+1)* 5
+    horizontalCursorPosition = horizontalCursorPosition + (lengthOfRightWordAtRowOne* 5)
     verticalCursorPosition = verticalCursorPosition + 10
   }else{
     horizontalCursorPosition = horizontalCursorPosition + 5
@@ -270,7 +270,7 @@ return grid
 
 }else{
   //advances to next row if grid not set up for this word push
-  this.pushWords(grid, [], rowIndex+1, false)
+  this.pushWords(grid, [""], rowIndex+1, false)
   return grid
 }
 
