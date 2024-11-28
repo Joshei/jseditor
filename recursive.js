@@ -276,7 +276,7 @@ lastLineWorkings(grid, rowIndex){
   }else{
   //fill in moved text space with dashes on top row
   for(let i =  WIDTH - lengthOfRightWordAtRowOne ; i < WIDTH ; i++){
-    grid[rowIndex][i] = 'A'
+    grid[rowIndex][i] = '-'
   }
   }
 
