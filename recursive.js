@@ -311,6 +311,7 @@ lastLineWorkings(grid, rowIndex){
 return grid  
 }//ends fits in left hand slot
 
+//doesn't fit in slot
 else{
   //the right hand word is bigger than the available space
   if(this.characterMovedToBottom){
@@ -322,7 +323,15 @@ else{
   
 }
 
-}else{
+
+
+
+
+
+
+}else//meaningless condition
+
+{
  //advances to next row if grid not set up for this word push
   this.pushWords(grid, [""], rowIndex+1, false)
    return grid
