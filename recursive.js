@@ -131,20 +131,23 @@ lastLineWorkings(grid, rowIndex){
     if(vertPos === HEIGHT-1 && rowIndex === HEIGHT - 1  &&  (grid[HEIGHT-1][0] !== "-" && grid[HEIGHT-2][WIDTH-1] !== "-" )){
       //return grid
     }
-    if ( (true) ||
+    // //if ( (true) ||
     
     
     
-    (rowIndex == 0 && grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-") || 
-    (rowIndex != 0  && rowIndex < HEIGHT-1 && (grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-") ||
-     (rowIndex != 0 && (grid[rowIndex-1][WIDTH-1] != "-") && (grid[rowIndex][0] != "-"))  )){
+    // (rowIndex == 0 && grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-") || 
+    // (rowIndex != 0  && rowIndex < HEIGHT-1 && (grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-") ||
+    // (rowIndex != 0 && (grid[rowIndex-1][WIDTH-1] != "-") && (grid[rowIndex][0] != "-"))  )){
+    // //This is for if left hand top word is only one character, all the way to right (pressed twice)
+    // //(rowIndex != 0 && fromIndex && (grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-") )
+    // //if(rowIndex != 0 && fromIndex && (grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-")  ||
+    // if(rowIndex != 0 && fromIndex && (grid[rowIndex-1][WIDTH-1] != "-") && (grid[rowIndex][0] != "-")){
+    // //rowIndex = rowIndex - 1;
+    // }
 
-      //This is for if left hand top word is only one character, all the way to right (pressed twice)
-      //(rowIndex != 0 && fromIndex && (grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-") )
-      //if(rowIndex != 0 && fromIndex && (grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-")  ||
-       if(rowIndex != 0 && fromIndex && (grid[rowIndex-1][WIDTH-1] != "-") && (grid[rowIndex][0] != "-")){
-        //rowIndex = rowIndex - 1;
-      }
+
+
+
       //rowIndex = rowIndex + 1
     let holdthis = rowIndex+1
     //end base case
@@ -321,30 +324,12 @@ else{
 
   }
   this.characterMovedToBottom = ""
-  drawGrid(HEIGHT, WIDTH)
-  this.pushWords(grid, [""], rowIndex+1, false)
-
-  
+  //drawGrid(HEIGHT, WIDTH)
+  //this.pushWords(grid, [""], rowIndex+1, false)
 }
-
-
-
-
-
-
-
-}else//meaningless condition
-
-{
- //advances to next row if grid not set up for this word push
-  //!!!!!!!null?
+  drawGrid(HEIGHT, WIDTH) 
   this.pushWords(grid, [""], rowIndex+1, false)
-   return grid
-}
-//!!!!!!!null?
-this.pushWords(grid, [""], rowIndex+1, false)
-return grid
-
+  return grid
 }
 
 fillNullWithDashOnRow(RowIndex, arrayToChange) {
