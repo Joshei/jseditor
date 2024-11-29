@@ -131,7 +131,11 @@ lastLineWorkings(grid, rowIndex){
     if(vertPos === HEIGHT-1 && rowIndex === HEIGHT - 1  &&  (grid[HEIGHT-1][0] !== "-" && grid[HEIGHT-2][WIDTH-1] !== "-" )){
       //return grid
     }
-    if ((rowIndex == 0 && grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-") || 
+    if ( (true) ||
+    
+    
+    
+    (rowIndex == 0 && grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-") || 
     (rowIndex != 0  && rowIndex < HEIGHT-1 && (grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-") ||
      (rowIndex != 0 && (grid[rowIndex-1][WIDTH-1] != "-") && (grid[rowIndex][0] != "-"))  )){
 
@@ -205,6 +209,8 @@ lastLineWorkings(grid, rowIndex){
     //}
 
 
+    //CHECK FOR DOUBLE CHARACTER ON LEFT, IS WRAPPING FROM RIGHT!
+
     //!!!!CHECK THESE VALUES : A
     for(let i = 1 ; i <WIDTH ; i++){
       //if (grid[rowIndex+2][i] != "-" &&  grid[rowIndex+2][i] != " ")
@@ -217,12 +223,18 @@ lastLineWorkings(grid, rowIndex){
      //drawGrid(HEIGHT, WIDTH)
      
     
-     
+     //there are back to back characters on bottom row
+     if(LengthOfNullsAndSpacesAfterFirstLeftMostCharacter === 0){
+      this.pushWords(grid, [""], rowIndex+1, false)
+      return grid
+     }
      //LengthOfNullsAndSpacesBeforeLeftMostCharacter = 9
     //will word fit below in the spaces and nulls that are before the next real character
     if(lengthOfRightWordAtRowOne < LengthOfNullsAndSpacesAfterFirstLeftMostCharacter && 
       //!!!!!!
       lengthOfRightWordAtRowOne > 0){
+
+        
      
       // ten added to verticalcursorposition at pushrowright
       //if(rowIndex === (verticalCursorPosition/10 - 1)){
@@ -240,7 +252,7 @@ lastLineWorkings(grid, rowIndex){
 
       //add extra character from insert
       for(let i = 1; i<lengthOfRightWordAtRowOne+1 ; i++ ){
-        grid[rowIndex+1][i] = topRow[WIDTH-i]
+        //grid[rowIndex+1][i] = topRow[WIDTH-i]
       }
       
 
@@ -265,6 +277,7 @@ lastLineWorkings(grid, rowIndex){
     ////drawGrid(HEIGHT, WIDTH)
     //assign row
     grid[rowIndex+1] = newBottomRow
+    //drawGrid(HEIGHT, WIDTH)
 
 
 
@@ -308,6 +321,9 @@ else{
 
   }
   this.characterMovedToBottom = ""
+  drawGrid(HEIGHT, WIDTH)
+  this.pushWords(grid, [""], rowIndex+1, false)
+
   
 }
 
@@ -321,10 +337,12 @@ else{
 
 {
  //advances to next row if grid not set up for this word push
+  //!!!!!!!null?
   this.pushWords(grid, [""], rowIndex+1, false)
    return grid
 }
-//!!!!!!!
+//!!!!!!!null?
+this.pushWords(grid, [""], rowIndex+1, false)
 return grid
 
 }
