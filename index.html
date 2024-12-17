@@ -250,7 +250,8 @@
       if(gridArray[verticalCursorPosition/10][WIDTH-1] !=  "-"){
       //Recursive.LastCharacetrOnLineEndThereAlready = true
     }
-    if(insertOn === true){
+    
+    if(true){
       gridArray = Recursive.initialInsert(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey)
       
       drawGrid(HEIGHT, WIDTH)
@@ -258,7 +259,7 @@
       
     }else{
       //destructive text display here
-      gridArray = Recursive.placeCharacterWithoutInsert(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey)
+      //gridArray = Recursive.placeCharacterWithoutInsert(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey)
     }
     
     Recursive.CursorOnLastColumn = false
@@ -270,7 +271,7 @@
     Recursive.displayGridAndCursor()  
     } 
      cursorAndFunctionCalls()
-
+     drawGrid(HEIGHT, WIDTH)
      
     </script>
     </body>

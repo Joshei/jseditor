@@ -174,7 +174,9 @@ lastLineWorkings(grid, rowIndex){
       return grid
       } 
 
-      if(rowIndex > 14){
+      if(rowIndex > HEIGHT-2){
+        this.displayGridAndCursor()
+        drawGrid
         return grid
       }
     
@@ -233,9 +235,10 @@ lastLineWorkings(grid, rowIndex){
      }
      //LengthOfNullsAndSpacesBeforeLeftMostCharacter = 9
     //will word fit below in the spaces and nulls that are before the next real character
-    if(lengthOfRightWordAtRowOne < LengthOfNullsAndSpacesAfterFirstLeftMostCharacter && 
+    if(lengthOfRightWordAtRowOne < LengthOfNullsAndSpacesAfterFirstLeftMostCharacter){
+      // && 
       //!!!!!!
-      lengthOfRightWordAtRowOne > 0){
+      //lengthOfRightWordAtRowOne > 0){
 
         
      
@@ -259,7 +262,7 @@ lastLineWorkings(grid, rowIndex){
       }
       
 
-      drawGrid(HEIGHT, WIDTH)
+      //drawGrid(HEIGHT, WIDTH)
 
       //return grid
 
@@ -327,7 +330,7 @@ else{
   //drawGrid(HEIGHT, WIDTH)
   //this.pushWords(grid, [""], rowIndex+1, false)
 }
-  drawGrid(HEIGHT, WIDTH) 
+  //drawGrid(HEIGHT, WIDTH) 
   this.pushWords(grid, [""], rowIndex+1, false)
   return grid
 }
