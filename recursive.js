@@ -174,7 +174,11 @@ lastLineWorkings(grid, rowIndex){
       return grid
       } 
 
-      if(rowIndex > 14){
+      if(rowIndex > HEIGHT - 2){
+        //drawGrid(HEIGHT, WIDTH)
+        //this.displayGridAndCursor()
+        
+        
         return grid
       }
     
@@ -547,6 +551,7 @@ return grid
   drawCursor(
     horizontalCursorPosition + HOFFSET,
     verticalCursorPosition + VOFFSET)
+    //drawGrid(HEIGHT, WIDTH)
   }
 
 
