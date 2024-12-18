@@ -1,5 +1,5 @@
-//PUSHWORDS, SHOULD BE OKAY, CHECK.  READ CODE TOMORROW.  
-//NEXT SESSION, TEST FOR PUSHWORDS RECURSION, AND THERE IS A DIFFERENT VERSION ON GITHUB TOO
+//pushWordsDoThisSecond, SHOULD BE OKAY, CHECK.  READ CODE TOMORROW.  
+//NEXT SESSION, TEST FOR pushWordsDoThisSecond RECURSION, AND THERE IS A DIFFERENT VERSION ON GITHUB TOO
 //THIS VERSION FITS THE CODE IN A LOWER LEFT HAND SLOT.
 //THE GITHUB VERSION PUSHES TEXT INTO NEXT LINE.
 //USE BOTH
@@ -41,6 +41,7 @@ class RecursiveClass {
   }
 
   getLastSpaceOrNull(grid ,topRow){
+
   //get left phrase before last dash
   //checks for either space or dash, whichever is less characters
   let lastIndexOfNullOnTopRow = topRow.lastIndexOf("-");
@@ -61,7 +62,7 @@ class RecursiveClass {
 }
 
 
-placeCharacterWithoutInsert(rowIndex, colIndex, grid, character){
+placeCharacterWithoutInsertDoThisFirst(rowIndex, colIndex, grid, character){
    grid[rowIndex][colIndex] = character;
    return grid
 }
@@ -98,42 +99,36 @@ lastLineWorkings(grid, rowIndex){
 //CHECK FULL ROWS/
  
  
-  pushWords(grid, remainder, rowIndex, fromIndex)
+  pushWordsDoThisSecond(grid, remainder, rowIndex, fromIndex)
   {
-
-    //let newRemainder = []
-    //let newBottomRow = []
-    
-   
-    //if(rowIndex-1 )
-      
     //for putting cursor on row 2 for lefthand words greater than 2
     let TwoOrMoreCharactersAtRightWordAtRowOne = false
-    
+    //drawrid(HEIGHT, WIDTH)
     //HEIGHT - 2:  just makes new row from isert
     if(rowIndex > HEIGHT - 1){
       return grid
     }
-
+    
+  
+    
     if(rowIndex === HEIGHT){
       //looking if there is a character of bottom row, if so create a row and continue with push
       if(grid[HEIGHT-1][WIDTH-1] != DASH ){
       this.createRow(grid, rowIndex)
       //grid[rowIndex+1][0] = "A"
-      drawGrid(HEIGHT, WIDTH)
+      //drawGrid(HEIGHT, WIDTH)
       }
      }
 
-     
+     //IF CHARACTER NOT ON END AND BEGINNING EXIT OUT WITH A CALL TO RECURSIVE FUNCTION - LOOK AT QUICKLY
+
+     //if(rowIndex < HEIGHT - 1 && (grid[verticalCursorPosition/10 - 1][WIDTH-1] === "-")){
+     //
+     // //BREAK OUT, MAYBE
+     // return grid
+    //}
 
     let vertPos = verticalCursorPosition/10
-     //to prevent an error when index + 1 is non existant, on last line
-    if(vertPos === HEIGHT-1 && rowIndex === HEIGHT - 1  &&  (grid[HEIGHT-1][0] !== "-" && grid[HEIGHT-2][WIDTH-1] !== "-" )){
-      //return grid
-    }
-    // //if ( (true) ||
-    
-    
     
     // (rowIndex == 0 && grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-") || 
     // (rowIndex != 0  && rowIndex < HEIGHT-1 && (grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-") ||
@@ -145,29 +140,42 @@ lastLineWorkings(grid, rowIndex){
     // //rowIndex = rowIndex - 1;
     // }
 
-
-
-
-      //rowIndex = rowIndex + 1
     let holdthis = rowIndex+1
     //end base case
     let wasVariablegridCheck = []
     let wordAtEndOfRowOne = []
-    let topRow = grid[rowIndex];
-    let bottomRow =grid[rowIndex+1];// grid[verticalCursorPosition/10 + 1];
+    let topRow = grid[rowIndex-1];
+    let bottomRow =grid[rowIndex];// grid[verticalCursorPosition/10 + 1];
     let characterCounter = 0
+    
+
+
+    //!!!!!!!!!!!!HERE!!!!!!!!!
+
+    //CHECK FOR AFTER CREATE ROW AND SETTINGS
+    if((rowIndex > HEIGHT-1) || (rowIndex == 0)){
+      this.pushWordsDoThisSecond(grid, [""], rowIndex+1, false)
+        return grid
+    }
     let holder = this.getLastSpaceOrNull(grid,topRow)
     wasVariablegridCheck = holder.leftSide
     wordAtEndOfRowOne = holder.rightSide
+    
     let lengthOfRightWordAtRowOne = wordAtEndOfRowOne.length
     if(lengthOfRightWordAtRowOne >= 2){
       TwoOrMoreCharactersAtRightWordAtRowOne = true
     }
 
     
-    //before first space or null, whichever is first  
-    if (rowIndex != 0 && grid[rowIndex-1][WIDTH-1] != "-" && grid[rowIndex-1][WIDTH-2] == "-" &&
-      (grid[rowIndex][0] != "-")  &&  (grid[rowIndex][1] === "-")  && (grid[rowIndex][2] === "-")
+    //before first space or null, whichever is first
+      
+    //ON LAST LETTER LETTER HAS BEEN MOVED TO LAST LINE, UPPER LETTER IS STILL THERE
+    //row before current row is raedy for pushing
+    if (rowIndex != 0 && grid[rowIndex][WIDTH-1] != "-" &&
+       //grid[rowIndex-1][WIDTH-2] == "-" &&
+      //(grid[rowIndex][0] != "-")  &&
+      //(grid[rowIndex][1] === "-")  && (grid[rowIndex][2] === "-")
+      rowIndex === HEIGHT - 1
       ){
       this.lastLineWorkings(grid, rowIndex)
       horizontalCursorPosition = 10
@@ -199,7 +207,7 @@ lastLineWorkings(grid, rowIndex){
     lastIndexOfFirstWord = firstIndexOfSpaceOnBottomRow 
     }else{
     lastIndexOfFirstWord = firstIndexOfNullOnBottomRow 
-    }//word id onm left
+    }
     const [firstWordBottomRow, indexAfterLeftWordBottomRow] = this.splitAtIndex(bottomRow, lastIndexOfFirstWord);
     let lastIndexOffirstWordBottomRow = firstWordBottomRow.length
     let LengthOfNullsAndSpacesAfterFirstLeftMostCharacter = 0
@@ -232,7 +240,8 @@ lastLineWorkings(grid, rowIndex){
     
      //there are back to back characters on bottom row
      if(LengthOfNullsAndSpacesAfterFirstLeftMostCharacter === 0){
-      this.pushWords(grid, [""], rowIndex+1, false)
+      //??????????
+      this.pushWordsDoThisSecond(grid, [""], rowIndex+1, false)
       return grid
      }
      //LengthOfNullsAndSpacesBeforeLeftMostCharacter = 9
@@ -240,19 +249,6 @@ lastLineWorkings(grid, rowIndex){
     if(lengthOfRightWordAtRowOne < LengthOfNullsAndSpacesAfterFirstLeftMostCharacter && 
       //!!!!!!
       lengthOfRightWordAtRowOne > 0){
-
-        
-     
-      // ten added to verticalcursorposition at pushrowright
-      //if(rowIndex === (verticalCursorPosition/10 - 1)){
-      // 
-      //  verticalCursorPosition = verticalCursorPosition - 10
-      //  
-      //}
-      
-     
-     
-
       //CHECK SITUATION IN PUSHROWRIGHT - DON'T PUSH
 
       let combined = []
@@ -262,12 +258,6 @@ lastLineWorkings(grid, rowIndex){
         //grid[rowIndex+1][i] = topRow[WIDTH-i]
       }
       
-
-      drawGrid(HEIGHT, WIDTH)
-
-      //return grid
-
-    ///////////////////////////////////////////P
     ///////////////////////////////////////////
 
     //characters will be moved from top to bottom, the final right side has empty
@@ -283,7 +273,16 @@ lastLineWorkings(grid, rowIndex){
     const [newBottomRow, newRemainder] = this.splitAtIndex(combined, WIDTH);
     ////drawGrid(HEIGHT, WIDTH)
     //assign row
-    grid[rowIndex+1] = newBottomRow
+
+   
+    if((grid[verticalCursorPosition/10-1][WIDTH-1] === "-"  ) || (grid[verticalCursorPosition/10][0]) === "-") { //|| !(firstWordBottomRow)){
+
+       this.pushWordsDoThisSecond(grid, [""], rowIndex+1, false)
+       return grid
+
+     }
+
+    grid[rowIndex] = newBottomRow
     //drawGrid(HEIGHT, WIDTH)
 
 
@@ -314,7 +313,7 @@ lastLineWorkings(grid, rowIndex){
     //horizontalCursorPosition = horizontalCursorPosition + 10
   }
   TwoOrMoreCharactersAtRightWordAtRowOne = false;
-  this.pushWords(grid, newRemainder, rowIndex+1, false)
+  this.pushWordsDoThisSecond(grid, newRemainder, rowIndex+1, false)
 
 return grid  
 }//ends fits in left hand slot
@@ -329,10 +328,10 @@ else{
   }
   this.characterMovedToBottom = ""
   //drawGrid(HEIGHT, WIDTH)
-  //this.pushWords(grid, [""], rowIndex+1, false)
+  //this.pushWordsDoThisSecond(grid, [""], rowIndex+1, false)
 }
-  drawGrid(HEIGHT, WIDTH) 
-  this.pushWords(grid, [""], rowIndex+1, false)
+  //drawGrid(HEIGHT, WIDTH) 
+  this.pushWordsDoThisSecond(grid, [""], rowIndex+1, false)
   return grid
 }
 
@@ -622,8 +621,8 @@ return grid
   //
        
 
-    //!!!!CONSIDER PROBABLY CODE DOWN BELOW
-    initialInsert(rowIndex, colIndex, grid, leftOverChar){
+      //!!!!CONSIDER PROBABLY CODE DOWN BELOW
+      initialInsertDoThisFirst(rowIndex, colIndex, grid, leftOverChar){
       //checks if dash at end of current row, used for prevention of continuation on other rows
       let IsADash = false
        //just on first top statement
@@ -656,10 +655,23 @@ return grid
       let topRow = grid[rowIndex];
       let lowerRow = grid[rowIndex+1]
       //splits array apart at insertion point
-      let [leftTopRow, rightTopRow] = this.splitAtIndex(topRow, colIndex)
+      
+     // colIndex = colIndex + 1;
+     
+      CursorMovements.cursorRight()
+
+      let [leftTopRow, rightTopRow] = this.splitAtIndex(topRow, (colIndex))
+
+
       //insert character at index
       let combineTopRow = [...leftTopRow, ...leftOverChar, ...rightTopRow]
       //this is one row, exactly, because of WIDTH
+      
+
+
+     
+      //CursorMovements.cursorRight()
+      
       let [finishedTopRow, leftOver] = this.splitAtIndex(combineTopRow, WIDTH)
       //there is a character on last row, do call function which is recursive
       //if (grid[rowIndex][WIDTH-1] != DASH)
@@ -668,14 +680,14 @@ return grid
         grid[rowIndex] = finishedTopRow
 
 
-        /////////////////////FOR PUSHWORDS
+        /////////////////////FOR pushWordsDoThisSecond
 
         //???LOOK AT THIS - checks character on left for cursor positioning???
         if(horizontalCursorPosition/5 === WIDTH-1){
           this.CursorOnLastColumn = true
         }
         
-        //!!!!!Possibly incorporate this with pushWords setting a variable: lastRowIndexToPush; or maybe a function call here 
+        //!!!!!Possibly incorporate this with pushWordsDoThisSecond setting a variable: lastRowIndexToPush; or maybe a function call here 
         //if(grid[rowIndex][WIDTH-1] === "-" && this.lastRowIndexToPushOn === -1 && rowIndex > horizontalCursorPosition/5){
         if(grid[rowIndex][WIDTH-1] === "-" || grid[rowIndex+1] === "-"){
 
@@ -697,7 +709,7 @@ return grid
         //  this.CursorOnLastColumn = true
         //}
 
-        CursorMovements.cursorRight()
+        //CursorMovements.cursorRight()
         return grid    
     }
 

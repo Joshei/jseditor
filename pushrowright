@@ -40,7 +40,7 @@ pushRowRight(rowIndex, colIndex, grid, leftOverChar){
 
   /*
   if(rowIndex+2 <= HEIGHT-1 && grid[rowIndex+2][WIDTH-1] === "-"&& this.lastRowIndexToPushOn === -1  && rowIndex > horizontalCursorPosition/5){
-    //sets row to bail out on in pushwords
+    //sets row to bail out on in pushWordsDoThisSecond
     this.lastRowIndexToPushOn = rowIndex + 1
     //CursorMovements.cursorRight()
     //return grid

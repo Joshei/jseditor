@@ -1,4 +1,4 @@
-pushWords(grid, remainder, rowIndex, fromIndex)
+pushWordsDoThisSecond(grid, remainder, rowIndex, fromIndex)
   {
 
     //let newRemainder = []
@@ -190,7 +190,7 @@ pushWords(grid, remainder, rowIndex, fromIndex)
 
 // CursorIsInLeftWordOfBottom = false
 
-this.pushWords(grid, newRemainder, rowIndex+1, false)
+this.pushWordsDoThisSecond(grid, newRemainder, rowIndex+1, false)
 
 
 return grid  
@@ -203,7 +203,7 @@ return grid
   
   
   //advances to next row if grid not set up for this word push
-  this.pushWords(grid, [""], rowIndex+1, false)
+  this.pushWordsDoThisSecond(grid, [""], rowIndex+1, false)
  
   return grid
 }
