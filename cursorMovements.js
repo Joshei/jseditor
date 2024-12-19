@@ -49,7 +49,7 @@ class CursorMovementsClass {
         verticalCursorPosition = verticalCursorPosition + 10
       }
       else{
-        verticalCursorPosition = verticalCursorPosition + 20
+        verticalCursorPosition = verticalCursorPosition + 10
       }
     }
   }

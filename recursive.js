@@ -102,7 +102,7 @@ lastLineWorkings(grid, rowIndex){
 //CHECK FULL ROWS/
  
  
-  pushWordsDoThisSecond(grid, remainder, rowIndex, fromIndex)
+  pushWordsDoThisSecond(grid, newRemainder, rowIndex, fromIndex)
   {
     //for putting cursor on row 2 for lefthand words greater than 2
     let TwoOrMoreCharactersAtRightWordAtRowOne = false
@@ -282,7 +282,9 @@ lastLineWorkings(grid, rowIndex){
     ////drawGrid(HEIGHT, WIDTH)
     //assign row
 
-    if((verticalCursorPosition > 0) && (grid[verticalCursorPosition/10-1][WIDTH-1] === "-"  ) || (grid[verticalCursorPosition/10][0]) === "-") { //|| !(firstWordBottomRow)){
+
+    //if either row above or present has a dash, don't change the grid
+    if((verticalCursorPosition/10 > 0) && (grid[rowIndex-1][WIDTH-1] === "-"  ) || (grid[rowIndex][0]) === "-") { //|| !(firstWordBottomRow)){
 
        this.pushWordsDoThisSecond(grid, [""], rowIndex+1, false)
        return grid
@@ -292,11 +294,11 @@ lastLineWorkings(grid, rowIndex){
     grid[rowIndex] = newBottomRow
     //cover up blank space on upper row, caused by insert that causes wrapping push
     if(rowIndex > 0){
-      grid[rowIndex-1][WIDTH-1] = "-"
+      //grid[rowIndex-1][WIDTH-1] = "-"
     }
     
     //drawGrid(HEIGHT, WIDTH)
-newBottomRow
+
 
 
 
@@ -308,7 +310,7 @@ newBottomRow
   }else{
   //fill in moved text space with dashes on top row
   for(let i =  WIDTH - lengthOfRightWordAtRowOne ; i < WIDTH ; i++){
-    grid[rowIndex][i] = '-'
+    grid[rowIndex-1][i] = '-'
   }
   }
 
