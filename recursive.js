@@ -73,6 +73,9 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
 
 //ths is for when two letter are entered on last column (pushes to next row)
 lastLineWorkings(grid, rowIndex){
+  //HEIGHT++;
+  //return grid
+
 
   let topRow = grid[rowIndex-1];
   let bottomRow =grid[rowIndex];
@@ -103,20 +106,20 @@ lastLineWorkings(grid, rowIndex){
   {
     //for putting cursor on row 2 for lefthand words greater than 2
     let TwoOrMoreCharactersAtRightWordAtRowOne = false
-    //drawrid(HEIGHT, WIDTH)
-    //HEIGHT - 2:  just makes new row from isert
+    
     if(rowIndex > HEIGHT - 1){
       return grid
     }
     
   
     
-    if(rowIndex === HEIGHT){
+    if(rowIndex === HEIGHT-1){
       //looking if there is a character of bottom row, if so create a row and continue with push
       if(grid[HEIGHT-1][WIDTH-1] != DASH ){
       this.createRow(grid, rowIndex)
       //grid[rowIndex+1][0] = "A"
-      //drawGrid(HEIGHT, WIDTH)
+      
+      drawGrid(HEIGHT, WIDTH)
       }
      }
 
@@ -127,9 +130,6 @@ lastLineWorkings(grid, rowIndex){
      // //BREAK OUT, MAYBE
      // return grid
     //}
-
-    let vertPos = verticalCursorPosition/10
-    
     // (rowIndex == 0 && grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-") || 
     // (rowIndex != 0  && rowIndex < HEIGHT-1 && (grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-") ||
     // (rowIndex != 0 && (grid[rowIndex-1][WIDTH-1] != "-") && (grid[rowIndex][0] != "-"))  )){
@@ -157,6 +157,7 @@ lastLineWorkings(grid, rowIndex){
       this.pushWordsDoThisSecond(grid, [""], rowIndex+1, false)
         return grid
     }
+    
     let holder = this.getLastSpaceOrNull(grid,topRow)
     wasVariablegridCheck = holder.leftSide
     wordAtEndOfRowOne = holder.rightSide
@@ -172,23 +173,30 @@ lastLineWorkings(grid, rowIndex){
     //ON LAST LETTER LETTER HAS BEEN MOVED TO LAST LINE, UPPER LETTER IS STILL THERE
     //row before current row is raedy for pushing
     if (rowIndex != 0 && grid[rowIndex][WIDTH-1] != "-" &&
-       //grid[rowIndex-1][WIDTH-2] == "-" &&
-      //(grid[rowIndex][0] != "-")  &&
-      //(grid[rowIndex][1] === "-")  && (grid[rowIndex][2] === "-")
+      
       rowIndex === HEIGHT - 1
       ){
+        horizontalCursorPosition = 0;
+        verticalCursorPosition = verticalCursorPosition + 10;
       this.lastLineWorkings(grid, rowIndex)
-      horizontalCursorPosition = 10
+      //horizontalCursorPosition = 10
       return grid
       } 
 
       if(rowIndex > HEIGHT - 2){
+        //this.lastLineWorkings(grid, rowIndex)
         //drawGrid(HEIGHT, WIDTH)
         //this.displayGridAndCursor()
-        
-        
-        return grid
+         return grid
       }
+
+      if(rowIndex > HEIGHT - 1){
+        //this.lastLineWorkings(grid, rowIndex)
+        //drawGrid(HEIGHT, WIDTH)
+        //this.displayGridAndCursor()
+         return grid
+      }
+    
     
     let firstIndexOfNullOnBottomRow = bottomRow.indexOf("-");
     let firstIndexOfSpaceOnBottomRow = bottomRow.indexOf(" ");
@@ -274,8 +282,7 @@ lastLineWorkings(grid, rowIndex){
     ////drawGrid(HEIGHT, WIDTH)
     //assign row
 
-   
-    if((grid[verticalCursorPosition/10-1][WIDTH-1] === "-"  ) || (grid[verticalCursorPosition/10][0]) === "-") { //|| !(firstWordBottomRow)){
+    if((verticalCursorPosition > 0) && (grid[verticalCursorPosition/10-1][WIDTH-1] === "-"  ) || (grid[verticalCursorPosition/10][0]) === "-") { //|| !(firstWordBottomRow)){
 
        this.pushWordsDoThisSecond(grid, [""], rowIndex+1, false)
        return grid
@@ -283,7 +290,13 @@ lastLineWorkings(grid, rowIndex){
      }
 
     grid[rowIndex] = newBottomRow
+    //cover up blank space on upper row, caused by insert that causes wrapping push
+    if(rowIndex > 0){
+      grid[rowIndex-1][WIDTH-1] = "-"
+    }
+    
     //drawGrid(HEIGHT, WIDTH)
+newBottomRow
 
 
 
@@ -334,6 +347,9 @@ else{
   this.pushWordsDoThisSecond(grid, [""], rowIndex+1, false)
   return grid
 }
+
+
+
 
 fillNullWithDashOnRow(RowIndex, arrayToChange) {
 for (let i = 0; i < WIDTH; i++) {
