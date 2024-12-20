@@ -72,11 +72,20 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
 }
 
 //ths is for when two letter are entered on last column (pushes to next row)
+//THIS IS CALLED TWICE, COULD WORK
+//CONSIDER ADPATING CODE INSTAED ; LOOK AT MORE THAN HEIGHT-2 IN pushWordsDoThisSecond
+//CAUSES AT LEAST ONE INDEXING ERROR
+//READING LENGTH ERROR
+
+//WILL THE LAST LINE ALWAYS BE EMPTY HERE?
 lastLineWorkings(grid, rowIndex){
-  //HEIGHT++;
-  //return grid
+
+  //no characters on bottom row
 
 
+
+
+  return grid
   let topRow = grid[rowIndex-1];
   let bottomRow =grid[rowIndex];
   let lastIndexOfNullOnTopRow = topRow.lastIndexOf("-");
@@ -89,8 +98,9 @@ lastLineWorkings(grid, rowIndex){
   grid[rowIndex] = combine
  
   for(let i = combine.length; i < WIDTH; i++ ){
-    grid[rowIndex][i] = "-"
+    grid[rowIndex][i] = "A"
    }
+   //grid[15][0] = "w"
    return grid
 }
 
@@ -102,6 +112,8 @@ lastLineWorkings(grid, rowIndex){
 //CHECK FULL ROWS/
  
  
+
+// oon last line
   pushWordsDoThisSecond(grid, newRemainder, rowIndex, fromIndex)
   {
     //for putting cursor on row 2 for lefthand words greater than 2
@@ -112,16 +124,30 @@ lastLineWorkings(grid, rowIndex){
     }
     
   
-    
-    if(rowIndex === HEIGHT-1){
+    if(rowIndex === HEIGHT-1 && grid[HEIGHT-1][0] != "-" && grid[HEIGHT-2][WIDTH-1] != "-"){
+
+      //take top right word, save to variable
+      //find insertion point
+      
+
+    }
+
+    if(rowIndex === HEIGHT-1 && grid[HEIGHT-1][WIDTH-1] != "-"){
       //looking if there is a character of bottom row, if so create a row and continue with push
       if(grid[HEIGHT-1][WIDTH-1] != DASH ){
       this.createRow(grid, rowIndex)
       //grid[rowIndex+1][0] = "A"
-      
+      //this.lastLineWorkings(grid, rowIndex)
+      //verticalCursorPosition = verticalCursorPosition - 10
+      horizontalCursorPosition = horizontalCursorPosition + 5 
       drawGrid(HEIGHT, WIDTH)
+      //rowIndex--;
+      this.lastLineWorkings(grid, rowIndex)
+      //this.pushWordsDoThisSecond(grid, [""], rowIndex+1, false)
+      //return grid
       }
-     }
+    }
+    
 
      //IF CHARACTER NOT ON END AND BEGINNING EXIT OUT WITH A CALL TO RECURSIVE FUNCTION - LOOK AT QUICKLY
 
@@ -157,6 +183,7 @@ lastLineWorkings(grid, rowIndex){
       this.pushWordsDoThisSecond(grid, [""], rowIndex+1, false)
         return grid
     }
+    
     
     let holder = this.getLastSpaceOrNull(grid,topRow)
     wasVariablegridCheck = holder.leftSide
@@ -234,6 +261,7 @@ lastLineWorkings(grid, rowIndex){
 
     //CHECK FOR DOUBLE CHARACTER ON LEFT, IS WRAPPING FROM RIGHT!
 
+    
     //!!!!CHECK THESE VALUES : A
     for(let i = 1 ; i <WIDTH ; i++){
       //if (grid[rowIndex+2][i] != "-" &&  grid[rowIndex+2][i] != " ")
@@ -306,6 +334,9 @@ lastLineWorkings(grid, rowIndex){
   
   
   //!!!!!CHECK THIS, NO RIGHT WORD: A
+
+  
+
   if(lengthOfRightWordAtRowOne == 0){
   }else{
   //fill in moved text space with dashes on top row
@@ -338,7 +369,7 @@ else{
   //the right hand word is bigger than the available space
   if(this.characterMovedToBottom){
     horizontalCursorPosition = 5
-    verticalCursorPosition = verticalCursorPosition + 10
+    //verticalCursorPosition = verticalCursorPosition + 10
 
   }
   this.characterMovedToBottom = ""
