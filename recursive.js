@@ -97,12 +97,12 @@ lastLineWorkings(grid, rowIndex){
   const [leftWordBottomRow, rightSide] = this.splitAtIndex(bottomRow, firstIndexOfNullOnBottomRow)
   const combine = [...rightWordTopRow, ...leftWordBottomRow]
   grid[rowIndex] = combine
-  horizontalCursorPosition = horizontalCursorPosition + 5
+  horizontalCursorPosition = combine.length * 5
   //cover rest of bottom row with dashes (after word from top)
   for(let i = combine.length; i < WIDTH; i++ ){
   grid[rowIndex][i] = "-"
    }
-   horizontalCursorPosition = horizontalCursorPosition + 10
+   //verticalCursorPosition = verticalCursorPosition + 10
    //cover top row where word was, with dashes
    for(let i = WIDTH - rightWordTopRow.length; i < WIDTH; i++ ){
     grid[rowIndex-1][i] = "-"
@@ -290,9 +290,9 @@ lastLineWorkings(grid, rowIndex){
 
 
     //!!!!CHECK THESE VALUES : A
-    for(let i = 1 ; i <WIDTH ; i++){
+    for(let i =  lastIndexOffirstWordBottomRow ; i <WIDTH-1 ; i++){
       //if (grid[rowIndex+2][i] != "-" &&  grid[rowIndex+2][i] != " ")
-      if (grid[rowIndex+1][i] != "-" )
+      if (grid[rowIndex][i] != "-" )
       {
             break
       }
