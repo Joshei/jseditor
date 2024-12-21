@@ -80,12 +80,6 @@ deleteCharacterWithoutPull(rowIndex, colIndex, grid, character){
 //WILL THE LAST LINE ALWAYS BE EMPTY HERE?
 lastLineWorkings(grid, rowIndex){
 
-  //no characters on bottom row
-
-
-
-
- 
   let topRow = grid[rowIndex-1];
   let bottomRow =grid[rowIndex];
   //return grid
@@ -108,8 +102,6 @@ lastLineWorkings(grid, rowIndex){
     grid[rowIndex-1][i] = "-"
      }
 
-
-   //grid[15][0] = "w"
    return grid
 }
 
@@ -126,10 +118,6 @@ lastLineWorkings(grid, rowIndex){
   pushWordsDoThisSecond(grid, newRemainder, rowIndex, fromIndex)
   {
 
-    if(rowIndex == HEIGHT -1){
-
-      //this.lastLineWorkings(grid, rowIndex)
-    }
     //for putting cursor on row 2 for lefthand words greater than 2
     let TwoOrMoreCharactersAtRightWordAtRowOne = false
     
@@ -137,75 +125,28 @@ lastLineWorkings(grid, rowIndex){
       return grid
     }
     
-  
-    if(rowIndex === HEIGHT-1 && grid[HEIGHT-1][0] != "-" && grid[HEIGHT-2][WIDTH-1] != "-"){
-
-      //take top right word, save to variable
-      //find insertion point
-      
-      
-    }
-
     if(rowIndex === HEIGHT-1 && grid[HEIGHT-1][WIDTH-1] != "-"){
       //looking if there is a character of bottom row, if so create a row and continue with push
       if(grid[HEIGHT-1][WIDTH-1] != DASH ){
       this.createRow(grid, rowIndex)
-      //grid[rowIndex+1][0] = "A"
-      //this.lastLineWorkings(grid, rowIndex)
-      //verticalCursorPosition = verticalCursorPosition - 10
-      
-      
-      //this.lastLineWorkings(grid, rowIndex + 1)
-      
-      
+     
       horizontalCursorPosition = horizontalCursorPosition + 5 
       drawGrid(HEIGHT, WIDTH)
-      //rowIndex--;
-      //this.lastLineWorkings(grid, rowIndex)
-      //this.pushWordsDoThisSecond(grid, [""], rowIndex+1, false)
-      //return grid
+      
       }
     }
-
-    
-    
-
-     //IF CHARACTER NOT ON END AND BEGINNING EXIT OUT WITH A CALL TO RECURSIVE FUNCTION - LOOK AT QUICKLY
-
-     //if(rowIndex < HEIGHT - 1 && (grid[verticalCursorPosition/10 - 1][WIDTH-1] === "-")){
-     //
-     // //BREAK OUT, MAYBE
-     // return grid
-    //}
-    // (rowIndex == 0 && grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-") || 
-    // (rowIndex != 0  && rowIndex < HEIGHT-1 && (grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-") ||
-    // (rowIndex != 0 && (grid[rowIndex-1][WIDTH-1] != "-") && (grid[rowIndex][0] != "-"))  )){
-    // //This is for if left hand top word is only one character, all the way to right (pressed twice)
-    // //(rowIndex != 0 && fromIndex && (grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-") )
-    // //if(rowIndex != 0 && fromIndex && (grid[rowIndex][WIDTH-1] != "-") && (grid[rowIndex+1][0] != "-")  ||
-    // if(rowIndex != 0 && fromIndex && (grid[rowIndex-1][WIDTH-1] != "-") && (grid[rowIndex][0] != "-")){
-    // //rowIndex = rowIndex - 1;
-    // }
-
+    //There was conditions here for access, on previous versions - 12/21/24
     let holdthis = rowIndex+1
-    //end base case
     let wasVariablegridCheck = []
     let wordAtEndOfRowOne = []
     let topRow = grid[rowIndex-1];
     let bottomRow =grid[rowIndex];// grid[verticalCursorPosition/10 + 1];
     let characterCounter = 0
-    
-
-
-    //!!!!!!!!!!!!HERE!!!!!!!!!
-
-    //CHECK FOR AFTER CREATE ROW AND SETTINGS
-    if((rowIndex > HEIGHT-1) || (rowIndex == 0)){
+    //has no row above it
+    if(rowIndex == 0){
       this.pushWordsDoThisSecond(grid, [""], rowIndex+1, false)
         return grid
     }
-    
-    
     let holder = this.getLastSpaceOrNull(grid,topRow)
     wasVariablegridCheck = holder.leftSide
     wordAtEndOfRowOne = holder.rightSide
@@ -215,22 +156,15 @@ lastLineWorkings(grid, rowIndex){
       TwoOrMoreCharactersAtRightWordAtRowOne = true
     }
 
-    
-    //before first space or null, whichever is first
-      
-    //ON LAST LETTER LETTER HAS BEEN MOVED TO LAST LINE, UPPER LETTER IS STILL THERE
-    //row before current row is raedy for pushing
+    //On last line, this as well as above it has no dashes on both sides
     if(rowIndex != 0 && grid[rowIndex][0] != "-"  && grid[rowIndex-1][WIDTH-1] != "-" && rowIndex === HEIGHT-1){
       this.lastLineWorkings(grid, rowIndex)
       console.log("here")
     }
-    
+    //On last line, just top has a character on right edge, bottom has a dash, from above condition
     else if (rowIndex != 0 && grid[rowIndex - 1][WIDTH-1] != "-" && rowIndex === HEIGHT-1 ){
         horizontalCursorPosition = 0;
         verticalCursorPosition = verticalCursorPosition + 10;
-      //this.lastLineWorkings(grid, rowIndex)
-      //horizontalCursorPosition = 10
-      //return grid
       } 
 
       if(rowIndex > HEIGHT - 2){
