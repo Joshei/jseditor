@@ -140,7 +140,7 @@ lastLineWorkings(grid, rowIndex){
     let wasVariablegridCheck = []
     let wordAtEndOfRowOne = []
     let topRow = grid[rowIndex-1];
-    let bottomRow =grid[rowIndex];// grid[verticalCursorPosition/10 + 1];
+    let bottomRow =grid[rowIndex];
     let characterCounter = 0
     //has no row above it
     if(rowIndex == 0){
@@ -215,55 +215,29 @@ lastLineWorkings(grid, rowIndex){
       lengthOfRightWordAtRowOne > 0){
       let combined = []
 
-    //!!!!!NO LEFT CHARACTERS AFTER LEFT WORD
      const [removeThis, charactersAfterLeftWordOnBottomRow] = this.splitAtIndex(indexAfterLeftWordBottomRow, lengthOfRightWordAtRowOne );
     //put row together
     combined = [...wordAtEndOfRowOne, ...firstWordBottomRow, ...charactersAfterLeftWordOnBottomRow]
-    
     let lengthOfFirstWordBottomRow = firstWordBottomRow.length
     //get remainder for next recursive call - this is one rows worth
     const [newBottomRow, newRemainder] = this.splitAtIndex(combined, WIDTH);
-    ////drawGrid(HEIGHT, WIDTH)
-    //assign row
-
-
-    //if either row above or present has a dash, don't change the grid
+    
+    //if either row above or present has a dash on ends than don't change the grid
     if((verticalCursorPosition/10 > 0) && (grid[rowIndex-1][WIDTH-1] === "-"  ) || (grid[rowIndex][0]) === "-") { //|| !(firstWordBottomRow)){
 
        this.pushWordsDoThisSecond(grid, [""], rowIndex+1, false)
        return grid
 
      }
-
+     //Finally, set the row.
     grid[rowIndex] = newBottomRow
-
-    //this.lastLineWorkings(grid, rowIndex)
-    //cover up blank space on upper row, caused by insert that causes wrapping push
-    if(rowIndex > 0){
-      //grid[rowIndex-1][WIDTH-1] = "-"
-    }
-    
-    //drawGrid(HEIGHT, WIDTH)
-
-
-
-
-    //check length of word, move cursor (one two character presses), check left problems
-  
-  
-  //!!!!!CHECK THIS, NO RIGHT WORD: A
-
-  
-
-  if(lengthOfRightWordAtRowOne == 0){
-  }else{
-  //fill in moved text space with dashes on top row
-  for(let i =  WIDTH - lengthOfRightWordAtRowOne ; i < WIDTH ; i++){
+   //fill in moved text space with dashes on top row
+   for(let i =  WIDTH - lengthOfRightWordAtRowOne ; i < WIDTH ; i++){
     grid[rowIndex-1][i] = '-'
-  }
-  }
-
-  if(lengthOfRightWordAtRowOne > LengthOfNullsAndSpacesAfterFirstLeftMostCharacter && lengthOfRightWordAtRowOne != 0 && lengthOfRightWordAtRowOne!= -1){
+   }
+  //!BELOW IS CURSOR ADJUSTMENT!
+  //!!!!!
+  if(lengthOfRightWordAtRowOne > LengthOfNullsAndSpacesAfterFirstLeftMostCharacter && lengthOfRightWordAtRowOne != 0 && lengthOfRightWordAtRowOne != -1){
 
     horizontalCursorPosition = 10
   }
@@ -272,9 +246,6 @@ lastLineWorkings(grid, rowIndex){
   horizontalCursorPosition = 0
   horizontalCursorPosition = horizontalCursorPosition = ((lengthOfRightWordAtRowOne + 1) * 5)
   verticalCursorPosition = verticalCursorPosition + 10
-  }else{
-    //????
-    //horizontalCursorPosition = horizontalCursorPosition + 10
   }
   TwoOrMoreCharactersAtRightWordAtRowOne = false;
   this.pushWordsDoThisSecond(grid, newRemainder, rowIndex+1, false)
@@ -284,23 +255,16 @@ return grid
 
 //doesn't fit in slot
 else{
-  //the right hand word is bigger than the available space
+  //!!!LOOK INTO THIS!
   if(this.characterMovedToBottom){
     horizontalCursorPosition = 5
-    //verticalCursorPosition = verticalCursorPosition + 10
-
   }
   this.characterMovedToBottom = ""
-  //drawGrid(HEIGHT, WIDTH)
-  //this.pushWordsDoThisSecond(grid, [""], rowIndex+1, false)
 }
-  //drawGrid(HEIGHT, WIDTH) 
-  this.pushWordsDoThisSecond(grid, [""], rowIndex+1, false)
-  return grid
+  
+this.pushWordsDoThisSecond(grid, [""], rowIndex+1, false)
+return grid
 }
-
-
-
 
 fillNullWithDashOnRow(RowIndex, arrayToChange) {
 for (let i = 0; i < WIDTH; i++) {
