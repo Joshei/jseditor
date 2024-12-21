@@ -167,21 +167,6 @@ lastLineWorkings(grid, rowIndex){
         verticalCursorPosition = verticalCursorPosition + 10;
       } 
 
-      if(rowIndex > HEIGHT - 2){
-        //this.lastLineWorkings(grid, rowIndex)
-        //drawGrid(HEIGHT, WIDTH)
-        //this.displayGridAndCursor()
-         //return grid
-      }
-
-      if(rowIndex > HEIGHT - 1){
-        //this.lastLineWorkings(grid, rowIndex)
-        //drawGrid(HEIGHT, WIDTH)
-        //this.displayGridAndCursor()
-         return grid
-      }
-    
-    
     let firstIndexOfNullOnBottomRow = bottomRow.indexOf("-");
     let firstIndexOfSpaceOnBottomRow = bottomRow.indexOf(" ");
     
@@ -202,28 +187,11 @@ lastLineWorkings(grid, rowIndex){
     }
     const [firstWordBottomRow, indexAfterLeftWordBottomRow] = this.splitAtIndex(bottomRow, lastIndexOfFirstWord);
     let lastIndexOffirstWordBottomRow = firstWordBottomRow.length
+    //important setting
     let LengthOfNullsAndSpacesAfterFirstLeftMostCharacter = 0
-    
-    //Top row is last row
-    
-    ////!!!!!!!!!!!!!!!!!!!!!!!!!!
-    ////get next dash or space after word on left - bottom row
-    //for(let i = lastIndexOfFirstWord ; i < WIDTH; i++){
-    // if (grid[rowIndex+2][i] != "-" &&  grid[rowIndex+2][i] != " "){
-    //       break
-    // }
-    // LengthOfNullsAndSpacesBeforeLeftMostCharacter++
-    //}
-
-
-    //CHECK FOR DOUBLE CHARACTER ON LEFT, IS WRAPPING FROM RIGHT!
-
+    //because this code does not have a row below it, it is bottom row
     if(rowIndex != HEIGHT-1){
 
-      
-
-
-    //!!!!CHECK THESE VALUES : A
     for(let i =  lastIndexOffirstWordBottomRow ; i <WIDTH-1 ; i++){
       //if (grid[rowIndex+2][i] != "-" &&  grid[rowIndex+2][i] != " ")
       if (grid[rowIndex][i] != "-" )
@@ -232,39 +200,21 @@ lastLineWorkings(grid, rowIndex){
       }
       LengthOfNullsAndSpacesAfterFirstLeftMostCharacter++
      }
-    }else{
-
-      //this.lastLineWorkings(grid, rowIndex)
     }
-
-     //drawGrid(HEIGHT, WIDTH)
-     
     
-     //there are back to back characters on bottom row
+     //no space, so do next row with recursion
      if(LengthOfNullsAndSpacesAfterFirstLeftMostCharacter === 0){
-      //??????????
       this.pushWordsDoThisSecond(grid, [""], rowIndex+1, false)
       return grid
      }
-     //LengthOfNullsAndSpacesBeforeLeftMostCharacter = 9
     //will word fit below in the spaces and nulls that are before the next real character
     if(lengthOfRightWordAtRowOne < LengthOfNullsAndSpacesAfterFirstLeftMostCharacter && 
-      //!!!!!!
+      //
+      // WHAT IF WORD HAS NO LENGTH
+      //
       lengthOfRightWordAtRowOne > 0){
-      //CHECK SITUATION IN PUSHROWRIGHT - DON'T PUSH
-
       let combined = []
 
-      //add extra character from insert
-      for(let i = 1; i<lengthOfRightWordAtRowOne+1 ; i++ ){
-        //grid[rowIndex+1][i] = topRow[WIDTH-i]
-      }
-      
-    ///////////////////////////////////////////
-
-    //characters will be moved from top to bottom, the final right side has empty
-    //elements that are not assigned yer
-    
     //!!!!!NO LEFT CHARACTERS AFTER LEFT WORD
      const [removeThis, charactersAfterLeftWordOnBottomRow] = this.splitAtIndex(indexAfterLeftWordBottomRow, lengthOfRightWordAtRowOne );
     //put row together
