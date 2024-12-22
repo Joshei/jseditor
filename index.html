@@ -37,7 +37,7 @@
   // The grid, last row is a padding for recursion. 
   let gridArray = [
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, "1", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, "2", DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
-    ["3", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
+    ["3", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, "1" ],
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
       
@@ -268,10 +268,9 @@
     Recursive.LastRowIndexToPushOn = -1
     }
 
-    //gridArray = Recursive.pushWordsDoThisSecond(gridArray, [""], verticalCursorPosition/10, true)
+    
     gridArray = Recursive.pushWordsDoThisSecond(gridArray, [""], 0, true)
-    //drawGrid(HEIGHT, WIDTH)
-      
+   
     drawGrid(HEIGHT, WIDTH)
      Recursive.displayGridAndCursor() 
         

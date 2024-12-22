@@ -105,16 +105,7 @@ lastLineWorkings(grid, rowIndex){
    return grid
 }
 
-//8/13/24
-//over border in middle
-//right on row end without pushing
-//three pushes at one time.+
-//top row
-//CHECK FULL ROWS/
- 
- 
-
-// oon last line
+  //12/22/24
   pushWordsDoThisSecond(grid, newRemainder, rowIndex, fromIndex)
   {
 
@@ -243,6 +234,8 @@ lastLineWorkings(grid, rowIndex){
     
   }
 
+  //when 
+  //ready to move to slot below
   if( TwoOrMoreCharactersAtRightWordAtRowOne ){
   horizontalCursorPosition = 0
   horizontalCursorPosition = horizontalCursorPosition = ((lengthOfRightWordAtRowOne + 1) * 5)
@@ -267,6 +260,8 @@ else{
 this.pushWordsDoThisSecond(grid, [""], rowIndex+1, false)
 return grid
 }
+
+
 
 fillNullWithDashOnRow(RowIndex, arrayToChange) {
 for (let i = 0; i < WIDTH; i++) {
@@ -463,7 +458,7 @@ return grid
 
   else{
   grid[rowIndex] = combine
-  grid[rowIndex][WIDTH-1] = ""
+  //grid[rowIndex][WIDTH-1] = ""
 
   grid[rowIndex+1] = [...bottomWholeRowExceptFinalRow, ...bottomRowLeftmostCharacter]
   //this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex+1, columnIndex, grid)
