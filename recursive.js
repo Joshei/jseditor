@@ -240,12 +240,14 @@ lastLineWorkings(grid, rowIndex){
   if(lengthOfRightWordAtRowOne > LengthOfNullsAndSpacesAfterFirstLeftMostCharacter && lengthOfRightWordAtRowOne != 0 && lengthOfRightWordAtRowOne != -1){
 
     horizontalCursorPosition = 10
+    
   }
 
   if( TwoOrMoreCharactersAtRightWordAtRowOne ){
   horizontalCursorPosition = 0
   horizontalCursorPosition = horizontalCursorPosition = ((lengthOfRightWordAtRowOne + 1) * 5)
-  verticalCursorPosition = verticalCursorPosition + 10
+  //verticalCursorPosition = verticalCursorPosition + 10
+ 
   }
   TwoOrMoreCharactersAtRightWordAtRowOne = false;
   this.pushWordsDoThisSecond(grid, newRemainder, rowIndex+1, false)
@@ -423,20 +425,54 @@ return grid
   let bottomRow = grid[rowIndex+2]
   let bottomRowLeftmostCharacter = bottomRow[0]
   //take left most character from top row
-  let [frontCharactersTopRow, topWithoutFrontCharacters] = this.splitAtIndex(topRow, columnIndex + 1) ;
+  let [frontCharactersTopRow, topWithoutFrontCharacters] = this.splitAtIndex(topRow, columnIndex) ;
   //remove characters from right hand side
   let [left, topRightWithoutDeletedCharacter] = this.splitAtIndex(topWithoutFrontCharacters, 1) ;
   //get character on next (bottom) row, first column
   let [bottomLeftmostCharacter, bottomWholeRowExceptFinalRow] = this.splitAtIndex(middleRow, 1) ;
-  //creates top row using first character from next row
-  let combine = [...frontCharactersTopRow, ...topRightWithoutDeletedCharacter, ...bottomLeftmostCharacter ]
-  grid[rowIndex] = combine
-  grid[rowIndex+1] = [...bottomWholeRowExceptFinalRow, ...bottomRowLeftmostCharacter]
   
+  //let [left, right] = this.splitAtIndex(frontCharactersTopRow, 1) ;
+  //creates top row using first character from next row
+
+  //take frontcharacterstoprow and remove rightmost character
+  let [frontCharactersTopRowLessFrontChar, right] = this.splitAtIndex(frontCharactersTopRow, (frontCharactersTopRow.length)-1) ;
+  let combine = [...frontCharactersTopRowLessFrontChar, ...topWithoutFrontCharacters, ...bottomLeftmostCharacter ]
+
+ 
+  /////////////////////////////   CODE FOR DELETE ON HORIZONTAL POSITION ZERO
+  
+  if (horizontalCursorPosition/5 === 0){
+
+    let bottomRow = grid[rowIndex]
+    //strip off front character
+    //get leftmost character
+    //replace right most character with left lower character
+    grid[rowIndex-1][WIDTH-1] = grid[rowIndex][0]
+    //remove left most character
+    //let [left, right] = this.splitAtIndex(frontCharactersTopRow, (frontCharactersTopRow.length)-1) ;
+    //let combine2 = [...frontCharactersTopRowLessFrontChar, ...bottomRow]
+    //let [newRow, remainder] = this.splitAtIndex(combine2, (WIDTH-1)) ;
+    
+    //grid[rowIndex] = newRow
+    this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex-1, columnIndex, grid)
+    return grid
+  }
+
+//////////////////////////////////////
+
+
+  else{
+  grid[rowIndex] = combine
+  grid[rowIndex][WIDTH-1] = ""
+
+  grid[rowIndex+1] = [...bottomWholeRowExceptFinalRow, ...bottomRowLeftmostCharacter]
+  //this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex+1, columnIndex, grid)
+  
+  CursorMovements.cursorLeft()
   this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex+1, columnIndex, grid)
   //CursorMovements.cursorLeft()
   return grid
-  }
+  }}
 
 
   removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(amtOfUsedRows, rowIndex, columnIndex, grid){
@@ -466,6 +502,11 @@ return grid
     let [topRowWithoutLeftCharacter, topRightMostCharacters] = this.splitAtIndex(topRow, 1) ;
    //recreate the top with the next row's left character, if last row replace last character with null.
     const [BottomRowLeftCharacter, BottomRowWithoutLeftCharacter] = this.splitAtIndex(botttomRow, 1)
+    
+     //this is for character on leftmost character
+
+
+    //this is for character not on leftmost character
     let newTopRow = [...topRightMostCharacters, ...leftCharacterofBottomRow]
     grid[rowIndex+1] = newTopRow
     
