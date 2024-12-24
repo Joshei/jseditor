@@ -15,6 +15,7 @@ class RecursiveClass {
   this.bottomRow = -1
   this.bottomRowFromLastRound = []
   this.characterMovedToBottom = ""
+  this.tracksRow = 0;
 }
 
   deleteRow(arr, rowNumber) 
@@ -315,6 +316,7 @@ return grid
 
 divideNextRowsAsNeeded(grid, colIndex, rowIndex, remainder){
   
+  this.tracksRow++;
   //if(rowIndex > HEIGHT-1){
   //  return grid
   //}
@@ -362,11 +364,16 @@ divideNextRowsAsNeeded(grid, colIndex, rowIndex, remainder){
     buildNextRow = [...BottomRightRow, ...topRow ]
     //alert("rem")
   }
-  const [oneRowsWorth, newRemainder] = this.splitAtIndex(buildNextRow, WIDTH)
-  grid[rowIndex] = oneRowsWorth
+  //const [oneRowsWorth, newRemainder] = this.splitAtIndex(buildNextRow, WIDTH)
+  
   drawGrid(HEIGHT, WIDTH)
-  this.divideNextRowsAsNeeded(grid, colIndex, rowIndex+1, newRemainder)
+  this.divideNextRowsAsNeeded(grid, colIndex, rowIndex+1, remainder)
+  grid[rowIndex+1] = buildNextRow
 
+}
+
+for(let i = colIndex+1; i < WIDTH ; i++){
+  grid[rowIndex][i] = "-"
 }
 }
 
@@ -399,6 +406,7 @@ divideNextRowsAsNeeded(grid, colIndex, rowIndex, remainder){
   //mid line (4) :    *    
   //last line (4) :   *
   
+
   pressedEnter(
     grid,
     rowIndex,
