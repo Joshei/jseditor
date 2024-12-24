@@ -1,3 +1,19 @@
+
+
+
+const [removeThis, charactersAfterLeftWordOnBottomRow] = this.splitAtIndex(indexAfterLeftWordBottomRow, lengthOfRightWordAtRowOne );
+//put row together
+combined = [...wordAtEndOfRowOne, ...firstWordBottomRow, ...charactersAfterLeftWordOnBottomRow]
+let lengthOfFirstWordBottomRow = firstWordBottomRow.length
+//get remainder for next recursive call - this is one rows worth
+const [newBottomRow, newRemainder] = this.splitAtIndex(combined, WIDTH);
+
+
+
+
+
+
+
 pushWordsDoThisSecond(grid, remainder, rowIndex, fromIndex)
   {
 

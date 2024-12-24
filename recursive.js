@@ -309,18 +309,88 @@ if(leftTopRowLength === 0){
 return grid
 }
 
+///TRYING ENTER, LOOK AT RIGHT END POINTS AND OTHERWISE TEST.
+
+
+
+divideNextRowsAsNeeded(grid, colIndex, rowIndex, remainder){
+  
+  //if(rowIndex > HEIGHT-1){
+  //  return grid
+  //}
+  let bottomRow = grid[rowIndex]
+  let topRow = grid[rowIndex+1]
+  //let oneRowsWorth = []
+  
+  //Every runt hrough 
+  //gets right hand side
+
+  //taking the rigth top row and adhering it in front of next bottom row, pushes row right
+  //loop
+  //remove right end and adhere again
+  let [bottomLeftRow, BottomRightRow] = this.splitAtIndex(  bottomRow, colIndex);
+
+ 
+  if (rowIndex > HEIGHT-2){
+
+    grid[rowIndex] = BottomRightRow 
+    for (let i = BottomRightRow.length ; i < WIDTH ; i++ ){
+    grid[rowIndex][i] = "Z"
+
+    }
+     return grid
+  }
+  else{
+    //this woks:
+    //bottom left pushes to right, bottom right pushes to left
+    let [leftTopRow, rightTopRow] = this.splitAtIndex(  topRow, colIndex);
+  
+
+  //grid[rowIndex] = leftTopRow
+  //grid[rowIndex+1] = bottomRow
+  //lengthy
+  //order here?
+
+  //!!!!empty arrays possible
+  let buildNextRow = ""
+  if(remainder == ""){
+    buildNextRow = [...BottomRightRow, ...topRow ]
+  }
+  else{
+
+    //bottom right pushes to next bottopm left
+    buildNextRow = [...BottomRightRow, ...topRow ]
+    //alert("rem")
+  }
+  const [oneRowsWorth, newRemainder] = this.splitAtIndex(buildNextRow, WIDTH)
+  grid[rowIndex] = oneRowsWorth
+  drawGrid(HEIGHT, WIDTH)
+  this.divideNextRowsAsNeeded(grid, colIndex, rowIndex+1, newRemainder)
+
+}
+}
+
   //just copy from above to below check for this case to do last row 
   copyTopColumnToBottomColumn(counter, grid, colIndex, rowIndex){
-   if(counter === rowIndex){
-      this.divideFirstRowAsNeeded(grid, colIndex, rowIndex)
+   //if(counter === rowIndex){
+      
+    
+    //this.divideFirstRowAsNeeded(grid, colIndex, rowIndex)
+      //this.divideNextRowsAsNeeded(grid, colIndex, rowIndex, [""])
+      
+      
       return grid
-    }
-    let stringOfGrid = grid[counter]
-    grid[counter+1] = stringOfGrid
+    //}
+
+    //let stringOfGrid = grid[counter]
+    //grid[counter+1] = stringOfGrid
    drawGrid(HEIGHT, WIDTH)
-   this.copyTopColumnToBottomColumn(counter-1, grid, colIndex, rowIndex)
+   //this.copyTopColumnToBottomColumn(counter-1, grid, colIndex, rowIndex)
    return grid
   }
+
+
+
 
   //TESTED: 11/20/24
   //looked over, could check 1 variable, 2 variable, 3 variable; on each line.  Because, I understood the 
@@ -338,8 +408,9 @@ return grid
     counter
     ) {
       this.createRow(grid, rowIndex)
-      this.copyTopColumnToBottomColumn(counter, grid, colIndex, rowIndex)
+      this.divideNextRowsAsNeeded(grid, colIndex, rowIndex, [""])
     //set for cursor on next line, first column
+    drawGrid(HEIGHT, WIDTH)
     horizontalCursorPosition = 0
     verticalCursorPosition = verticalCursorPosition + 10
     drawCursor(
@@ -354,6 +425,10 @@ return grid
   // middle row: *
   // last row:   *
   
+
+
+
+
   deleteAndPullCharacters(remainder, rowIndex, columnIndex,  grid) {
     //On last row
     if(rowIndex > HEIGHT - 2){
@@ -456,6 +531,8 @@ return grid
 //////////////////////////////////////
 
 
+
+
   else{
   grid[rowIndex] = combine
   //grid[rowIndex][WIDTH-1] = ""
@@ -471,7 +548,7 @@ return grid
 
 
   removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(amtOfUsedRows, rowIndex, columnIndex, grid){
-    
+    return grid
     //counter is used to check for proper amount of lines to be run
     this.counterOfRows++
     if (rowIndex === HEIGHT-2){
