@@ -520,7 +520,8 @@ return grid
     //deletes last character row above, and puts cursor there    this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex-1, columnIndex, grid)
     ////Primary call.
 
-    this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex - 2, columnIndex, grid)
+    //this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex - 2, columnIndex, grid)
+    this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex, columnIndex, grid)
     return grid
   }
 
@@ -545,6 +546,7 @@ return grid
 
 
   //12/25/24: looks okay
+  //rowindex is getting bigger than where it was set at -2, so needs to be changed down two
   removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(amtOfUsedRows, rowIndex, columnIndex, grid){
 
 
@@ -553,8 +555,17 @@ return grid
     }
     if(rowIndex > HEIGHT-2){
 
+      //return grid;
+    }
+    if(rowIndex > HEIGHT - 1){
+
       return grid;
     }
+    if(rowIndex < 1){
+      return grid;
+    }
+
+    
     //
     // return grid
     //counter is used to check for proper amount of lines to be run
@@ -568,9 +579,11 @@ return grid
       return grid
     }
     
-    let topRow = grid[rowIndex+1]
+    let topRow = grid[rowIndex-1]
     //row after top row
-    let bottomRow = grid[rowIndex+2]
+    let bottomRow = grid[rowIndex]
+
+
     //get left most characeter, on bottomrow. Is put on most right side of row above it, top row.
     //drawGrid(HEIGHT, WIDTH)
     let leftCharacterofBottomRow = bottomRow[0]
