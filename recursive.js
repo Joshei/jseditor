@@ -16,6 +16,7 @@ class RecursiveClass {
   this.bottomRowFromLastRound = []
   this.characterMovedToBottom = ""
   this.tracksRow = 0;
+  this.hasBeenInZeroHorizPosition = false;
 }
 
   deleteRow(arr, rowNumber) 
@@ -36,7 +37,7 @@ class RecursiveClass {
     //grid.push(["!", "!", "!", "!", "!", "!" , "!", "!", "!", "!", "!", "!", "!" , "!", "!", "!", "!", "!", "!", "!" , "!", "!","!", "!", "!", "!", "!" , "!" ]),
     //important, allows new line to display in the drawgrid
     HEIGHT++ 
-    drawGrid(HEIGHT, WIDTH)
+    //drawGrid(HEIGHT, WIDTH)
     return grid
     
   }
@@ -118,12 +119,12 @@ lastLineWorkings(grid, rowIndex){
     }
     
     if(rowIndex === HEIGHT-1 && grid[HEIGHT-1][WIDTH-1] != "-"){
-      //looking if there is a character of bottom row, if so create a row and continue with push
+      //looki (toprow)ng if there is a character of bottom row, if so just lowest row create a row and continue with push
       if(grid[HEIGHT-1][WIDTH-1] != DASH ){
       this.createRow(grid, rowIndex)
      
       horizontalCursorPosition = horizontalCursorPosition + 5 
-      drawGrid(HEIGHT, WIDTH)
+      //drawGrid(HEIGHT, WIDTH)
       
       }
     }
@@ -194,7 +195,7 @@ lastLineWorkings(grid, rowIndex){
      }
     }
     
-     //no space, so do next row with recursion
+     //no space, so ju (toprow)st lowest row do next row with recursion
      if(LengthOfNullsAndSpacesAfterFirstLeftMostCharacter === 0){
       this.pushWordsDoThisSecond(grid, [""], rowIndex+1, false)
       return grid
@@ -313,7 +314,7 @@ return grid
 ///TRYING ENTER, LOOK AT RIGHT END POINTS AND OTHERWISE TEST.
 
 
-
+//12/23/24
 divideNextRowsAsNeeded(grid, colIndex, rowIndex, remainder){
   
   this.tracksRow++;
@@ -340,64 +341,44 @@ divideNextRowsAsNeeded(grid, colIndex, rowIndex, remainder){
     grid[rowIndex][i] = "Z"
 
     }
-     return grid
+    drawGrid(HEIGHT, WIDTH)
+    return grid
   }
   else{
-    //this woks:
-    //bottom left pushes to right, bottom right pushes to left
+    //splits top in to at cursor
     let [leftTopRow, rightTopRow] = this.splitAtIndex(  topRow, colIndex);
   
-
-  //grid[rowIndex] = leftTopRow
-  //grid[rowIndex+1] = bottomRow
-  //lengthy
-  //order here?
-
-  //!!!!empty arrays possible
   let buildNextRow = ""
+  //happens on first loop
   if(remainder == ""){
+    //sets this to upper-lines right side and the entire lower
     buildNextRow = [...BottomRightRow, ...topRow ]
   }
   else{
 
-    //bottom right pushes to next bottopm left
-    buildNextRow = [...BottomRightRow, ...topRow ]
-    //alert("rem")
+    //For example: 24 characters from right are added first time through (colindex = 4), there are an additional 28 characters added, so there are 52 chartacters. Each time looped a (lower) row of columns of 28 characters are added  and  a row is taken off the front by width, leaving the remainder that is always 24, and the intial amount of characters stays the same.  The WIDTH is taken from the front.  The row is added at the end.  So the characters shift, always taken using LIFO -  last in, fist in. 
+    //remainder will always br 24 (colindex = 4), and top is always 28.
+
+    //or more succint:
+    //add extra characters than repeat: put on and take off a row  - LIFO.  "last in first out"
+    buildNextRow = [...remainder, ...topRow ]
+
   }
-  //const [oneRowsWorth, newRemainder] = this.splitAtIndex(buildNextRow, WIDTH)
   
+  const [oneRowsWorth, newRemainder] = this.splitAtIndex(buildNextRow, WIDTH)
+  grid[rowIndex+1] = oneRowsWorth 
   drawGrid(HEIGHT, WIDTH)
-  this.divideNextRowsAsNeeded(grid, colIndex, rowIndex+1, remainder)
-  grid[rowIndex+1] = buildNextRow
+  //puts extra in remainder - starts at loop 1
+  this.divideNextRowsAsNeeded(grid, colIndex, rowIndex+1, newRemainder)
+ 
 
 }
 
-for(let i = colIndex+1; i < WIDTH ; i++){
-  grid[rowIndex][i] = "-"
+for(let i = colIndex; i < WIDTH ; i++){
+  grid[verticalCursorPosition/10][i] = "Q"
 }
+return grid
 }
-
-  //just copy from above to below check for this case to do last row 
-  copyTopColumnToBottomColumn(counter, grid, colIndex, rowIndex){
-   //if(counter === rowIndex){
-      
-    
-    //this.divideFirstRowAsNeeded(grid, colIndex, rowIndex)
-      //this.divideNextRowsAsNeeded(grid, colIndex, rowIndex, [""])
-      
-      
-      return grid
-    //}
-
-    //let stringOfGrid = grid[counter]
-    //grid[counter+1] = stringOfGrid
-   drawGrid(HEIGHT, WIDTH)
-   //this.copyTopColumnToBottomColumn(counter-1, grid, colIndex, rowIndex)
-   return grid
-  }
-
-
-
 
   //TESTED: 11/20/24
   //looked over, could check 1 variable, 2 variable, 3 variable; on each line.  Because, I understood the 
@@ -407,6 +388,7 @@ for(let i = colIndex+1; i < WIDTH ; i++){
   //last line (4) :   *
   
 
+  //12/25/24: looks okay
   pressedEnter(
     grid,
     rowIndex,
@@ -418,7 +400,7 @@ for(let i = colIndex+1; i < WIDTH ; i++){
       this.createRow(grid, rowIndex)
       this.divideNextRowsAsNeeded(grid, colIndex, rowIndex, [""])
     //set for cursor on next line, first column
-    drawGrid(HEIGHT, WIDTH)
+    //drawGrid(HEIGHT, WIDTH)
     horizontalCursorPosition = 0
     verticalCursorPosition = verticalCursorPosition + 10
     drawCursor(
@@ -459,7 +441,7 @@ for(let i = colIndex+1; i < WIDTH ; i++){
     grid[rowIndex] = combine
     grid[rowIndex][WIDTH-1] = "-"
     
-      drawGrid(HEIGHT, WIDTH)
+      //drawGrid(HEIGHT, WIDTH)
       return grid
     }
 
@@ -475,7 +457,7 @@ for(let i = colIndex+1; i < WIDTH ; i++){
       let [bottomRowLeftCharacter, bottomRowRightSide] = this.splitAtIndex(bottomRow, 1) ;
       grid[rowIndex+1] = bottomRowRightSide
       grid[rowIndex+1][WIDTH-1] = "-"
-      drawGrid(HEIGHT, WIDTH)
+      //drawGrid(HEIGHT, WIDTH)
       return grid
     }
     let counterOfUsedRows = 0
@@ -484,7 +466,7 @@ for(let i = colIndex+1; i < WIDTH ; i++){
     counterOfUsedRows = 0
     //determine how many rows of code with non null right side
     while(true){
-      //now on last row so leave
+      //now on last row so just lowest row  (toprow)leave
       if(rowIndexInLoop == HEIGHT){
         break
       }
@@ -519,27 +501,33 @@ for(let i = colIndex+1; i < WIDTH ; i++){
  
   /////////////////////////////   CODE FOR DELETE ON HORIZONTAL POSITION ZERO
   
+
+  
   if (horizontalCursorPosition/5 === 0){
 
     let bottomRow = grid[rowIndex]
     //strip off front character
     //get leftmost character
     //replace right most character with left lower character
-    grid[rowIndex-1][WIDTH-1] = grid[rowIndex][0]
+    ////grid[rowIndex-1][WIDTH-1] = grid[rowIndex][0]
     //remove left most character
     //let [left, right] = this.splitAtIndex(frontCharactersTopRow, (frontCharactersTopRow.length)-1) ;
     //let combine2 = [...frontCharactersTopRowLessFrontChar, ...bottomRow]
     //let [newRow, remainder] = this.splitAtIndex(combine2, (WIDTH-1)) ;
     
     //grid[rowIndex] = newRow
-    this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex-1, columnIndex, grid)
+
+    //deletes last character row above, and puts cursor there    this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex-1, columnIndex, grid)
+    ////Primary call.
+
+    this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex - 2, columnIndex, grid)
     return grid
   }
 
 //////////////////////////////////////
 
 
-
+  //set rowindex to none at funciton param,eters and set in function too.
 
   else{
   grid[rowIndex] = combine
@@ -549,14 +537,26 @@ for(let i = colIndex+1; i < WIDTH ; i++){
   //this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex+1, columnIndex, grid)
   
   CursorMovements.cursorLeft()
+  //Primary call.
   this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex+1, columnIndex, grid)
   //CursorMovements.cursorLeft()
   return grid
   }}
 
 
+  //12/25/24: looks okay
   removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(amtOfUsedRows, rowIndex, columnIndex, grid){
-    return grid
+
+
+    if(rowIndex === -2 && columnIndex === 0){
+      return grid
+    }
+    if(rowIndex > HEIGHT-2){
+
+      return grid;
+    }
+    //
+    // return grid
     //counter is used to check for proper amount of lines to be run
     this.counterOfRows++
     if (rowIndex === HEIGHT-2){
@@ -564,16 +564,17 @@ for(let i = colIndex+1; i < WIDTH ; i++){
       let [bottomRowLeftCharacter, bottomRowRightSide] = this.splitAtIndex(bottomRow, 1) ;
       grid[rowIndex+1] = bottomRowRightSide
       grid[rowIndex+1][WIDTH-1] = "-"
-      drawGrid(HEIGHT, WIDTH)
+      //drawGrid(HEIGHT, WIDTH)
       return grid
     }
+    
     let topRow = grid[rowIndex+1]
     //row after top row
-    let botttomRow = grid[rowIndex+2]
+    let bottomRow = grid[rowIndex+2]
     //get left most characeter, on bottomrow. Is put on most right side of row above it, top row.
-    drawGrid(HEIGHT, WIDTH)
-    let leftCharacterofBottomRow = botttomRow[0]
-    //on final row and was a deletion so append a null character to end
+    //drawGrid(HEIGHT, WIDTH)
+    let leftCharacterofBottomRow = bottomRow[0]
+    //on final row (toprow) and was a deletion so just lowest row append a null character to end
     if(rowIndex == HEIGHT-1){
       leftCharacterofBottomRow = "-"
     }
@@ -581,20 +582,50 @@ for(let i = colIndex+1; i < WIDTH ; i++){
     //let [topLeftmostCharacter, topRowWithoutLeftCharacter] = this.splitAtIndex(topRow, WIDTH-2) ;
     let [topRowWithoutLeftCharacter, topRightMostCharacters] = this.splitAtIndex(topRow, 1) ;
    //recreate the top with the next row's left character, if last row replace last character with null.
-    const [BottomRowLeftCharacter, BottomRowWithoutLeftCharacter] = this.splitAtIndex(botttomRow, 1)
+    const [BottomRowLeftCharacter, BottomRowWithoutLeftCharacter] = this.splitAtIndex(bottomRow, 1)
+    //let [removedFirstCharTopRow, topRowWithoutFirstChar] = this.splitAtIndex(bottomRow, 1) ;
+    let [topRowWithoutFinalCharacter, topRightCharacterRemoved] = this.splitAtIndex(topRow, topRow.length-1) ;
     
-     //this is for character on leftmost character
+///////////
+      //runs each call with rowindex
+     if(horizontalCursorPosition/5  === 0 && horizontalCursorPosition/5 === columnIndex && rowIndex != 0  && rowIndex+2 === verticalCursorPosition/10){
 
+      
+      //
+      //if(this.hasBeenInZeroHorizPosition === true){
+      //
+      //}else{
+      //
+      //}
 
+      
+      // let topRow = grid[rowIndex-1]
+      // //row after top row
+      // let bottomRow = grid[rowIndex]
+      // //let newTopRow = [...topRightMostCharacters, ...leftCharacterofBottomRow]
+      // let [topRowFirstChar, topRowWithoutWithoutFirstCharacter] = this.splitAtIndex(topRow, 1)
+      // this.hasBeenInZeroHorizPosition = true;
+      //let [topRowWithoutFinalCharacter, topRightCharacterRemoved] = this.splitAtIndex(topRow, topRow.length-1) ;
+      let newTopRow = [...topRowWithoutFinalCharacter, ...leftCharacterofBottomRow]
+      grid[rowIndex+1] = newTopRow
+      this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(amtOfUsedRows, rowIndex+1, columnIndex,  grid)
+      return grid
+
+/////////////
+     }else{
+    //remove last char from toprow put in newtoprow
     //this is for character not on leftmost character
+    //let newTopRow = [...topRightMostCharacters, ...leftCharacterofBottomRow]
     let newTopRow = [...topRightMostCharacters, ...leftCharacterofBottomRow]
     grid[rowIndex+1] = newTopRow
-    
+     }
     //tail end recursion, runs until end of rows, or dash is encountered after number of rows
+    //Secondary call.
     this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(amtOfUsedRows, rowIndex+1, columnIndex,  grid)
     //rest this global value, for use next time
     this.counterOfRows = 0
     return grid
+    
  }
 
   displayGridAndCursor(){
@@ -752,7 +783,7 @@ for(let i = colIndex+1; i < WIDTH ; i++){
        }
 
       
-        this.pushRowRight(rowIndex+1, colIndex, grid, leftOver)
+        //this.pushRowRight(rowIndex+1, colIndex, grid, leftOver)
         //On zero, because there will be a cursorright
         
         //THIS PROBABLY SHOULD BE USED:
@@ -815,7 +846,7 @@ pushRowRight(rowIndex, colIndex, grid, leftOverChar){
   if(grid[rowIndex][WIDTH-1] === "-"){//} && remainingChars === "" || remainingChars == [""] ){
     return grid
   }
-    drawGrid(HEIGHT, WIDTH)
+    //drawGrid(HEIGHT, WIDTH)
     //push next row to right(one position)  recursion
     
     this.pushRowRight(rowIndex+1, 0, grid, remainingChars)

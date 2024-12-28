@@ -42,13 +42,13 @@
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, "4" , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, "5" , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
      
-    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
-    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
-    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, "Y" ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, "Z", "0", "1" ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, "2" ],
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
      
-    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, "6" , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
-    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, "6" , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, "B" ],
+    ["A", "B", "C", DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
          
@@ -180,19 +180,19 @@
     let eventKeyCode = ""
     let down = false
     let inserting = document.getElementById('insert')
-     inserting.addEventListener("click", function(){
-      if (insertOn === true){
-      insertOn = false}
-      else{
-      insertOn = true
-      }
-        if(insertOn == true){
-          document.getElementById("insert").innerHTML = "Insert"
-        }else{
-          document.getElementById("insert").innerHTML = "On Top"
+    //  inserting.addEventListener("click", function(){
+    //   if (insertOn === true){
+    //   insertOn = false}
+    //   else{
+    //   insertOn = true
+    //   }
+    //     if(insertOn == true){
+    //       document.getElementById("insert").innerHTML = "Insert"
+    //     }else{
+    //       document.getElementById("insert").innerHTML = "On Top"
           
-        }
-    })
+    //     }
+    // })
     document.body.addEventListener('keydown', function(e){
    
     keyState[e.keyCode || e.which] = true;
@@ -240,11 +240,14 @@
     else if(gKey === 'Delete' )
     {
        //console.log("nested array3: ", gridArray);
+       //gridArray = Recursive.deleteAndPullCharacters([], verticalCursorPosition/10, horizontalCursorPosition/5,  gridArray)
        gridArray = Recursive.deleteAndPullCharacters([], verticalCursorPosition/10, horizontalCursorPosition/5,  gridArray)
     }
     else if(gKey === "Backspace"){
 
       //gridArray = Recursive.deleteCharacterWithoutPull(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey)
+      gridArray = Recursive.deleteAndPullCharacters([], verticalCursorPosition/10, horizontalCursorPosition/5,  gridArray)
+ 
     }
     else if(gKey == "Enter"){
       gridArray = Recursive.pressedEnter(gridArray, verticalCursorPosition/10, horizontalCursorPosition/5, "",true, HEIGHT-1)
