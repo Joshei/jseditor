@@ -593,7 +593,7 @@ return grid
      if(horizontalCursorPosition/5  === 0 && horizontalCursorPosition/5 === columnIndex && rowIndex != 0  && rowIndex+2 === verticalCursorPosition/10){
 
       
-      //
+      ///
       //if(this.hasBeenInZeroHorizPosition === true){
       //
       //}else{
