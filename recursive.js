@@ -570,9 +570,9 @@ return grid
       return grid
     }
     
-    let topRow = grid[rowIndex+1]
+    let topRow = grid[rowIndex-1]
     //row after top row
-    let bottomRow = grid[rowIndex+2]
+    let bottomRow = grid[rowIndex]
     //get left most characeter, on bottomrow. Is put on most right side of row above it, top row.
     //drawGrid(HEIGHT, WIDTH)
     let leftCharacterofBottomRow = bottomRow[0]
@@ -590,17 +590,8 @@ return grid
     
 ///////////
       //runs each call with rowindex
-     if(horizontalCursorPosition/5  === 0 && horizontalCursorPosition/5 === columnIndex && rowIndex != 0  && rowIndex+2 === verticalCursorPosition/10){
+     if(horizontalCursorPosition/5  === 0 && horizontalCursorPosition/5 === columnIndex && rowIndex != 0  && rowIndex === verticalCursorPosition/10){
 
-      
-      //
-      //if(this.hasBeenInZeroHorizPosition === true){
-      //
-      //}else{
-      //
-      //}
-
-      
       // let topRow = grid[rowIndex-1]
       // //row after top row
       // let bottomRow = grid[rowIndex]
@@ -609,7 +600,8 @@ return grid
       // this.hasBeenInZeroHorizPosition = true;
       //let [topRowWithoutFinalCharacter, topRightCharacterRemoved] = this.splitAtIndex(topRow, topRow.length-1) ;
       let newTopRow = [...topRowWithoutFinalCharacter, ...leftCharacterofBottomRow]
-      grid[rowIndex+1] = newTopRow
+      grid[rowIndex-1] = newTopRow
+      drawGrid(HEIGHT, WIDTH)
       this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(amtOfUsedRows, rowIndex+1, columnIndex,  grid)
       return grid
 
@@ -617,9 +609,8 @@ return grid
      }else{
     //remove last char from toprow put in newtoprow
     //this is for character not on leftmost character
-    //let newTopRow = [...topRightMostCharacters, ...leftCharacterofBottomRow]
     let newTopRow = [...topRightMostCharacters, ...leftCharacterofBottomRow]
-    grid[rowIndex+1] = newTopRow
+    grid[rowIndex-1] = newTopRow
      }
     //tail end recursion, runs until end of rows, or dash is encountered after number of rows
     //Secondary call.
