@@ -1,11 +1,9 @@
-//pushWordsDoThisSecond, SHOULD BE OKAY, CHECK.  READ CODE TOMORROW.  
-//NEXT SESSION, TEST FOR pushWordsDoThisSecond RECURSION, AND THERE IS A DIFFERENT VERSION ON GITHUB TOO
-//THIS VERSION FITS THE CODE IN A LOWER LEFT HAND SLOT.
-//THE GITHUB VERSION PUSHES TEXT INTO NEXT LINE.
-//USE BOTH
-//ANY PROBLEMS, USE VERSION: CURSORS.
 
-//8/26/24 (5:22 PM): insert and pushrow looking good.  PushWord next.  React/css tomorrow.
+//1/1/25 : 4:51 PM
+/*
+I have been working on deleteRow and removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide.  The text was moving two steps per press, so i refactored code and solved the problem, being that the character should be considered on the left side, not on the right side, when split is used!  What is left is to test its regular usage and testing of enterPressed. Check bottom delete and deletes on the leftmost characters and than test this too. MAKE SURE FUNCTION CALLS ARE ACTIVE, SOME FUNCTIONALITY IS COMMENTED OUT.
+*/
+
 class RecursiveClass {
   constructor() {
   this.counterOfRows = 0
