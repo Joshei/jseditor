@@ -496,26 +496,51 @@ return grid
   //!!!!!----!!!!!
   //let [frontCharactersTopRow, topWithoutFrontCharacters] = this.splitAtIndex(topRow, columnIndex+1) ;
 
+  //split at cursor - current character is on left
   let [topLeftRow, topRightRow] = this.splitAtIndex(topRow, columnIndex) ;
-  //remove front character from right hand side
-  let [left, topRightRowNoFirstCharacter] = this.splitAtIndex(topRightRow, 1) ;
-  let combine2 = [...topRightRowNoFirstCharacter, ...topLeftRow]
+  
+  //let [topLeftRemovedChar, topRightWithoutFirstChar] = this.splitAtIndex(topRow, 1) ;
+  
 
-  grid[rowIndex] = combine2
+
+  //
+  //let [topLeftRemovedChar, topRightWithoutFirstChar] = this.splitAtIndex(topRightRow, 1) ;
+
+
+
+  //remove front character from right hand side -  
+  let [leftOnecharacterDiscarded, topRightRowNoFirstCharacter] = this.splitAtIndex(topRightRow, 0) ;
+  let combine5 = [...topLeftRow, ...topRightRowNoFirstCharacter]
+  
+  //topRightRow in 512
+  
+  grid[rowIndex] = combine5
+  grid[rowIndex][WIDTH] = "P"
+
+  //drawGrid[HEIGHT-1][WIDTH-1]
+  
+  //grid[rowIndex][WIDTH-1] = "P"
+
+  // let [OnecharacterDiscarded, anotherTopRightRowNoFirstCharacter] = this.splitAtIndex(topRightRowNoFirstCharacter, 1) ;
+  // //let combine2 = [...topRightRowNoFirstCharacter, ...topLeftRow]
+  // let combine3 = [...topRightRowNoFirstCharacter, ...anotherTopRightRowNoFirstCharacter]
+  // grid[rowIndex] = combine3
+  // grid[rowIndex][WIDTH-1] = "P"
   //get character on next (bottom) row, first column
   //let [bottomLeftmostCharacter, bottomRowExceptFirstChar] = this.splitAtIndex(bottomRow, 2) ;
-  let [bottomLeftSideBeforeColumnAmt, bottomRightSideBeforeColumnAmt] = this.splitAtIndex(bottomRow, columnIndex + 1) ;
+  ////let [bottomLeftSideBeforeColumnAmt, bottomRightSideBeforeColumnAmt] = this.splitAtIndex(bottomRow, 1) ;
   //let [left, right] = this.splitAtIndex(frontCharactersTopRow, 1) ;
   //creates top row using first character from next row
 
   //take frontcharacterstoprow and remove rightmost character
-  //let [frontCharactersTopRowLessFrontChar, right] = this.splitAtIndex(frontCharactersTopRow, ((frontCharactersTopRow.length)+1)) ;
-  let higherCombine = [...topRightRowNoFirstCharacter, ...bottomLeftSideBeforeColumnAmt ]
-  //let Abovecombine = [...topLeftRow]
-  for(let i = higherCombine.length ; i< WIDTH ; i++){
-    //grid[rowIndex][i] = "V"
-  }
-  grid[rowIndex] = higherCombine
+  //let higherCombine = [...topRightRowNoFirstCharacter, ...bottomLeftSideBeforeColumnAmt ]
+  // let higherCombine = [...topRightRow, ...bottomLeftSideBeforeColumnAmt ]
+  // //let Abovecombine = [...topLeftRow]
+  // for(let i = higherCombine.length ; i< WIDTH ; i++){
+  //   //grid[rowIndex][i] = "V"
+  // }
+  // grid[rowIndex] = higherCombine
+ 
   
  
   /////////////////////////////   CODE FOR DELETE ON HORIZONTAL POSITION ZERO
@@ -555,6 +580,7 @@ return grid
   CursorMovements.cursorLeft()
   //Primary call.
   //this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex+1, columnIndex, grid)
+  this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex+1, columnIndex, grid)
   //CursorMovements.cursorLeft()
   return grid
   // }
