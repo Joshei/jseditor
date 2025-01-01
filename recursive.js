@@ -514,8 +514,13 @@ return grid
   
   //topRightRow in 512
   
+  
+  
+  
   grid[rowIndex] = combine5
   grid[rowIndex][WIDTH] = "P"
+
+
 
   //drawGrid[HEIGHT-1][WIDTH-1]
   
@@ -594,8 +599,7 @@ return grid
     //return grid
     // if(rowIndex === -2 && columnIndex === 0){
     //   return grid
-    // }
-    // if(rowIndex > HEIGHT-2){
+    // }    // if(rowIndex > HEIGHT-2){
 
     //   return grid;
     // }
