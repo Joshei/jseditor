@@ -496,7 +496,7 @@ return grid
   //!!!!!----!!!!!
   //let [frontCharactersTopRow, topWithoutFrontCharacters] = this.splitAtIndex(topRow, columnIndex+1) ;
 
-  //split at cursor - current character is on left
+  //split at cursor - current character is
   let [topLeftRow, topRightRow] = this.splitAtIndex(topRow, columnIndex) ;
   
   //let [topLeftRemovedChar, topRightWithoutFirstChar] = this.splitAtIndex(topRow, 1) ;
@@ -515,7 +515,7 @@ return grid
   //topRightRow in 512
   
   grid[rowIndex] = combine5
-  grid[rowIndex][WIDTH] = "P"
+  grid[rowIndex][WIDTH-1] = "P"
 
   //drawGrid[HEIGHT-1][WIDTH-1]
   
