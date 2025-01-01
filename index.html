@@ -241,12 +241,12 @@
     {
        //console.log("nested array3: ", gridArray);
        //gridArray = Recursive.deleteAndPullCharacters([], verticalCursorPosition/10, horizontalCursorPosition/5,  gridArray)
-       gridArray = Recursive.deleteAndPullCharacters([], verticalCursorPosition/10, horizontalCursorPosition/5,  gridArray)
+       gridArray = Recursive.deleteAndPullCharacters(1, verticalCursorPosition/10, horizontalCursorPosition/5,  gridArray)
     }
     else if(gKey === "Backspace"){
 
       //gridArray = Recursive.deleteCharacterWithoutPull(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey)
-      gridArray = Recursive.deleteAndPullCharacters([], verticalCursorPosition/10, horizontalCursorPosition/5,  gridArray)
+      gridArray = Recursive.deleteAndPullCharacters(1, verticalCursorPosition/10, horizontalCursorPosition/5,  gridArray)
  
     }
     else if(gKey == "Enter"){
@@ -258,7 +258,7 @@
       //Recursive.LastCharacetrOnLineEndThereAlready = true
     }
     if(insertOn === true){
-      gridArray = Recursive.initialInsertDoThisFirst(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey)
+      //gridArray = Recursive.initialInsertDoThisFirst(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey)
       
       //drawGrid(HEIGHT, WIDTH)
       

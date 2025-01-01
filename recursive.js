@@ -420,6 +420,7 @@ return grid
 
 
   deleteAndPullCharacters(remainder, rowIndex, columnIndex,  grid) {
+    
     //On last row
     if(rowIndex > HEIGHT - 2){
     let topRow = grid[rowIndex]
@@ -492,7 +493,8 @@ return grid
   let bottomRow = grid[rowIndex+2]
   let bottomRowLeftmostCharacter = bottomRow[0]
   //take left most character from top row
-  let [frontCharactersTopRow, topWithoutFrontCharacters] = this.splitAtIndex(topRow, columnIndex) ;
+  //!!!!!----!!!!!
+  let [frontCharactersTopRow, topWithoutFrontCharacters] = this.splitAtIndex(topRow, columnIndex+1) ;
   //remove characters from right hand side
   let [left, topRightWithoutDeletedCharacter] = this.splitAtIndex(topWithoutFrontCharacters, 1) ;
   //get character on next (bottom) row, first column
@@ -502,7 +504,7 @@ return grid
   //creates top row using first character from next row
 
   //take frontcharacterstoprow and remove rightmost character
-  let [frontCharactersTopRowLessFrontChar, right] = this.splitAtIndex(frontCharactersTopRow, (frontCharactersTopRow.length)-1) ;
+  let [frontCharactersTopRowLessFrontChar, right] = this.splitAtIndex(frontCharactersTopRow, ((frontCharactersTopRow.length)+1)) ;
   let combine = [...frontCharactersTopRowLessFrontChar, ...topWithoutFrontCharacters, ...bottomLeftmostCharacter ]
 
  
@@ -558,7 +560,7 @@ return grid
   //12/25/24: looks okay
   removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(amtOfUsedRows, rowIndex, columnIndex, grid){
 
-    // //return grid
+    //return grid
     // if(rowIndex === -2 && columnIndex === 0){
     //   return grid
     // }
