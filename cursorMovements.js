@@ -6,7 +6,7 @@ class CursorMovementsClass {
       {
         return
       }
-      if (horizontalCursorPosition >= (WIDTH-1)*5){
+      if (horizontalCursorPosition >= (WIDTH)*5){
         horizontalCursorPosition = 0
         verticalCursorPosition = verticalCursorPosition + 10
       }else{
@@ -39,6 +39,7 @@ class CursorMovementsClass {
       verticalCursorPosition = verticalCursorPosition - 10
       
     }
+    //check this - 1 here
     cursorDown() {
       if (verticalCursorPosition  >= (HEIGHT-1)*10) {
       verticalCursorPosition = (HEIGHT-1)*10

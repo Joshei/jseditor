@@ -507,7 +507,7 @@ return grid
 
 
   //remove front character from right hand side -  
-  let [leftOnecharacterDiscarded, topRightRowNoFirstCharacter] = this.splitAtIndex(topRightRow, 0) ;
+  let [leftOnecharacterDiscarded, topRightRowNoFirstCharacter] = this.splitAtIndex(topRightRow, 1) ;
   let combine5 = [...topLeftRow, ...topRightRowNoFirstCharacter]
   
   //topRightRow in 512
@@ -516,7 +516,7 @@ return grid
   
   
   grid[rowIndex] = combine5
-  grid[rowIndex][WIDTH] = "P"
+  //grid[rowIndex][WIDTH] = "P"
 
 
 
@@ -648,7 +648,7 @@ return grid
     //let [topLeftmostCharacter, topRowWithoutLeftCharacter] = this.splitAtIndex(topRow, WIDTH-2) ;
     
     //remove
-    let [topRowWithoutLeftCharacter, topRightMostCharacters] = this.splitAtIndex(topRow, 1) ;
+    let [topRowWithoutLeftCharacter, topRightMostCharacters] = this.splitAtIndex(topRow, 0) ;
    //recreate the top with the next row's left character, if last row replace last character with null.
     const [BottomRowLeftCharacter, BottomRowWithoutLeftCharacter] = this.splitAtIndex(bottomRow, 1)
     //let [removedFirstCharTopRow, topRowWithoutFirstChar] = this.splitAtIndex(bottomRow, 1) ;
