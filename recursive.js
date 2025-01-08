@@ -432,7 +432,7 @@ return grid
       let [leftCharacterRightRow, topRowRightOfColumnWithoutFirstCharacter] = this.splitAtIndex(topRowRightOfColumn, 1) ;
       combine = [...topRowLeftOfColumn, ...topRowRightOfColumnWithoutFirstCharacter]
       
-      CursorMovements.cursorLeft()
+      //CursorMovements.cursorLeft()
   }
   //column index is on most left space - on last line, of course.
   else{
@@ -512,10 +512,20 @@ return grid
   
   //topRightRow in 512
   
+  if(horizontalCursorPosition/5  === 0 && horizontalCursorPosition/5 === columnIndex && rowIndex != 0  && rowIndex === verticalCursorPosition/10){
+
+    let character = grid[rowIndex][0]
+    grid[rowIndex-1][WIDTH-1] = character
+
+
+  }
   
   
   
   grid[rowIndex] = combine5
+
+
+  
   //grid[rowIndex][WIDTH] = "P"
 
 
@@ -580,7 +590,7 @@ return grid
 
   
   
-  CursorMovements.cursorLeft()
+  //CursorMovements.cursorLeft()
   //Primary call.
   //this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex+1, columnIndex, grid)
   this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex+1, columnIndex, grid)
@@ -654,31 +664,36 @@ return grid
     //let [removedFirstCharTopRow, topRowWithoutFirstChar] = this.splitAtIndex(bottomRow, 1) ;
     let [topRowWithoutFinalCharacter, topRightCharacterRemoved] = this.splitAtIndex(topRow, topRow.length-1) ;
     
-///////////
-      //runs each call with rowindex
-     if(horizontalCursorPosition/5  === 0 && horizontalCursorPosition/5 === columnIndex && rowIndex != 0  && rowIndex === verticalCursorPosition/10){
+///////////FOR DELETE A IN ABC, IN DELETE FUNCTION ACCESS ROW ABOVE, AND SET LAST CHARACTER TO !TOP ROWS! LEFT CHARACTER
+///////////USE : IF COLUMPOS = 0 AND ROWPOS ISNT 0
 
-      // let topRow = grid[rowIndex-1]
-      // //row after top row
-      // let bottomRow = grid[rowIndex]
-      // //let newTopRow = [...topRightMostCharacters, ...leftCharacterofBottomRow]
-      // let [topRowFirstChar, topRowWithoutWithoutFirstCharacter] = this.splitAtIndex(topRow, 1)
-      // this.hasBeenInZeroHorizPosition = true;
-      //let [topRowWithoutFinalCharacter, topRightCharacterRemoved] = this.splitAtIndex(topRow, topRow.length-1) ;
-      let newTopRow = [...topRowWithoutFinalCharacter, ...leftCharacterofBottomRow]
-      grid[rowIndex-1] = newTopRow
-      drawGrid(HEIGHT, WIDTH)
-      this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(amtOfUsedRows, rowIndex+1, columnIndex,  grid)
-      return grid
+
+
+      //runs each call with rowindex
+    //  if(horizontalCursorPosition/5  === 0 && horizontalCursorPosition/5 === columnIndex && rowIndex != 0  && rowIndex-1 === verticalCursorPosition/10){
+
+    //   // let topRow = grid[rowIndex-1]
+    //   // //row after top row
+    //   // let bottomRow = grid[rowIndex]
+    //   // //let newTopRow = [...topRightMostCharacters, ...leftCharacterofBottomRow]
+    //   // let [topRowFirstChar, topRowWithoutWithoutFirstCharacter] = this.splitAtIndex(topRow, 1)
+    //   // this.hasBeenInZeroHorizPosition = true;
+    //   //let [topRowWithoutFinalCharacter, topRightCharacterRemoved] = this.splitAtIndex(topRow, topRow.length-1) ;
+    //   let newTopRow = [...topRightMostCharacters, ...leftCharacterofBottomRow]
+    //   grid[rowIndex-1] = newTopRow
+    //   drawGrid(HEIGHT, WIDTH)
+    //   this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(amtOfUsedRows, rowIndex+1, columnIndex,  grid)
+    //   return grid
 
 /////////////
-     }else{
+//     }else{
     //remove last char from toprow put in newtoprow
     //this is for character not on leftmost character
     let newTopRow = [...topRightMostCharacters, ...leftCharacterofBottomRow]
     //let newTopRow = [...topRightMostCharacters]
     grid[rowIndex-1] = newTopRow
-     }
+    grid[rowIndex] = [...BottomRowWithoutLeftCharacter]
+//     }
     //tail end recursion, runs until end of rows, or dash is encountered after number of rows
     //Secondary call.
     this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(amtOfUsedRows, rowIndex+1, columnIndex,  grid)
