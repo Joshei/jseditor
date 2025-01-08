@@ -495,7 +495,7 @@ return grid
   //let [frontCharactersTopRow, topWithoutFrontCharacters] = this.splitAtIndex(topRow, columnIndex+1) ;
 
   //split at cursor - current character is on left
-  let [topLeftRow, topRightRow] = this.splitAtIndex(topRow, columnIndex) ;
+  let [topLeftRow, topRightRow] = this.splitAtIndex(topRow, columnIndex - 1) ;
   
   //let [topLeftRemovedChar, topRightWithoutFirstChar] = this.splitAtIndex(topRow, 1) ;
   
