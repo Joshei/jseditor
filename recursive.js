@@ -512,13 +512,14 @@ return grid
   
   //topRightRow in 512
   
+
   if(horizontalCursorPosition/5  === 0 && horizontalCursorPosition/5 === columnIndex && rowIndex != 0  && rowIndex === verticalCursorPosition/10){
+
 
     let character = grid[rowIndex][0]
     grid[rowIndex-1][WIDTH-1] = character
-
-
   }
+  
   
   
   
@@ -526,73 +527,8 @@ return grid
 
 
   
-  //grid[rowIndex][WIDTH] = "P"
-
-
-
-  //drawGrid[HEIGHT-1][WIDTH-1]
-  
-  //grid[rowIndex][WIDTH-1] = "P"
-
-  // let [OnecharacterDiscarded, anotherTopRightRowNoFirstCharacter] = this.splitAtIndex(topRightRowNoFirstCharacter, 1) ;
-  // //let combine2 = [...topRightRowNoFirstCharacter, ...topLeftRow]
-  // let combine3 = [...topRightRowNoFirstCharacter, ...anotherTopRightRowNoFirstCharacter]
-  // grid[rowIndex] = combine3
-  // grid[rowIndex][WIDTH-1] = "P"
-  //get character on next (bottom) row, first column
-  //let [bottomLeftmostCharacter, bottomRowExceptFirstChar] = this.splitAtIndex(bottomRow, 2) ;
-  ////let [bottomLeftSideBeforeColumnAmt, bottomRightSideBeforeColumnAmt] = this.splitAtIndex(bottomRow, 1) ;
-  //let [left, right] = this.splitAtIndex(frontCharactersTopRow, 1) ;
-  //creates top row using first character from next row
-
-  //take frontcharacterstoprow and remove rightmost character
-  //let higherCombine = [...topRightRowNoFirstCharacter, ...bottomLeftSideBeforeColumnAmt ]
-  // let higherCombine = [...topRightRow, ...bottomLeftSideBeforeColumnAmt ]
-  // //let Abovecombine = [...topLeftRow]
-  // for(let i = higherCombine.length ; i< WIDTH ; i++){
-  //   //grid[rowIndex][i] = "V"
-  // }
-  // grid[rowIndex] = higherCombine
  
   
- 
-  /////////////////////////////   CODE FOR DELETE ON HORIZONTAL POSITION ZERO
-  
-
-  
-  // if (horizontalCursorPosition/5 === 0){
-
-  //   let bottomRow = grid[rowIndex]
-  //   //strip off front character
-  //   //get leftmost character
-  //   //replace right most character with left lower character
-  //   ////grid[rowIndex-1][WIDTH-1] = grid[rowIndex][0]
-  //   //remove left most character
-  //   //let [left, right] = this.splitAtIndex(frontCharactersTopRow, (frontCharactersTopRow.length)-1) ;
-  //   //let combine2 = [...frontCharactersTopRowLessFrontChar, ...bottomRow]
-  //   //let [newRow, remainder] = this.splitAtIndex(combine2, (WIDTH-1)) ;
-    
-  //   //grid[rowIndex] = newRow
-
-  //   //deletes last character row above, and puts cursor there    this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex-1, columnIndex, grid)
-  //   ////Primary call.
-
-    
-  //   //this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex - 2, columnIndex, grid)
-  //   this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex, columnIndex, grid)
-  //   return grid
-  // }
-
-//////////////////////////////////////
-
-
-  //set rowindex to none at funciton param,eters and set in function too.
-
-  
-  
-  //CursorMovements.cursorLeft()
-  //Primary call.
-  //this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex+1, columnIndex, grid)
   this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(counterOfUsedRows, rowIndex+1, columnIndex, grid)
   //CursorMovements.cursorLeft()
   return grid
@@ -670,30 +606,30 @@ return grid
 
 
       //runs each call with rowindex
-    //  if(horizontalCursorPosition/5  === 0 && horizontalCursorPosition/5 === columnIndex && rowIndex != 0  && rowIndex-1 === verticalCursorPosition/10){
+     if(horizontalCursorPosition/5  === 0 && horizontalCursorPosition/5 === columnIndex && rowIndex != 0  && rowIndex-1 === verticalCursorPosition/10){
 
-    //   // let topRow = grid[rowIndex-1]
-    //   // //row after top row
-    //   // let bottomRow = grid[rowIndex]
-    //   // //let newTopRow = [...topRightMostCharacters, ...leftCharacterofBottomRow]
-    //   // let [topRowFirstChar, topRowWithoutWithoutFirstCharacter] = this.splitAtIndex(topRow, 1)
-    //   // this.hasBeenInZeroHorizPosition = true;
-    //   //let [topRowWithoutFinalCharacter, topRightCharacterRemoved] = this.splitAtIndex(topRow, topRow.length-1) ;
-    //   let newTopRow = [...topRightMostCharacters, ...leftCharacterofBottomRow]
-    //   grid[rowIndex-1] = newTopRow
-    //   drawGrid(HEIGHT, WIDTH)
-    //   this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(amtOfUsedRows, rowIndex+1, columnIndex,  grid)
-    //   return grid
+      // let topRow = grid[rowIndex-1]
+      // //row after top row
+      // let bottomRow = grid[rowIndex]
+      // //let newTopRow = [...topRightMostCharacters, ...leftCharacterofBottomRow]
+      // let [topRowFirstChar, topRowWithoutWithoutFirstCharacter] = this.splitAtIndex(topRow, 1)
+      // this.hasBeenInZeroHorizPosition = true;
+      //let [topRowWithoutFinalCharacter, topRightCharacterRemoved] = this.splitAtIndex(topRow, topRow.length-1) ;
+      let newTopRow = [...topRightMostCharacters, ...leftCharacterofBottomRow]
+      grid[rowIndex-1] = newTopRow
+      drawGrid(HEIGHT, WIDTH)
+      this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(amtOfUsedRows, rowIndex+1, columnIndex,  grid)
+      return grid
 
 /////////////
-//     }else{
+     }else{
     //remove last char from toprow put in newtoprow
     //this is for character not on leftmost character
     let newTopRow = [...topRightMostCharacters, ...leftCharacterofBottomRow]
     //let newTopRow = [...topRightMostCharacters]
     grid[rowIndex-1] = newTopRow
     grid[rowIndex] = [...BottomRowWithoutLeftCharacter]
-//     }
+     }
     //tail end recursion, runs until end of rows, or dash is encountered after number of rows
     //Secondary call.
     this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(amtOfUsedRows, rowIndex+1, columnIndex,  grid)
