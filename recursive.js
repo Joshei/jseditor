@@ -390,19 +390,12 @@ class RecursiveClass {
 
   ///TRYING ENTER, LOOK AT RIGHT END POINTS AND OTHERWISE TEST.
 
-  //12/23/24
+  //1/22/25- Looks good.
   divideNextRowsAsNeeded(grid, colIndex, rowIndex, remainder) {
     this.tracksRow++;
-    //if(rowIndex > HEIGHT-1){
-    //  return grid
-    //}
     let bottomRow = grid[rowIndex];
     let topRow = grid[rowIndex + 1];
-    //let oneRowsWorth = []
-
-    //Every runt hrough
-    //gets right hand side
-
+    
     //taking the rigth top row and adhering it in front of next bottom row, pushes row right
     //loop
     //remove right end and adhere again
@@ -410,15 +403,12 @@ class RecursiveClass {
       bottomRow,
       colIndex
     );
-
     if (rowIndex > HEIGHT - 2) {
-      grid[rowIndex] = BottomRightRow;
-      for (let i = BottomRightRow.length; i < WIDTH; i++) {
-        grid[rowIndex][i] = "Z";
-      }
       drawGrid(HEIGHT, WIDTH);
       return grid;
-    } else {
+    } 
+    else
+    {
       //splits top in to at cursor
       let [leftTopRow, rightTopRow] = this.splitAtIndex(topRow, colIndex);
 
@@ -428,10 +418,6 @@ class RecursiveClass {
         //sets this to upper-lines right side and the entire lower
         buildNextRow = [...BottomRightRow, ...topRow];
       } else {
-        //For example: 24 characters from right are added first time through (colindex = 4), there are an additional 28 characters added, so there are 52 chartacters. Each time looped a (lower) row of columns of 28 characters are added  and  a row is taken off the front by width, leaving the remainder that is always 24, and the intial amount of characters stays the same.  The WIDTH is taken from the front.  The row is added at the end.  So the characters shift, always taken using LIFO -  last in, fist in.
-        //remainder will always br 24 (colindex = 4), and top is always 28.
-
-        //or more succint:
         //add extra characters than repeat: put on and take off a row  - LIFO.  "last in first out"
         buildNextRow = [...remainder, ...topRow];
       }
@@ -447,7 +433,7 @@ class RecursiveClass {
     }
 
     for (let i = colIndex; i < WIDTH; i++) {
-      grid[verticalCursorPosition / 10][i] = "Q";
+      grid[verticalCursorPosition / 10][i] = "-";
     }
     return grid;
   }
