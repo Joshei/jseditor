@@ -2,7 +2,7 @@
 /*
 I have been working on deleteRow and removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide.  The text was moving two steps per press, so i refactored code and solved the problem, being that the character should be considered on the left side, not on the right side, when split is used!  What is left is to test its regular usage and testing of enterPressed. Check bottom delete and deletes on the leftmost characters and than test this too. MAKE SURE FUNCTION CALLS ARE ACTIVE, SOME FUNCTIONALITY IS COMMENTED OUT.
 */
-
+/*  */
 class RecursiveClass {
   constructor() {
     this.counterOfRows = 0;
@@ -137,7 +137,6 @@ class RecursiveClass {
 
   //12/22/24
   pushWordsDoThisSecond(grid, newRemainder, rowIndex, fromIndex) {
-    
     //
     //for putting cursor on row 2 for lefthand words greater than 2
     let TwoOrMoreCharactersAtRightWordAtRowOne = false;
@@ -148,11 +147,9 @@ class RecursiveClass {
 
     // on last row and last column and space does not have a dash
     if (rowIndex === HEIGHT - 1 && grid[HEIGHT - 1][WIDTH - 1] != "-") {
-     
-        this.createRow(grid, rowIndex);
-        //posiiton cursor on next row, first character
-        horizontalCursorPosition = horizontalCursorPosition + 5;
-        
+      this.createRow(grid, rowIndex);
+      //posiiton cursor on next row, first character
+      horizontalCursorPosition = horizontalCursorPosition + 5;
     }
     //let holdthis = rowIndex + 1;
     //let wasVariablegridCheck = [];
@@ -167,22 +164,16 @@ class RecursiveClass {
       return grid;
     }
 
-
-
-
     //check for two characters and check for last line
     //last null or space of top row
     let holder = this.getLastSpaceOrNull(grid, topRow);
     //wasVariablegridCheck = holder.leftSide;
     wordAtEndOfRowOne = holder.rightSide;
 
-
-
     let lengthOfRightWordAtRowOne = wordAtEndOfRowOne.length;
     if (lengthOfRightWordAtRowOne >= 2) {
       TwoOrMoreCharactersAtRightWordAtRowOne = true;
     }
-
 
     //On last line, has no dashes on both sides - calls special function
     if (
@@ -203,9 +194,6 @@ class RecursiveClass {
     //   //horizontalCursorPosition = 0;
     //   //verticalCursorPosition = verticalCursorPosition + 10;
     // }
-
-
-
 
     //seperate bottom into two pieces
     let firstIndexOfNullOnBottomRow = bottomRow.indexOf("-");
@@ -232,7 +220,6 @@ class RecursiveClass {
       lastIndexOfFirstWord
     );
 
-
     //dtermine null and spaces after left word
     let lengthOffirstWordBottomRow = firstWordBottomRow.length;
     //important setting
@@ -240,19 +227,18 @@ class RecursiveClass {
     //because this code does not have a row below it, it is bottom row
     if (rowIndex != HEIGHT - 1) {
       for (let i = lengthOffirstWordBottomRow; i < WIDTH - 1; i++) {
-       if (grid[rowIndex][i] != "-") {
+        if (grid[rowIndex][i] != "-") {
           break;
         }
         LengthOfNullsAndSpacesAfterFirstLeftMostCharacter++;
       }
     }
-   //no room for push, continue with next row
+    //no room for push, continue with next row
     if (LengthOfNullsAndSpacesAfterFirstLeftMostCharacter === 0) {
       this.pushWordsDoThisSecond(grid, [""], rowIndex + 1, false);
       return grid;
     }
-    
-    
+
     //create combined row
     //will word fit below in the spaces and nulls that are available after first characters
     if (
@@ -274,7 +260,6 @@ class RecursiveClass {
         ...firstWordBottomRow,
         ...charactersAfterLeftWordOnBottomRow,
       ];
-
 
       //set bottom row
       //length of bottom row word on left
@@ -299,8 +284,6 @@ class RecursiveClass {
         grid[rowIndex - 1][i] = "-";
       }
 
-
-
       //!BELOW IS CURSOR ADJUSTMENT!
       //adjust cursor
       //was not enough room for right lower row to push into
@@ -314,16 +297,14 @@ class RecursiveClass {
         alert("can't fit");
       }
 
-     
       //ready to move to slot below
       //????
       if (TwoOrMoreCharactersAtRightWordAtRowOne) {
         horizontalCursorPosition = 0;
         horizontalCursorPosition = horizontalCursorPosition =
           (lengthOfRightWordAtRowOne + 1) * 5;
-          console.log("called 2 pr more")
+        console.log("called 2 pr more");
         //verticalCursorPosition = verticalCursorPosition + 10
-        
       }
       TwoOrMoreCharactersAtRightWordAtRowOne = false;
       this.pushWordsDoThisSecond(grid, newRemainder, rowIndex + 1, false);
@@ -344,8 +325,6 @@ class RecursiveClass {
     return grid;
   }
 
-  
-  
   fillNullWithDashOnRow(RowIndex, arrayToChange) {
     for (let i = 0; i < WIDTH; i++) {
       if (
@@ -425,7 +404,7 @@ class RecursiveClass {
     this.tracksRow++;
     let bottomRow = grid[rowIndex];
     let topRow = grid[rowIndex + 1];
-    
+
     //taking the rigth top row and adhering it in front of next bottom row, pushes row right
     //loop
     //remove right end and adhere again
@@ -436,9 +415,7 @@ class RecursiveClass {
     if (rowIndex > HEIGHT - 2) {
       drawGrid(HEIGHT, WIDTH);
       return grid;
-    } 
-    else
-    {
+    } else {
       //splits top in to at cursor
       let [leftTopRow, rightTopRow] = this.splitAtIndex(topRow, colIndex);
 
@@ -529,11 +506,12 @@ class RecursiveClass {
           columnIndex
         );
         //topRowRightOfColumn - remove first character
-        let [lastRowLeftChracterRemoved, lastRowRightSideAfterFirstColumn] = this.splitAtIndex(topRowRightOfColumn, 1);
+        let [lastRowLeftChracterRemoved, lastRowRightSideAfterFirstColumn] =
+          this.splitAtIndex(topRowRightOfColumn, 1);
         combine = [...lastRowRightSideAfterFirstColumn];
         //CursorMovements.cursorLeft();
         //grid[verticalCursorPosition / 10][horizontalCursorPosition / 5] = "P";
-        grid[HEIGHT-2][WIDTH-1] = grid[HEIGHT-1][0]
+        grid[HEIGHT - 2][WIDTH - 1] = grid[HEIGHT - 1][0];
       }
 
       grid[rowIndex] = combine;
@@ -590,7 +568,7 @@ class RecursiveClass {
       [topLeftRow, topRightRow] = this.splitAtIndex(topRow, columnIndex);
     } else {
       CursorMovements.cursorLeft();
-      [topLeftRow, topRightRow] =  this.splitAtIndex(topRow, columnIndex - 1);
+      [topLeftRow, topRightRow] = this.splitAtIndex(topRow, columnIndex - 1);
       //CursorMovements.cursorLeft();
     }
     //let [topLeftRemovedChar, topRightWithoutFirstChar] = this.splitAtIndex(topRow, 1) ;
@@ -919,12 +897,6 @@ class RecursiveClass {
   //11/23/24 - looks good - SEE CHECK THIS
   //stops inserting when last character is a dash!
   pushRowRight(rowIndex, colIndex, grid, leftOverChar) {
-    //in pushword, in increase verticalcursorposition back 10
-
-    //verticalCursorPosition = 0
-    //horizontalCursorPosition = 0
-    //verticalCursorPosition = verticalCursorPosition + 10
-    //horizontalCursorPosition = horizontalCursorPosition+10
     if (rowIndex > HEIGHT - 1) {
       return grid;
     }
@@ -949,17 +921,12 @@ class RecursiveClass {
     if (grid[rowIndex][0] != "-") {
       this.characterMovedToBottom = grid[rowIndex][0];
     }
-
     //!!!!!!!!!!CHECK THIS!!!!!!!!!!
     if (grid[rowIndex][WIDTH - 1] === "-") {
       //} && remainingChars === "" || remainingChars == [""] ){
       return grid;
     }
-    //drawGrid(HEIGHT, WIDTH)
-    //push next row to right(one position)  recursion
-
     this.pushRowRight(rowIndex + 1, 0, grid, remainingChars);
-
     return grid;
   }
 }
