@@ -137,6 +137,8 @@ class RecursiveClass {
 
   //12/22/24
   pushWordsDoThisSecond(grid, newRemainder, rowIndex, fromIndex) {
+    
+    //
     //for putting cursor on row 2 for lefthand words greater than 2
     let TwoOrMoreCharactersAtRightWordAtRowOne = false;
 
@@ -144,38 +146,45 @@ class RecursiveClass {
       return grid;
     }
 
-    // on last row and last column and space does not have a dast
+    // on last row and last column and space does not have a dash
     if (rowIndex === HEIGHT - 1 && grid[HEIGHT - 1][WIDTH - 1] != "-") {
-      //looki (toprow)ng if there is a character of bottom row, if so just lowest row create a row and continue with push
-      if (grid[HEIGHT - 1][WIDTH - 1] != DASH) {
+     
         this.createRow(grid, rowIndex);
-
+        //posiiton cursor on next row, first character
         horizontalCursorPosition = horizontalCursorPosition + 5;
-        //drawGrid(HEIGHT, WIDTH)
-      }
+        
     }
-    //There was conditions here for access, on previous versions - 12/21/24
-    let holdthis = rowIndex + 1;
-    let wasVariablegridCheck = [];
+    //let holdthis = rowIndex + 1;
+    //let wasVariablegridCheck = [];
     let wordAtEndOfRowOne = [];
     let topRow = grid[rowIndex - 1];
     let bottomRow = grid[rowIndex];
-    let characterCounter = 0;
+    //let characterCounter = 0;
     //has no row above it
+    //USED????
     if (rowIndex == 0) {
       this.pushWordsDoThisSecond(grid, [""], rowIndex + 1, false);
       return grid;
     }
+
+
+
+
+    //check for two characters and check for last line
+    //last null or space of top row
     let holder = this.getLastSpaceOrNull(grid, topRow);
-    wasVariablegridCheck = holder.leftSide;
+    //wasVariablegridCheck = holder.leftSide;
     wordAtEndOfRowOne = holder.rightSide;
+
+
 
     let lengthOfRightWordAtRowOne = wordAtEndOfRowOne.length;
     if (lengthOfRightWordAtRowOne >= 2) {
       TwoOrMoreCharactersAtRightWordAtRowOne = true;
     }
 
-    //On last line, this as well as above it has no dashes on both sides
+
+    //On last line, has no dashes on both sides - calls special function
     if (
       rowIndex != 0 &&
       grid[rowIndex][0] != "-" &&
@@ -186,15 +195,19 @@ class RecursiveClass {
       console.log("here");
     }
     //On last line, just top has a character on right edge, bottom has a dash, from above condition
-    else if (
-      rowIndex != 0 &&
-      grid[rowIndex - 1][WIDTH - 1] != "-" &&
-      rowIndex === HEIGHT - 1
-    ) {
-      //horizontalCursorPosition = 0;
-      //verticalCursorPosition = verticalCursorPosition + 10;
-    }
+    // else if (
+    //   rowIndex != 0 &&
+    //   grid[rowIndex - 1][WIDTH - 1] != "-" &&
+    //   rowIndex === HEIGHT - 1
+    // ) {
+    //   //horizontalCursorPosition = 0;
+    //   //verticalCursorPosition = verticalCursorPosition + 10;
+    // }
 
+
+
+
+    //seperate bottom into two pieces
     let firstIndexOfNullOnBottomRow = bottomRow.indexOf("-");
     let firstIndexOfSpaceOnBottomRow = bottomRow.indexOf(" ");
 
@@ -213,40 +226,43 @@ class RecursiveClass {
     } else {
       lastIndexOfFirstWord = firstIndexOfNullOnBottomRow;
     }
+    //Divide with farthes space or null, on bottom row.
     const [firstWordBottomRow, indexAfterLeftWordBottomRow] = this.splitAtIndex(
       bottomRow,
       lastIndexOfFirstWord
     );
-    let lastIndexOffirstWordBottomRow = firstWordBottomRow.length;
+
+
+    //dtermine null and spaces after left word
+    let lengthOffirstWordBottomRow = firstWordBottomRow.length;
     //important setting
     let LengthOfNullsAndSpacesAfterFirstLeftMostCharacter = 0;
     //because this code does not have a row below it, it is bottom row
     if (rowIndex != HEIGHT - 1) {
-      for (let i = lastIndexOffirstWordBottomRow; i < WIDTH - 1; i++) {
-        //if (grid[rowIndex+2][i] != "-" &&  grid[rowIndex+2][i] != " ")
-        if (grid[rowIndex][i] != "-") {
+      for (let i = lengthOffirstWordBottomRow; i < WIDTH - 1; i++) {
+       if (grid[rowIndex][i] != "-") {
           break;
         }
         LengthOfNullsAndSpacesAfterFirstLeftMostCharacter++;
       }
     }
-
-    //no space, so ju (toprow)st lowest row do next row with recursion
+   //no room for push, continue with next row
     if (LengthOfNullsAndSpacesAfterFirstLeftMostCharacter === 0) {
       this.pushWordsDoThisSecond(grid, [""], rowIndex + 1, false);
       return grid;
     }
-    //will word fit below in the spaces and nulls that are before the next real character
+    
+    
+    //create combined row
+    //will word fit below in the spaces and nulls that are available after first characters
     if (
+      //WHAT IF WORD HAS NO LENGTH????
       lengthOfRightWordAtRowOne <
         LengthOfNullsAndSpacesAfterFirstLeftMostCharacter &&
-      //
-      // WHAT IF WORD HAS NO LENGTH
-      //
       lengthOfRightWordAtRowOne > 0
     ) {
       let combined = [];
-
+      //characters on left bottom row, using the top's rightmost row
       const [removeThis, charactersAfterLeftWordOnBottomRow] =
         this.splitAtIndex(
           indexAfterLeftWordBottomRow,
@@ -258,18 +274,21 @@ class RecursiveClass {
         ...firstWordBottomRow,
         ...charactersAfterLeftWordOnBottomRow,
       ];
+
+
+      //set bottom row
+      //length of bottom row word on left
       let lengthOfFirstWordBottomRow = firstWordBottomRow.length;
       //get remainder for next recursive call - this is one rows worth
       const [newBottomRow, newRemainder] = this.splitAtIndex(combined, WIDTH);
 
-      //if either row above or present has a dash on ends than don't change the grid
+      //if either right row above or left bottom row calls function
+      //????
       if (
         (verticalCursorPosition / 10 > 0 &&
           grid[rowIndex - 1][WIDTH - 1] === "-") ||
         grid[rowIndex][0] === "-"
       ) {
-        //|| !(firstWordBottomRow)){
-
         this.pushWordsDoThisSecond(grid, [""], rowIndex + 1, false);
         return grid;
       }
@@ -279,8 +298,12 @@ class RecursiveClass {
       for (let i = WIDTH - lengthOfRightWordAtRowOne; i < WIDTH; i++) {
         grid[rowIndex - 1][i] = "-";
       }
+
+
+
       //!BELOW IS CURSOR ADJUSTMENT!
-      //!!!!!
+      //adjust cursor
+      //was not enough room for right lower row to push into
       if (
         lengthOfRightWordAtRowOne >
           LengthOfNullsAndSpacesAfterFirstLeftMostCharacter &&
@@ -288,19 +311,22 @@ class RecursiveClass {
         lengthOfRightWordAtRowOne != -1
       ) {
         horizontalCursorPosition = 10;
+        alert("can't fit");
       }
 
-      //when
+     
       //ready to move to slot below
+      //????
       if (TwoOrMoreCharactersAtRightWordAtRowOne) {
         horizontalCursorPosition = 0;
         horizontalCursorPosition = horizontalCursorPosition =
           (lengthOfRightWordAtRowOne + 1) * 5;
+          console.log("called 2 pr more")
         //verticalCursorPosition = verticalCursorPosition + 10
+        
       }
       TwoOrMoreCharactersAtRightWordAtRowOne = false;
       this.pushWordsDoThisSecond(grid, newRemainder, rowIndex + 1, false);
-
       return grid;
     } //ends fits in left hand slot
 
@@ -309,6 +335,7 @@ class RecursiveClass {
       //!!!LOOK INTO THIS!
       if (this.characterMovedToBottom) {
         horizontalCursorPosition = 5;
+        alert("char moved to bottom");
       }
       this.characterMovedToBottom = "";
     }
