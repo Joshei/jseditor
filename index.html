@@ -9,6 +9,7 @@
   <script src="cursorMovements.js"></script>
   <script src="recursive.js"></script>
   <link rel= 'stylesheet' href='styles.css'>
+  
   <script>
     //other classes
     const CursorMovements = new CursorMovementsClass()
@@ -16,21 +17,28 @@
     //constant height value
     let FIRSTSETHEIGHT = 200
     let DASH = '-'
+    let areDashes = true;
     </script>
+    
     <canvas
       id="canvas_id"
       width="220px"
       height=FIRSTSETHEIGHT
       style="border: 1px solid #550233"
     > </canvas>
-    <div id="xAndY"></div>
-    <div id = "stylingHere">
+    <div id="xAndY" style = "font-size:.55rem; margin-left:3rem;"></div>
+    <div style = "margin:0rem; padding:0rem;" id = "stylingHere">
       
-      <button id = "insert" >Insert</button>
-      <div id="insertMessage"></div>
+    <div style = "display:flex; margin-left:1.15rem; margin-bottom: 0rem; padding-bottom:0rem" >
+      <button id = "insert" style = "padding-top:0rem; margin-top:.25rem; width:2rem; font-size: .4rem; margin-left:20px; " >Insert</button>
+      
+      <button id = "areDashes" style = "margin-top:.25rem;  margin-left:.7rem;  font-size: .4rem; " >Show Without Dashes</button>
+      
     </div>
+    
+  </div>
   <script>
-  let horizontalCursorPosition = 0
+   let horizontalCursorPosition = 0
   let verticalCursorPosition = 0
   let MAXROWS = 15
   
@@ -59,6 +67,7 @@
     
   ];
 
+  let copyArray = []
   /*
     let gridArray = [
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
@@ -143,6 +152,8 @@
     let totalVert = extraHeightRows*10 + 200
     makeCanvas(totalVert)
     clearArray()
+    ctx.fillStyle = 'red'
+    ctx.fillText("Javascript Text Editor", 96 , 18)
     ctx.fillStyle = 'black'
     for (let i = 0; i < iValue; i++) {
     for (let j = 0; j < jValue ; j++) {
@@ -180,19 +191,70 @@
     let eventKeyCode = ""
     let down = false
     let inserting = document.getElementById('insert')
-    //  inserting.addEventListener("click", function(){
-    //   if (insertOn === true){
-    //   insertOn = false}
-    //   else{
-    //   insertOn = true
-    //   }
-    //     if(insertOn == true){
-    //       document.getElementById("insert").innerHTML = "Insert"
-    //     }else{
-    //       document.getElementById("insert").innerHTML = "On Top"
-          
-    //     }
-    // })
+    let dashing = document.getElementById('areDashes')
+    
+     inserting.addEventListener("click", function(){
+      if (insertOn === true){
+      insertOn = false}
+      else{
+      insertOn = true
+      }
+        if(insertOn == true){
+          document.getElementById("insert").innerHTML = "Insert"
+        }else{
+          document.getElementById("insert").innerHTML = "On Top"
+        }
+    })
+
+    //function changeDashes(){
+    dashing.addEventListener("click", function(){
+      if(areDashes){
+        DASH = " "
+      }else{
+        DASH = "-"
+      }
+
+     
+      //change dashes to spaces
+      if(areDashes){
+      copyArray = gridArray.map(arr => [...arr])
+      for(let i = 0; i<HEIGHT; i++){
+        for(let j = 0; j < WIDTH ; j++){
+         if ( gridArray[i][j] === "-"){
+          gridArray[i][j] = " " 
+         }
+        }
+        areDashes = !areDashes
+        //grid is built with spaces, need to retein asoriginal spaces
+      }
+    }
+    else{
+        gridArray = copyArray.map(arr => [...arr])
+        areDashes = !areDashes
+
+    }
+     
+
+
+      
+     //change spaces to dashes - can't edit matrix until changed back to dashes (above).
+     if(areDashes == true){
+          document.getElementById("areDashes").innerHTML = "Show Without Dashes"
+        }else{
+          document.getElementById("areDashes").innerHTML = "Continue Coding"
+        }
+
+      drawGrid(HEIGHT, WIDTH)
+       
+      //the dashes are spaces
+      if(!areDashes){
+    
+      }else{
+        Recursive.displayGridAndCursor()
+      }
+      
+    })
+   
     document.body.addEventListener('keydown', function(e){
    
     keyState[e.keyCode || e.which] = true;
@@ -203,6 +265,7 @@
     cursorAndFunctionCalls()
     displayCursorLocations()
     }, false)
+
     document.addEventListener('keyup', function(e){
     keyState[e.keyCode || e.which] = false;
     gKey = e.key
@@ -210,7 +273,11 @@
     down = false
     }, false)
      
-   
+   // removed from list : 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Delete'
+    const preventKeys = [
+    'Tab', 'Enter', 'Backspace', 'PageUp', 'PageDown', 'Home', 'End','Control', 'Alt', 'Meta', 'Shift'
+    ];
+    
     function displayCursorLocations(){
       let a = document.getElementById("xAndY")
       a.innerHTML = 'Horizontal: ' + horizontalCursorPosition/5 + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + 'Vertical: '+ verticalCursorPosition/10
@@ -218,6 +285,11 @@
     }
     function cursorAndFunctionCalls() {
     displayCursorLocations()
+    for (let i = 0; i < preventKeys.length;i++){
+      if( preventKeys[i] == gKey){
+        return
+      }
+    }
     //right
     if(keyState[39]){
     //?
@@ -237,6 +309,10 @@
       CursorMovements.cursorDown()
     } 
     //these are the funcitons for keystorkes other than cursor movement keys
+    else if (gKey === "-"){
+      return
+    }
+    
     else if(gKey === 'Delete' )
     {
        //console.log("nested array3: ", gridArray);
@@ -258,7 +334,7 @@
       //Recursive.LastCharacetrOnLineEndThereAlready = true
     }
     if(insertOn === true){
-      //gridArray = Recursive.initialInsertDoThisFirst(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey)
+      gridArray = Recursive.initialInsertDoThisFirst(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey)
       
       //drawGrid(HEIGHT, WIDTH)
       
@@ -273,8 +349,11 @@
     }
 
     
-    //gridArray = Recursive.pushWordsDoThisSecond(gridArray, [""], 0, true)
+    
+    
+    gridArray = Recursive.pushWordsDoThisSecond(gridArray, [""], 0, true)
    
+    
     drawGrid(HEIGHT, WIDTH)
      Recursive.displayGridAndCursor() 
         

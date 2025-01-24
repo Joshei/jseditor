@@ -144,6 +144,7 @@ class RecursiveClass {
       return grid;
     }
 
+    // on last row and last column and space does not have a dast
     if (rowIndex === HEIGHT - 1 && grid[HEIGHT - 1][WIDTH - 1] != "-") {
       //looki (toprow)ng if there is a character of bottom row, if so just lowest row create a row and continue with push
       if (grid[HEIGHT - 1][WIDTH - 1] != DASH) {
@@ -190,8 +191,8 @@ class RecursiveClass {
       grid[rowIndex - 1][WIDTH - 1] != "-" &&
       rowIndex === HEIGHT - 1
     ) {
-      horizontalCursorPosition = 0;
-      verticalCursorPosition = verticalCursorPosition + 10;
+      //horizontalCursorPosition = 0;
+      //verticalCursorPosition = verticalCursorPosition + 10;
     }
 
     let firstIndexOfNullOnBottomRow = bottomRow.indexOf("-");
@@ -316,6 +317,8 @@ class RecursiveClass {
     return grid;
   }
 
+  
+  
   fillNullWithDashOnRow(RowIndex, arrayToChange) {
     for (let i = 0; i < WIDTH; i++) {
       if (
