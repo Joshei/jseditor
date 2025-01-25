@@ -882,6 +882,8 @@ class RecursiveClass {
     return grid;
   }
 
+  
+
   checkOnLastLineSoCreateRow(grid, leftOverChar, rowIndex, colIndex) {
     //!!!!THIS VARIABLE IS NOT DEFINED OR USED ELSEWHERE!!!!!
     if (
