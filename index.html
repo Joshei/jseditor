@@ -195,25 +195,7 @@
     
     console.log("here")
      //inserting.addEventListener('pointerdown', handleInsertButtonClick)
-     dashing.addEventListener('pointerdown', handleDashesButtonClick)
-      
-     
-     
-     
-     function handleInsertButtonClick(){
-      if (insertOn === true){
-      insertOn = false}
-      else{
-      insertOn = true
-      }
-        if(insertOn == true){
-          document.getElementById("insert").innerHTML = "Insert"
-        }else{
-          document.getElementById("insert").innerHTML = "On Top"
-        }
-
-    }
-    function handleDashesButtonClick(){
+     dashing.addEventListener('pointerdown', function(){
 
       if(areDashes){
         DASH = " "
@@ -255,8 +237,27 @@
       }else{
         Recursive.displayGridAndCursor()
       }
+
+
+     })
       
+     
+     
+     
+     function handleInsertButtonClick(){
+      if (insertOn === true){
+      insertOn = false}
+      else{
+      insertOn = true
+      }
+        if(insertOn == true){
+          document.getElementById("insert").innerHTML = "Insert"
+        }else{
+          document.getElementById("insert").innerHTML = "On Top"
+        }
+
     }
+   
 
     document.body.addEventListener('keydown', function(e){
     keyState[e.keyCode || e.which] = true;
