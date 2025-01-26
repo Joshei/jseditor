@@ -64,7 +64,8 @@ class RecursiveClass {
     return grid;
   }
 
-  getLastSpaceOrNull(grid, topRow) {
+
+  getLastSpaceOrNull(grid, topRow) {  //173 GOES HERE AND WORD IS ZERO LENGHT
     //get left phrase before last dash
     //checks for either space or dash, whichever is less characters
     let lastIndexOfNullOnTopRow = topRow.lastIndexOf("-");
@@ -151,8 +152,7 @@ class RecursiveClass {
       //posiiton cursor on next row, first character
       horizontalCursorPosition = horizontalCursorPosition + 5;
     }
-    //let holdthis = rowIndex + 1;
-    //let wasVariablegridCheck = [];
+    
     let wordAtEndOfRowOne = [];
     let topRow = grid[rowIndex - 1];
     let bottomRow = grid[rowIndex];
@@ -166,7 +166,9 @@ class RecursiveClass {
 
     //check for two characters and check for last line
     //last null or space of top row
+    //HERE, NO WORD
     let holder = this.getLastSpaceOrNull(grid, topRow);
+    //~
     //wasVariablegridCheck = holder.leftSide;
     wordAtEndOfRowOne = holder.rightSide;
 
@@ -214,6 +216,7 @@ class RecursiveClass {
     } else {
       lastIndexOfFirstWord = firstIndexOfNullOnBottomRow;
     }
+    //~
     //Divide with farthes space or null, on bottom row.
     const [firstWordBottomRow, indexAfterLeftWordBottomRow] = this.splitAtIndex(
       bottomRow,
@@ -222,12 +225,13 @@ class RecursiveClass {
 
     //dtermine null and spaces after left word
     let lengthOffirstWordBottomRow = firstWordBottomRow.length;
+    //~
     //important setting
     let LengthOfNullsAndSpacesAfterFirstLeftMostCharacter = 0;
     //because this code does not have a row below it, it is bottom row
     if (rowIndex != HEIGHT - 1) {
       for (let i = lengthOffirstWordBottomRow; i < WIDTH - 1; i++) {
-        if (grid[rowIndex][i] != "-") {
+        if (grid[rowIndex+1][i] != "-") {
           break;
         }
         LengthOfNullsAndSpacesAfterFirstLeftMostCharacter++;
@@ -801,7 +805,7 @@ class RecursiveClass {
   //
 
   //!!!!CONSIDER PROBABLY CODE DOWN BELOW
-  initialInsertDoThisFirst(rowIndex, colIndex, grid, leftOverChar) {
+  initialInsertDoThisFirst(rowIndex, colIndex, grid, leftOverChar, fromIndex) {
     //checks if dash at end of current row, used for prevention of continuation on other rows
     let IsADash = false;
     //just on first top statement
@@ -811,9 +815,7 @@ class RecursiveClass {
     //for displaying
     let horizString = (horizontalCursorPosition / 5).toString();
     let vertString = (verticalCursorPosition / 10).toString();
-    //let a = document.getElementById("xAndY")
-    //a.innerHTML = 'Horizontal' + horizString + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + 'Vertical: '+ vertString
-    this.checkOnLastLineSoCreateRow = true;
+     this.checkOnLastLineSoCreateRow = true;
     //from row now to end of each row, check for dash throug ending row
     //if dash, than each line will not be pushed dow
     for (let i = verticalCursorPosition / 10; i < HEIGHT; i++) {
@@ -831,37 +833,36 @@ class RecursiveClass {
     //these are the two lines we are using
     let topRow = grid[rowIndex];
     let lowerRow = grid[rowIndex + 1];
-    //splits array apart at insertion point
+    
+    //CursorMovements.cursorRight();
 
-    // colIndex = colIndex + 1;
-
-    CursorMovements.cursorRight();
-
+    //JUST ADDED
     let [leftTopRow, rightTopRow] = this.splitAtIndex(topRow, colIndex);
-
+    let combineTopRow = []
+    if (fromIndex){
     //insert character at index
-    let combineTopRow = [...leftTopRow, ...leftOverChar, ...rightTopRow];
-    //this is one row, exactly, because of WIDTH
+    combineTopRow = [...leftTopRow, ...leftOverChar,  ...rightTopRow];
+    CursorMovements.cursorRight();
+    // if(verticalCursorPosition/10 === HEIGHT-2 && horizontalCursorPosition/5 === WIDTH-1){
+    // CursorMovements.cursorRight();
+    // //CursorMovements.cursorRight();
+    // //CursorMovements.cursorRight();
+    // }
+    }else{
 
-    //CursorMovements.cursorRight()
-
+    combineTopRow = [...leftOverChar, ...leftTopRow,  ...rightTopRow];
+    //CursorMovements.cursorRight();
+  }
+    
+    ///////////////
+    
     let [finishedTopRow, leftOver] = this.splitAtIndex(combineTopRow, WIDTH);
-    //there is a character on last row, do call function which is recursive
-    //if (grid[rowIndex][WIDTH-1] != DASH)
-
-    //push rows right because of insert
     grid[rowIndex] = finishedTopRow;
 
-    /////////////////////FOR pushWordsDoThisSecond
-
-    //???LOOK AT THIS - checks character on left for cursor positioning???
     if (horizontalCursorPosition / 5 === WIDTH - 1) {
       this.CursorOnLastColumn = true;
     }
-
-    //!!!!!Possibly incorporate this with pushWordsDoThisSecond setting a variable: lastRowIndexToPush; or maybe a function call here
-    //if(grid[rowIndex][WIDTH-1] === "-" && this.lastRowIndexToPushOn === -1 && rowIndex > horizontalCursorPosition/5){
-    if (grid[rowIndex][WIDTH - 1] === "-" || grid[rowIndex + 1] === "-") {
+   if (grid[rowIndex][WIDTH - 1] === "-" || grid[rowIndex + 1] === "-") {
     } else {
     }
     // WAS DASH AT FIRST LINE OF INSERT'S END
@@ -869,20 +870,11 @@ class RecursiveClass {
       return grid;
     }
 
-    //this.pushRowRight(rowIndex+1, colIndex, grid, leftOver)
-    //On zero, because there will be a cursorright
-
-    //THIS PROBABLY SHOULD BE USED:
-    //if(horizontalCursorPosition/5-1 === 0){
-    //  //used for setting  cursor
-    //  this.CursorOnLastColumn = true
-    //}
-
-    //CursorMovements.cursorRight()
+    this.initialInsertDoThisFirst(rowIndex+1, colIndex, grid, leftOver, false) 
     return grid;
   }
 
-  
+
 
   checkOnLastLineSoCreateRow(grid, leftOverChar, rowIndex, colIndex) {
     //!!!!THIS VARIABLE IS NOT DEFINED OR USED ELSEWHERE!!!!!

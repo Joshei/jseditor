@@ -46,12 +46,12 @@
   
   let gridArray = [
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, "a", DASH, DASH, DASH, DASH , "z", DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
-    ["a", "A", DASH, DASH, DASH, DASH , DASH, DASH, "b", DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
+    ["a", "A", DASH, DASH, DASH, DASH , DASH, DASH, "b", DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, "b" ],
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, "4" , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, "5" , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
      
-    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, "Y" ],
-    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, "q", "Y" ],
+    ["A", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH],
     ["S", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
      
@@ -193,7 +193,14 @@
     let inserting = document.getElementById('insert')
     let dashing = document.getElementById('areDashes')
     
-     inserting.addEventListener("click", function(){
+    console.log("here")
+     //inserting.addEventListener('pointerdown', handleInsertButtonClick)
+     dashing.addEventListener('pointerdown', handleDashesButtonClick)
+      
+     
+     
+     
+     function handleInsertButtonClick(){
       if (insertOn === true){
       insertOn = false}
       else{
@@ -204,10 +211,10 @@
         }else{
           document.getElementById("insert").innerHTML = "On Top"
         }
-    })
 
-    //function changeDashes(){
-    dashing.addEventListener("click", function(){
+    }
+    function handleDashesButtonClick(){
+
       if(areDashes){
         DASH = " "
       }else{
@@ -233,10 +240,6 @@
         areDashes = !areDashes
 
     }
-     
-
-
-      
      //change spaces to dashes - can't edit matrix until changed back to dashes (above).
      if(areDashes == true){
           document.getElementById("areDashes").innerHTML = "Show Without Dashes"
@@ -253,10 +256,9 @@
         Recursive.displayGridAndCursor()
       }
       
-    })
-   
+    }
+
     document.body.addEventListener('keydown', function(e){
-   
     keyState[e.keyCode || e.which] = true;
     eventKeyCode = e.keyCode
     gKey = e.key
@@ -275,7 +277,7 @@
      
    // removed from list : 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Delete'
     const preventKeys = [
-    'Tab', 'Enter', 'Backspace', 'PageUp', 'PageDown', 'Home', 'End','Control', 'Alt', 'Meta', 'Shift'
+    'Tab', 'Backspace', 'PageUp', 'PageDown', 'Home', 'End','Control', 'Alt', 'Meta', 'Shift'
     ];
     
     function displayCursorLocations(){
@@ -283,7 +285,7 @@
       a.innerHTML = 'Horizontal: ' + horizontalCursorPosition/5 + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + 'Vertical: '+ verticalCursorPosition/10
 
     }
-    function cursorAndFunctionCalls() {
+    function cursorAndFunctionCalls(event) {
     displayCursorLocations()
     for (let i = 0; i < preventKeys.length;i++){
       if( preventKeys[i] == gKey){
@@ -293,7 +295,7 @@
     //right
     if(keyState[39]){
     //?
-    Recursive.advanceHorizontalOneTime()
+    //Recursive.advanceHorizontalOneTime()
     CursorMovements.cursorRight() 
     }
     //left
@@ -303,10 +305,14 @@
     //up
     else if(keyState[38]){
       CursorMovements.cursorUp()
+      this.event.preventDefault(); 
+      
+      
     }
     //down
     else if(keyState[40]){
       CursorMovements.cursorDown()
+      this.event.preventDefault();
     } 
     //these are the funcitons for keystorkes other than cursor movement keys
     else if (gKey === "-"){
@@ -334,7 +340,7 @@
       //Recursive.LastCharacetrOnLineEndThereAlready = true
     }
     if(insertOn === true){
-      gridArray = Recursive.initialInsertDoThisFirst(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey)
+      gridArray = Recursive.initialInsertDoThisFirst(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey, true)
       
       //drawGrid(HEIGHT, WIDTH)
       
@@ -351,7 +357,7 @@
     
     
     
-    gridArray = Recursive.pushWordsDoThisSecond(gridArray, ["Z"], 0, true)
+    //gridArray = Recursive.pushWordsDoThisSecond(gridArray, ["Z"], 0, true)
    
     
     drawGrid(HEIGHT, WIDTH)
@@ -361,7 +367,7 @@
     }
     
     //first run
-     cursorAndFunctionCalls()
+     cursorAndFunctionCalls(event)
      drawGrid(HEIGHT, WIDTH)
      Recursive.displayGridAndCursor() 
     
