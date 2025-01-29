@@ -44,10 +44,32 @@
   
   // The grid, last row is a padding for recursion. 
   
+    let gridArray = [
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, "1", "2", "3", DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, "1", "a" ],
+    ["b", "c" , DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, "d", DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
+     
+    [DASH, DASH, DASH, DASH, "Z", DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
+     
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, "A" ],
+    ["B", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
+         
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, "b", DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, "+" ],
+    ["a", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, "P" ],
+    ["z", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, "1", "2", "3" ],
+         //["!", "!", "!", "!", "!", "!" , "!", "!", "!", "!", "!", "!", "!" , "!", "!", "!", "!", "!", "!", "!" , "!", "!","!", "!", "!", "!", "!" , "!" ],
+];
+  /*
   let gridArray = [
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, "a", DASH, DASH, DASH, DASH , "z", DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
-    ["a", "A", DASH, DASH, DASH, DASH , DASH, DASH, "b", DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, "b" ],
-    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, "4" , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
+    ["a", "A", "a","a","a","a" ,"a","a", "b","a","a","a","a" ,"a","a","a","a","a","a","a" ,"a","a","a","a","a","a", "b","b" ],
+    ["a","a","a","a", DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, "4" , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, "5" , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
      
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, "q", "Y" ],
@@ -199,7 +221,7 @@
       
      
      
-     
+     //Left as a regular function in case of need for release event listener
      function handleInsertButtonClick(){
       if (insertOn === true){
       insertOn = false}
@@ -213,6 +235,7 @@
         }
 
     }
+    //Left as a regular function in case of need for release event listener
     function handleDashesButtonClick(){
 
       if(areDashes){
@@ -277,7 +300,7 @@
      
    // removed from list : 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Delete'
     const preventKeys = [
-    'Tab', 'Backspace', 'PageUp', 'PageDown', 'Home', 'End','Control', 'Alt', 'Meta', 'Shift'
+    'Tab', 'PageUp', 'PageDown', 'Home', 'End','Control', 'Alt', 'Meta', 'Shift'
     ];
     
     function displayCursorLocations(){
@@ -319,17 +342,11 @@
       return
     }
     
-    else if(gKey === 'Delete' )
+    else if(gKey === 'Delete' || gKey === 'Backspace')
     {
        //console.log("nested array3: ", gridArray);
        //gridArray = Recursive.deleteAndPullCharacters([], verticalCursorPosition/10, horizontalCursorPosition/5,  gridArray)
-       gridArray = Recursive.deleteAndPullCharacters(1, verticalCursorPosition/10, horizontalCursorPosition/5,  gridArray)
-    }
-    else if(gKey === "Backspace"){
-
-      //gridArray = Recursive.deleteCharacterWithoutPull(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey)
-      gridArray = Recursive.deleteAndPullCharacters(1, verticalCursorPosition/10, horizontalCursorPosition/5,  gridArray)
- 
+       gridArray = Recursive.deleteAndPullCharacters(verticalCursorPosition/10, horizontalCursorPosition/5,  gridArray)
     }
     else if(gKey == "Enter"){
       gridArray = Recursive.pressedEnter(gridArray, verticalCursorPosition/10, horizontalCursorPosition/5, "",true, HEIGHT-1)
@@ -340,7 +357,7 @@
       //Recursive.LastCharacetrOnLineEndThereAlready = true
     }
     if(insertOn === true){
-      gridArray = Recursive.initialInsertDoThisFirst(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey, true)
+     // gridArray = Recursive.initialInsertDoThisFirst(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey, true)
       
       //drawGrid(HEIGHT, WIDTH)
       

@@ -476,131 +476,113 @@ class RecursiveClass {
   // middle row: *
   // last row:   *
 
-  deleteAndPullCharacters(remainder, rowIndex, columnIndex, grid) {
+  deleteAndPullCharacters(rowIndex, columnIndex, grid) {
+    
     //On last row
     if (rowIndex > HEIGHT - 2) {
+      
       let topRow = grid[rowIndex];
-      let combine = [];
-      if (columnIndex == -1) {
-        let [topRowLeftCharacter, topRowRightSide] = this.splitAtIndex(
-          topRow,
-          1
-        );
-        combine = topRowRightSide;
-      } else if (columnIndex != 0) {
+      let combine = [];//
+      // if (columnIndex == -1) {
+      //   let [topRowLeftCharacter, topRowRightSide] = this.splitAtIndex(
+      //     topRow,
+      //     1
+      //   );
+      //   combine = topRowRightSide;
+      // } else if (columnIndex != 0) {
+      //cursor is on any space except the first
+      if(columnIndex != 0){
         let [topRowLeftOfColumn, topRowRightOfColumn] = this.splitAtIndex(
           topRow,
           columnIndex - 1
         );
         let [leftCharacterRightRow, topRowRightOfColumnWithoutFirstCharacter] =
           this.splitAtIndex(topRowRightOfColumn, 1);
-        combine = [
+          //is same, except first character is removed from dispaly 
+          combine = [
           ...topRowLeftOfColumn,
           ...topRowRightOfColumnWithoutFirstCharacter,
         ];
 
-        //CursorMovements.cursorLeft()
       }
       //column index is on most left space - on last line, of course.
       else {
-        //!delete last column, above row
-        //put bottom left character on top-right\
+        //breaks row into to phrases
         let [topRowLeftOfColumn, topRowRightOfColumn] = this.splitAtIndex(
           topRow,
           columnIndex
         );
-        //topRowRightOfColumn - remove first character
+        //removes first character
         let [lastRowLeftChracterRemoved, lastRowRightSideAfterFirstColumn] =
           this.splitAtIndex(topRowRightOfColumn, 1);
+        //row is without first character
         combine = [...lastRowRightSideAfterFirstColumn];
-        //CursorMovements.cursorLeft();
-        //grid[verticalCursorPosition / 10][horizontalCursorPosition / 5] = "P";
+        //second to last row at right end is set as last rows first character
+        //delete pulls a dash from end, and 2nd to last row right side is deleted
         grid[HEIGHT - 2][WIDTH - 1] = grid[HEIGHT - 1][0];
       }
-
+      CursorMovements.cursorLeft()
       grid[rowIndex] = combine;
+      //last character pulls a dash from end because there is a delete on this row 
       grid[HEIGHT - 1][WIDTH - 1] = "-";
       return grid;
     }
 
-    // if (rowIndex > HEIGHT-3){
-    //   let topRow = grid[rowIndex]
-    //   let bottomRow = grid[rowIndex+1]
-    //   let combine = []
-    //   let [topRowLeftOfColumn, topRowRightOfColumn] = this.splitAtIndex(topRow, columnIndex) ;
-    //   let [leftCharacterRightRow, topRowRightOfColumnWithoutFirstCharacter] = this.splitAtIndex(topRowRightOfColumn, 1) ;
-    //   combine = [...topRowLeftOfColumn, ...topRowRightOfColumnWithoutFirstCharacter]
-    //   grid[rowIndex] = combine
-    //   grid[rowIndex][WIDTH-1] = grid[rowIndex+1][0]
-    //   let [bottomRowLeftCharacter, bottomRowRightSide] = this.splitAtIndex(bottomRow, 1) ;
-    //   grid[rowIndex+1] = bottomRowRightSide
-    //   grid[rowIndex+1][WIDTH-1] = "-"
-    //   //drawGrid(HEIGHT, WIDTH)
-    //   return grid
-    // }
-    let counterOfUsedRows = 0;
-    let rowIndexInLoop = rowIndex;
+
+
+
+    //the following row code is anything except last row
     let topRow = grid[rowIndex];
-    counterOfUsedRows = 0;
-    //determine how many rows of code with non null right side
-    while (true) {
-      //now on last row so just lowest row  (toprow)leave
-      if (rowIndexInLoop == HEIGHT) {
-        break;
-      }
-      if (grid[rowIndexInLoop][WIDTH - 1] != "-") {
-        //counts rows, and incrememtns row index
-        rowIndexInLoop++;
-        counterOfUsedRows++;
-      } else {
-        break;
-      }
-    }
-    //row under top row
-    topRow = grid[rowIndex];
     let bottomRow = grid[rowIndex + 1];
     let bottomRowLeftmostCharacter = bottomRow[0];
-    //take left most character from top row
-    //!!!!!----!!!!!
-    //let [frontCharactersTopRow, topWithoutFrontCharacters] = this.splitAtIndex(topRow, columnIndex+1) ;
-
-    // let [topRowLeftOfColumn, topRowRightOfColumn] = this.splitAtIndex(topRow, columnIndex);
+    
     let topLeftRow = [];
     let topRightRow = [];
+    //cursor is on first column
     if (horizontalCursorPosition === 0) {
-      //split at cursor - current character is on left
+      //split at cursor - same as toprow
       [topLeftRow, topRightRow] = this.splitAtIndex(topRow, columnIndex);
     } else {
-      CursorMovements.cursorLeft();
+      //toprightrow holds character left of cursor
       [topLeftRow, topRightRow] = this.splitAtIndex(topRow, columnIndex - 1);
-      //CursorMovements.cursorLeft();
+      
     }
-    //let [topLeftRemovedChar, topRightWithoutFirstChar] = this.splitAtIndex(topRow, 1) ;
-
-    //
-    //let [topLeftRemovedChar, topRightWithoutFirstChar] = this.splitAtIndex(topRightRow, 1) ;
-
-    //remove front character from right hand side -
+    
+    //remove front character from right hand side, this is the character being deleted
     let [leftOnecharacterDiscarded, topRightRowNoFirstCharacter] =
-      this.splitAtIndex(topRightRow, 1);
-    let combine5 = [...topLeftRow, ...topRightRowNoFirstCharacter];
+    this.splitAtIndex(topRightRow, 1);
+    let combinedRow = [...topLeftRow, ...topRightRowNoFirstCharacter];
 
-    //topRightRow in 512
 
-    if (
-      horizontalCursorPosition / 5 === 0 &&
-      horizontalCursorPosition / 5 === columnIndex &&
-      rowIndex != 0 &&
-      rowIndex === verticalCursorPosition / 10
-    ) {
+    //display both sides, without charactter
+    
+    // if (
+    //   horizontalCursorPosition / 5 === 0 &&
+    //   horizontalCursorPosition / 5 === columnIndex &&
+    //   rowIndex != 0 &&
+    //   rowIndex === verticalCursorPosition / 10
+    // )
+  
+    //if on current row, first colum
+    if(rowIndex != 0 && columnIndex === 0 && rowIndex == verticalCursorPosition/10)
+    {
+      //deleted upper rightmost character and puts left most bottom cursor there
+      //beneath moves one to left and a dash is fed, at very end
+      //leftmost character from bottom row is put at row above, last space
+
       let character = grid[rowIndex][0];
       grid[rowIndex - 1][WIDTH - 1] = character;
     }
 
-    grid[rowIndex] = combine5;
+    grid[rowIndex] = combinedRow;
+
+    //deleted, so move cursor left
+    CursorMovements.cursorLeft()
+
+    
 
     this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(
-      counterOfUsedRows,
+      //onto next row, the next top row is the row just after rowindex - 1 (see above) 
       rowIndex + 1,
       columnIndex,
       grid
@@ -612,11 +594,12 @@ class RecursiveClass {
 
   //12/25/24: looks okay
   removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(
-    amtOfUsedRows,
+   
     rowIndex,
     columnIndex,
     grid
   ) {
+    //return grid
     //return grid
     // if(rowIndex === -2 && columnIndex === 0){
     //   return grid
@@ -658,12 +641,18 @@ class RecursiveClass {
       return grid;
     }
 
+
+
+
+    
+    /////
+
     let topRow = grid[rowIndex - 1];
     //row after top row
     let bottomRow = grid[rowIndex];
     //get left most characeter, on bottomrow. Is put on most right side of row above it, top row.
     //drawGrid(HEIGHT, WIDTH)
-    let leftCharacterofBottomRow = bottomRow[0];
+    let leftCharacterofBottomRow =  bottomRow[0];
     //on final row (toprow) and was a deletion so just lowest row append a null character to end
     if (rowIndex == HEIGHT - 1) {
       leftCharacterofBottomRow = "-";
@@ -702,7 +691,7 @@ class RecursiveClass {
       grid[rowIndex - 1] = newTopRow;
       drawGrid(HEIGHT, WIDTH);
       this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(
-        amtOfUsedRows,
+       
         rowIndex + 1,
         columnIndex,
         grid
@@ -721,7 +710,7 @@ class RecursiveClass {
     //tail end recursion, runs until end of rows, or dash is encountered after number of rows
     //Secondary call.
     this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(
-      amtOfUsedRows,
+      
       rowIndex + 1,
       columnIndex,
       grid
@@ -806,6 +795,10 @@ class RecursiveClass {
 
   //!!!!CONSIDER PROBABLY CODE DOWN BELOW
   initialInsertDoThisFirst(rowIndex, colIndex, grid, leftOverChar, fromIndex) {
+    if (rowIndex > HEIGHT - 1) {
+      return grid;
+    }
+
     //checks if dash at end of current row, used for prevention of continuation on other rows
     let IsADash = false;
     //just on first top statement
@@ -824,12 +817,11 @@ class RecursiveClass {
         break;
       }
     }
-    if (this.checkOnLastLineSoCreateRow === true) {
+    if(rowIndex != 0 && grid[HEIGHT-1][WIDTH-1] != " " && grid[HEIGHT-1][WIDTH-1] != "-"){
+    //if (this.checkOnLastLineSoCreateRow === true) {
       this.createRow(grid, leftOverChar, rowIndex, colIndex);
     }
-    if (rowIndex > HEIGHT - 1) {
-      return grid;
-    }
+    
     //these are the two lines we are using
     let topRow = grid[rowIndex];
     let lowerRow = grid[rowIndex + 1];
@@ -841,17 +833,20 @@ class RecursiveClass {
     let combineTopRow = []
     if (fromIndex){
     //insert character at index
+    //so, it will happen only once
     combineTopRow = [...leftTopRow, ...leftOverChar,  ...rightTopRow];
-    CursorMovements.cursorRight();
-    // if(verticalCursorPosition/10 === HEIGHT-2 && horizontalCursorPosition/5 === WIDTH-1){
-    // CursorMovements.cursorRight();
-    // //CursorMovements.cursorRight();
-    // //CursorMovements.cursorRight();
-    // }
+    if(verticalCursorPosition/10 == rowIndex){
+      CursorMovements.cursorRight();
+    }
+   
+  
     }else{
 
     combineTopRow = [...leftOverChar, ...leftTopRow,  ...rightTopRow];
-    //CursorMovements.cursorRight();
+    if(verticalCursorPosition/10 == rowIndex){
+      CursorMovements.cursorRight();
+    }
+   
   }
     
     ///////////////
@@ -867,7 +862,7 @@ class RecursiveClass {
     }
     // WAS DASH AT FIRST LINE OF INSERT'S END
     if (IsADash === true) {
-      return grid;
+      //return grid;
     }
 
     this.initialInsertDoThisFirst(rowIndex+1, colIndex, grid, leftOver, false) 
