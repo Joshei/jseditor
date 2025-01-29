@@ -5,8 +5,6 @@ I have been working on deleteRow and removeLeftCharacterFrom2ndRowAndReplaceAbov
 /*  */
 class RecursiveClass {
   constructor() {
-   
-    this.CursorOnLastColumn = false;
     this.lastRowIndexToPushOn = -1;
     this.checkOnLastLineSoCreateRow = false;
     this.bottomRow = -1;
@@ -782,77 +780,47 @@ class RecursiveClass {
   //
 
   //!!!!CONSIDER PROBABLY CODE DOWN BELOW
+  //1/28/25
   initialInsertDoThisFirst(rowIndex, colIndex, grid, leftOverChar, fromIndex) {
     if (rowIndex > HEIGHT - 1) {
       return grid;
     }
 
-    //checks if dash at end of current row, used for prevention of continuation on other rows
-    let IsADash = false;
-    //just on first top statement
-    if (grid[rowIndex][WIDTH - 1] === "-") {
-      IsADash = true;
-    }
     //for displaying
     let horizString = (horizontalCursorPosition / 5).toString();
     let vertString = (verticalCursorPosition / 10).toString();
-     this.checkOnLastLineSoCreateRow = true;
-    //from row now to end of each row, check for dash throug ending row
-    //if dash, than each line will not be pushed dow
-    for (let i = verticalCursorPosition / 10; i < HEIGHT; i++) {
-      if (grid[i][WIDTH - 1] === "-") {
-        this.checkOnLastLineSoCreateRow = false;
-        break;
-      }
-    }
-    if(rowIndex != 0 && grid[HEIGHT-1][WIDTH-1] != " " && grid[HEIGHT-1][WIDTH-1] != "-"){
-    //if (this.checkOnLastLineSoCreateRow === true) {
-      this.createRow(grid, leftOverChar, rowIndex, colIndex);
-    }
+    this.checkOnLastLineSoCreateRow = true;
+    this.createRow(grid, leftOverChar, rowIndex, colIndex);
     
-    //these are the two lines we are using
+    //these are the two rows we are using
     let topRow = grid[rowIndex];
     let lowerRow = grid[rowIndex + 1];
     
-    //CursorMovements.cursorRight();
-
-    //JUST ADDED
+    //get both sides of row, broken at cursor
     let [leftTopRow, rightTopRow] = this.splitAtIndex(topRow, colIndex);
     let combineTopRow = []
+    //this function run is from the call at index, not a recursive call!
     if (fromIndex){
     //insert character at index
-    //so, it will happen only once
+    //leftovervhar is the character being inserted (from index)
     combineTopRow = [...leftTopRow, ...leftOverChar,  ...rightTopRow];
     if(verticalCursorPosition/10 == rowIndex){
       CursorMovements.cursorRight();
     }
-   
-  
     }else{
-
+      //leftoverchar is now remiander, so it is added to the fromt
     combineTopRow = [...leftOverChar, ...leftTopRow,  ...rightTopRow];
     if(verticalCursorPosition/10 == rowIndex){
       CursorMovements.cursorRight();
     }
    
   }
-    
-    ///////////////
-    
+    //get the firstt row of characters and the remiander to pass into the recursion
     let [finishedTopRow, leftOver] = this.splitAtIndex(combineTopRow, WIDTH);
+    //set row
     grid[rowIndex] = finishedTopRow;
 
-    if (horizontalCursorPosition / 5 === WIDTH - 1) {
-      this.CursorOnLastColumn = true;
-    }
-   if (grid[rowIndex][WIDTH - 1] === "-" || grid[rowIndex + 1] === "-") {
-    } else {
-    }
-    // WAS DASH AT FIRST LINE OF INSERT'S END
-    if (IsADash === true) {
-      //return grid;
-    }
-
+    //call for next row
     this.initialInsertDoThisFirst(rowIndex+1, colIndex, grid, leftOver, false) 
     return grid;
   }
@@ -871,39 +839,5 @@ class RecursiveClass {
     return grid;
   }
 
-  //11/23/24 - looks good - SEE CHECK THIS
-  //stops inserting when last character is a dash!
-  pushRowRight(rowIndex, colIndex, grid, leftOverChar) {
-    if (rowIndex > HEIGHT - 1) {
-      return grid;
-    }
-    //two rows were using for push
-    //let topRow = grid[(rowIndex-1)];
-    let lowerRow = grid[rowIndex];
-    let combineToBottomRow = [];
-    //if not a dash on last row end, than add that character on start of next line
-    if (leftOverChar === "-") {
-      combineToBottomRow = [...lowerRow];
-    } else {
-      combineToBottomRow = [...leftOverChar, ...lowerRow];
-    }
-    //one row, exactly, because of WIDTH, left over characters become remainder
-    //for next call
-    let [bottomRowReady, remainingChars] = this.splitAtIndex(
-      combineToBottomRow,
-      WIDTH
-    );
-    //let [left, remainingChars] = this.splitAtIndex(remainingChars, WIDTH)
-    grid[rowIndex] = bottomRowReady;
-    if (grid[rowIndex][0] != "-") {
-      this.characterMovedToBottom = grid[rowIndex][0];
-    }
-    //!!!!!!!!!!CHECK THIS!!!!!!!!!!
-    if (grid[rowIndex][WIDTH - 1] === "-") {
-      //} && remainingChars === "" || remainingChars == [""] ){
-      return grid;
-    }
-    this.pushRowRight(rowIndex + 1, 0, grid, remainingChars);
-    return grid;
-  }
+  
 }
