@@ -566,14 +566,13 @@ class RecursiveClass {
     //if on current row, first colum
     if(rowIndex != 0 && columnIndex === 0 && rowIndex == verticalCursorPosition/10)
     {
-      //deleted upper rightmost character and puts left most bottom cursor there
-      //beneath moves one to left and a dash is fed, at very end
-      //leftmost character from bottom row is put at row above, last space
-
+      //line above current row takes value from left hand side of bottom
+      //isn't removing character form that row, row above 
       let character = grid[rowIndex][0];
       grid[rowIndex - 1][WIDTH - 1] = character;
     }
 
+    //row index - combinerow is (width-1)-1
     grid[rowIndex] = combinedRow;
 
     //deleted, so move cursor left
@@ -619,12 +618,12 @@ class RecursiveClass {
       this.splitAtIndex(nextRow, 1);
       //put a charcter from next row, at end of this current row
      
-      //this is same as currentrow
+      //row above last row
       let combineForCurrentRow = [
-        ...currentRowRightSideWithoutLeftChar,
+        ...currentRow,
         
         //????????????????NOT ARRAY?
-        currentRowLeftCharacter,
+        ...nextRowLeftCharacter,
       ];
 
       //same as currentrow
