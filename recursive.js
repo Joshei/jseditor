@@ -5,7 +5,7 @@ I have been working on deleteRow and removeLeftCharacterFrom2ndRowAndReplaceAbov
 /*  */
 class RecursiveClass {
   constructor() {
-    this.counterOfRows = 0;
+   
     this.CursorOnLastColumn = false;
     this.lastRowIndexToPushOn = -1;
     this.checkOnLastLineSoCreateRow = false;
@@ -599,24 +599,14 @@ class RecursiveClass {
     columnIndex,
     grid
   ) {
-    //return grid
-    //return grid
-    // if(rowIndex === -2 && columnIndex === 0){
-    //   return grid
-    // }    // if(rowIndex > HEIGHT-2){
+    
 
-    //   return grid;
-    // }
-
+    // bail, out
     if (rowIndex > HEIGHT - 1) {
       return grid;
     }
 
-    //
-    // return grid
-    //counter is used to check for proper amount of lines to be run
-    this.counterOfRows++;
-    // 12
+    //on last coulmn
     if (rowIndex > HEIGHT - 2) {
       let currentRow = grid[rowIndex - 1];
       let nextRow = grid[rowIndex];
@@ -624,99 +614,98 @@ class RecursiveClass {
       let [currentRowLeftCharacter, currentRowRightSideWithoutLeftChar] =
         this.splitAtIndex(currentRow, 1);
       let [nextRowLeftCharacter, nextRowRightSideWithoutLeftChar] =
-        this.splitAtIndex(nextRow, 1);
+       
+      
+      this.splitAtIndex(nextRow, 1);
       //put a charcter from next row, at end of this current row
-
-      //build row
+     
+      //this is same as currentrow
       let combineForCurrentRow = [
         ...currentRowRightSideWithoutLeftChar,
+        
+        //????????????????NOT ARRAY?
         currentRowLeftCharacter,
       ];
+
+      //same as currentrow
       grid[rowIndex - 1] = combineForCurrentRow;
+      //pulls bottom rows left character into most right top row
       grid[rowIndex - 1][WIDTH - 1] = nextRowLeftCharacter;
 
       //build next row
       grid[rowIndex] = [...nextRowRightSideWithoutLeftChar];
+      //on last line pulls a dash from at end character
       grid[rowIndex][WIDTH - 1] = "-";
       return grid;
     }
+     //!!!!!!!!!
 
 
-
-
-    
-    /////
-
+     //Not on last row...(all this!)
+     //top row is without left most character, from deleteandpull...
     let topRow = grid[rowIndex - 1];
     //row after top row
     let bottomRow = grid[rowIndex];
     //get left most characeter, on bottomrow. Is put on most right side of row above it, top row.
     //drawGrid(HEIGHT, WIDTH)
     let leftCharacterofBottomRow =  bottomRow[0];
-    //on final row (toprow) and was a deletion so just lowest row append a null character to end
+    //on bottommost and rightmost, so feed dash
     if (rowIndex == HEIGHT - 1) {
       leftCharacterofBottomRow = "-";
     }
-    //get top row without lelft most character
-    //let [topLeftmostCharacter, topRowWithoutLeftCharacter] = this.splitAtIndex(topRow, WIDTH-2) ;
-
-    //remove
+    
+    //split row - toprow is same as toprightmostcharacters
     let [topRowWithoutLeftCharacter, topRightMostCharacters] =
       this.splitAtIndex(topRow, 0);
-    //recreate the top with the next row's left character, if last row replace last character with null.
+    
+    
+      //remove the leftmost character on botto row
     const [BottomRowLeftCharacter, BottomRowWithoutLeftCharacter] =
       this.splitAtIndex(bottomRow, 1);
-    //let [removedFirstCharTopRow, topRowWithoutFirstChar] = this.splitAtIndex(bottomRow, 1) ;
+    //remove rightmost character of top row
     let [topRowWithoutFinalCharacter, topRightCharacterRemoved] =
       this.splitAtIndex(topRow, topRow.length - 1);
 
-    ///////////FOR DELETE A IN ABC, IN DELETE FUNCTION ACCESS ROW ABOVE, AND SET LAST CHARACTER TO !TOP ROWS! LEFT CHARACTER
-    ///////////USE : IF COLUMPOS = 0 AND ROWPOS ISNT 0
+    // //runs each call with rowindex
+    // if (
+    //   horizontalCursorPosition / 5 === 0 &&
+    //   horizontalCursorPosition / 5 === columnIndex &&
+    //   rowIndex != 0 &&
+    //   rowIndex - 1 === verticalCursorPosition / 10
+    // ) {
+      
 
-    //runs each call with rowindex
-    if (
-      horizontalCursorPosition / 5 === 0 &&
-      horizontalCursorPosition / 5 === columnIndex &&
-      rowIndex != 0 &&
-      rowIndex - 1 === verticalCursorPosition / 10
-    ) {
-      // let topRow = grid[rowIndex-1]
-      // //row after top row
-      // let bottomRow = grid[rowIndex]
-      // //let newTopRow = [...topRightMostCharacters, ...leftCharacterofBottomRow]
-      // let [topRowFirstChar, topRowWithoutWithoutFirstCharacter] = this.splitAtIndex(topRow, 1)
-      // this.hasBeenInZeroHorizPosition = true;
-      //let [topRowWithoutFinalCharacter, topRightCharacterRemoved] = this.splitAtIndex(topRow, topRow.length-1) ;
-      let newTopRow = [...topRightMostCharacters, ...leftCharacterofBottomRow];
-      grid[rowIndex - 1] = newTopRow;
-      drawGrid(HEIGHT, WIDTH);
-      this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(
+      // //on leftmost character, not row zero 
+      // if(rowIndex != 0 && rowIndex - 1 == verticalCursorPosition/10 && columnIndex == 0){
+      // let newTopRow = [...topRightMostCharacters, ...leftCharacterofBottomRow];
+      // grid[rowIndex - 1] = newTopRow;
+      // drawGrid(HEIGHT, WIDTH);
+      // this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(
        
-        rowIndex + 1,
-        columnIndex,
-        grid
-      );
-      return grid;
+      //   rowIndex + 1,
+      //   columnIndex,
+      //   grid
+      // );
+      // return grid;
+
+
 
       /////////////
-    } else {
-      //remove last char from toprow put in newtoprow
-      //this is for character not on leftmost character
+      //      } else {
+
+
+      //toprightmost...  is width - 1 characters ; toprow was shortened in previous deleteandpull...
       let newTopRow = [...topRightMostCharacters, ...leftCharacterofBottomRow];
-      //let newTopRow = [...topRightMostCharacters]
       grid[rowIndex - 1] = newTopRow;
+      //final character filled in, in next call
       grid[rowIndex] = [...BottomRowWithoutLeftCharacter];
-    }
-    //tail end recursion, runs until end of rows, or dash is encountered after number of rows
-    //Secondary call.
+    //recursion
     this.removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide(
       
       rowIndex + 1,
       columnIndex,
       grid
     );
-    //rest this global value, for use next time
-    this.counterOfRows = 0;
     return grid;
   }
 
