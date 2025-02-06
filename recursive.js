@@ -1,8 +1,6 @@
-//1/1/25 : 4:51 PM
-/*
-I have been working on deleteRow and removeLeftCharacterFrom2ndRowAndReplaceAboveOnMostRightSide.  The text was moving two steps per press, so i refactored code and solved the problem, being that the character should be considered on the left side, not on the right side, when split is used!  What is left is to test its regular usage and testing of enterPressed. Check bottom delete and deletes on the leftmost characters and than test this too. MAKE SURE FUNCTION CALLS ARE ACTIVE, SOME FUNCTIONALITY IS COMMENTED OUT.
-*/
-/*  */
+
+//  1/28/25 - DELETED PUSHWORD... TODAY  
+
 class RecursiveClass {
   constructor() {
     this.lastRowIndexToPushOn = -1;
@@ -14,7 +12,7 @@ class RecursiveClass {
     this.hasBeenInZeroHorizPosition = false;
   }
 
-  deleteRow(arr, rowNumber) {
+  deleteRow(arr, rowNumber) {hoe
     arr.splice(rowNumber, 1);
     return arr;
   }

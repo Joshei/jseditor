@@ -357,7 +357,7 @@
       //Recursive.LastCharacetrOnLineEndThereAlready = true
     }
     if(insertOn === true){
-     // gridArray = Recursive.initialInsertDoThisFirst(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey, true)
+     gridArray = Recursive.initialInsertDoThisFirst(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey, true)
       
       //drawGrid(HEIGHT, WIDTH)
       
@@ -370,17 +370,9 @@
     Recursive.CursorOnLastColumn = false
     Recursive.LastRowIndexToPushOn = -1
     }
-
-    
-    
-    
     //gridArray = Recursive.pushWordsDoThisSecond(gridArray, ["Z"], 0, true)
-   
-    
     drawGrid(HEIGHT, WIDTH)
-     Recursive.displayGridAndCursor() 
-        
-
+    Recursive.displayGridAndCursor() 
     }
     
     //first run
