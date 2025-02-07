@@ -62,7 +62,7 @@
          
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, "b", DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, "P" ],
-    ["z", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, "1", "2", "3" ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, "1", "2", "3" ],
          //["!", "!", "!", "!", "!", "!" , "!", "!", "!", "!", "!", "!", "!" , "!", "!", "!", "!", "!", "!", "!" , "!", "!","!", "!", "!", "!", "!" , "!" ],
 ];
   /*
@@ -357,17 +357,6 @@
       //Recursive.LastCharacetrOnLineEndThereAlready = true
     }
 
-
-    //GET THIS WORKING WITH A GKEY THAT STARTS AS NULL, AFTER POSSIBLY MOVE PLACCHAR... BACK DOWN TO WHERE IT WAS
-    //ON INSERT, TWO CHARACTERS!?!?
-    
-    //ALWAYS JUST INCREASE ROW + 1 IN ONE CALL
-    
-    //OR:
-    //IN THREE SECTIONS ADD VERTICALCUR...  ===  ROWINDEX
-    //IF IN TOP AND RIGHT AND LEFT
-    //IF IN BOTTOM AND ON RIGHT AND LEFT
-    //ELSE
     if(insertOn === true && gKey){
      gridArray = Recursive.initialInsertDoThisFirst(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey, true)
      
