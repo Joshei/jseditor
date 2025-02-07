@@ -56,9 +56,9 @@
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
      
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, "A" ],
-    ["B", DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
+    ["1", "2", DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
-    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
+    [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, "B" ],
          
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, "b", DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, DASH ],
     [DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH, DASH, DASH, DASH, DASH, DASH, DASH , DASH,DASH, DASH, DASH, DASH, DASH, DASH, "P" ],
@@ -370,14 +370,10 @@
     //ELSE
     if(insertOn === true && gKey){
      gridArray = Recursive.initialInsertDoThisFirst(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey, true)
-     gridArray = Recursive.placeCharacterWithoutInsertDoThisFirst(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey)
-      
-      //drawGrid(HEIGHT, WIDTH)
-      
-      
+     
     }else{
       //destructive text display here
-      //gridArray = Recursive.placeCharacterWithoutInsertDoThisFirst(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey)
+      gridArray = Recursive.placeCharacterWithoutInsertDoThisFirst(verticalCursorPosition/10, horizontalCursorPosition/5, gridArray, gKey)
     }
     
     Recursive.CursorOnLastColumn = false

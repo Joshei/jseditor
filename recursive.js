@@ -133,7 +133,7 @@ class RecursiveClass {
 
   //12/22/24
   pushWordsDoThisSecond(grid, newRemainder, rowIndex, fromIndex) {
-    //
+    
     //for putting cursor on row 2 for lefthand words greater than 2
     let TwoOrMoreCharactersAtRightWordAtRowOne = false;
 
@@ -311,9 +311,12 @@ class RecursiveClass {
 
         //FINISH THIS:   AND CREATE ROW ISNT RIGHT - OMLY WHEN CHARACTER ON LAST COLUMN
       if (flagContainedInBorderCrossing === false){
-        for(let i = 0; i< lengthOffirstWordBottomRow - 1; i++){
-          if(verticalCursorPosition/10 === rowIndex && horizontalCursorPosition/5 === i){
-            flagContainedInBorderCrossing = true;
+        for(let i = 0; i< lengthOffirstWordBottomRow; i++){
+          if(verticalCursorPosition/10 === rowIndex && horizontalCursorPosition/5 === i+1){
+            //flagContainedInBorderCrossing = true;
+            horizontalCursorPosition = ((lengthOfRightWordAtRowOne* 5) + (lengthOfFirstWordBottomRow*5));
+
+
             break
           }
         }
