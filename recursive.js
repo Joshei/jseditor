@@ -205,13 +205,13 @@ class RecursiveClass {
       lastIndexOfFirstWord
     );
     //length of left word
-    let lengthOffirstWordBottomRow = firstWordBottomRow.length;
+    let lengthOfFirstWordBottomRow = firstWordBottomRow.length;
     //to check left hand word, before a null or space
     let LengthOfNullsAndSpacesAfterFirstLeftMostCharacter = 0;
     //because this code does not have a row below it, it is bottom row
     //for loop to find the correct index
     if (rowIndex != HEIGHT - 1) {
-      for (let i = lengthOffirstWordBottomRow; i < WIDTH - 1; i++) {
+      for (let i = lengthOfFirstWordBottomRow; i < WIDTH - 1; i++) {
         if (grid[rowIndex+1][i] != "-") {
           break;
         }
@@ -266,57 +266,31 @@ class RecursiveClass {
       for (let i = WIDTH - lengthOfRightWordAtRowOne; i < WIDTH; i++) {
         grid[rowIndex - 1][i] = "-";
       }
-
-      
-      
-      //!BELOW IS CURSOR ADJUSTMENT!
-      //was not enough room for right lower row to push into - DON'T MOVE CURSOR
-      // if (
-
-      //   lengthOfRightWordAtRowOne > LengthOfNullsAndSpacesAfterFirstLeftMostCharacter &&
-      //   lengthOfRightWordAtRowOne != 0 &&
-      //   lengthOfRightWordAtRowOne != -1
-      // ) {
-      //   console.log("1")
-      //   //alert("1")
-      //     //horizontalCursorPosition = 10;
-      // }
-
-      // //ready to move to slot below
-      // //????
-      // if (TwoOrMoreCharactersAtRightWordAtRowOne) {
-      //   horizontalCursorPosition = 0;
-      //   horizontalCursorPosition = horizontalCursorPosition = (lengthOfRightWordAtRowOne + 1) * 5;
-      // }
-
-      //if vert = rowindex or rowindex + 1 and if both ends have characters and there is a slot, put character at a.length + b.length : rowindex+1
-
-      //from 232 - will fit in slot
-
-      ///check if horiocur... is in top
-      ///check if it is in below
-      
       let flagContainedInBorderCrossing = false;
-      //upper flag check
+      //this is for upper row where both upper and lower rows are moveable (upper condition) 
       for(let i = WIDTH - lengthOfRightWordAtRowOne ;i < WIDTH; i++){
+        //if on the current row and horizontal position is in top rightmost range
         if(verticalCursorPosition/10 === rowIndex-1  && horizontalCursorPosition/5 === i + 1){
+        //for cursor...goes on next row!
         verticalCursorPosition = rowIndex * 10;
+        //horizontal positionis after the new total lower row of moved characters
         horizontalCursorPosition = 0;
         horizontalCursorPosition = ((lengthOfRightWordAtRowOne* 5) + (lengthOfFirstWordBottomRow*5));
+        //leave loop, cursor has been positioned
         flagContainedInBorderCrossing = true
+        break
       }
-          break 
+          
         }
-      
-
-        //FINISH THIS:   AND CREATE ROW ISNT RIGHT - OMLY WHEN CHARACTER ON LAST COLUMN
+      //cursor wasn't repositioned yet. 
       if (flagContainedInBorderCrossing === false){
-        for(let i = 0; i< lengthOffirstWordBottomRow; i++){
+
+        for(let i = 0; i< lengthOfFirstWordBottomRow; i++){
           if(verticalCursorPosition/10 === rowIndex && horizontalCursorPosition/5 === i+1){
-            //flagContainedInBorderCrossing = true;
+            //no verticalcursorposition change, because the row index is already on bottom row
+            //set cursor after moved characters now on bottom
             horizontalCursorPosition = ((lengthOfRightWordAtRowOne* 5) + (lengthOfFirstWordBottomRow*5));
-
-
+            //cursor moved, break out!
             break
           }
         }
