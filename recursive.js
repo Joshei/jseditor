@@ -246,7 +246,7 @@ class RecursiveClass {
       
 
 
-
+      
       if (
         //code available before 2/6/25 - verticalcurs...
         //no word passing across borders with shortcircuit
@@ -267,40 +267,65 @@ class RecursiveClass {
         grid[rowIndex - 1][i] = "-";
       }
 
+      
+      
       //!BELOW IS CURSOR ADJUSTMENT!
-
-      
       //was not enough room for right lower row to push into - DON'T MOVE CURSOR
-    //   if (
+      // if (
 
-    //     lengthOfRightWordAtRowOne > LengthOfNullsAndSpacesAfterFirstLeftMostCharacter &&
-    //     lengthOfRightWordAtRowOne != 0 &&
-    //     lengthOfRightWordAtRowOne != -1
-    //   ) {
-    //     console.log("1")
-    //     //alert("1")
-    //       //horizontalCursorPosition = 10;
-    //   }
+      //   lengthOfRightWordAtRowOne > LengthOfNullsAndSpacesAfterFirstLeftMostCharacter &&
+      //   lengthOfRightWordAtRowOne != 0 &&
+      //   lengthOfRightWordAtRowOne != -1
+      // ) {
+      //   console.log("1")
+      //   //alert("1")
+      //     //horizontalCursorPosition = 10;
+      // }
 
-    //   //ready to move to slot below
-    //   //????
-    //   if (TwoOrMoreCharactersAtRightWordAtRowOne) {
-    //     horizontalCursorPosition = 0;
-    //     horizontalCursorPosition = horizontalCursorPosition = (lengthOfRightWordAtRowOne + 1) * 5;
-    //   }
-    //   console.log("2")
-    //   ///alert("2")
-    //   this.pushWordsDoThisSecond(grid, newRemainder, rowIndex + 1, false);
-    //   return grid;
-    //   } //ends fits in left hand slot
+      // //ready to move to slot below
+      // //????
+      // if (TwoOrMoreCharactersAtRightWordAtRowOne) {
+      //   horizontalCursorPosition = 0;
+      //   horizontalCursorPosition = horizontalCursorPosition = (lengthOfRightWordAtRowOne + 1) * 5;
+      // }
 
-    // //doesn't fit in slot
-    // else {
-    //   //horizontalCursorPosition = 5;
-    //   console.log("3")
-    //   //alert("3")
-    //   }
+      //if vert = rowindex or rowindex + 1 and if both ends have characters and there is a slot, put character at a.length + b.length : rowindex+1
+
+      //from 232 - will fit in slot
+
+      ///check if horiocur... is in top
+      ///check if it is in below
       
+      let flagContainedInBorderCrossing = false;
+      //upper flag check
+      for(let i = WIDTH - lengthOfRightWordAtRowOne ;i < WIDTH; i++){
+        if(verticalCursorPosition/10 === rowIndex-1  && horizontalCursorPosition/5 === i + 1){
+        verticalCursorPosition = rowIndex * 10;
+        horizontalCursorPosition = 0;
+        horizontalCursorPosition = ((lengthOfRightWordAtRowOne* 5) + (lengthOfFirstWordBottomRow*5));
+        flagContainedInBorderCrossing = true
+      }
+          break 
+        }
+      
+
+        //FINISH THIS:   AND CREATE ROW ISNT RIGHT - OMLY WHEN CHARACTER ON LAST COLUMN
+      if (flagContainedInBorderCrossing === false){
+        for(let i = 0; i< lengthOffirstWordBottomRow - 1; i++){
+          if(verticalCursorPosition/10 === rowIndex && horizontalCursorPosition/5 === i){
+            flagContainedInBorderCrossing = true;
+            break
+          }
+        }
+      }
+      
+      console.log("2")
+      ///alert("2")
+      this.pushWordsDoThisSecond(grid, newRemainder, rowIndex + 1, false);
+      return grid;
+      } //ends fits in left hand slot
+
+   
     
     //if here, word doesn't fit
     this.pushWordsDoThisSecond(grid, [""], rowIndex + 1, false);
