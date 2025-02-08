@@ -9,7 +9,7 @@ class RecursiveClass {
     this.hasBeenInZeroHorizPosition = false;
   }
 
-  deleteRow(arr, rowNumber) {hoe
+  deleteRow(arr, rowNumber) {
     arr.splice(rowNumber, 1);
     return arr;
   }
