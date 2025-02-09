@@ -15,7 +15,7 @@ class RecursiveClass {
   }
 
   createRow(grid, rowIndex) {
-    grid.push([-, -, -, -, -, - , -, -, -, -, -, -, - , -, -, -, -, -, -, - , -,-, -, -, -, -, -, - ])
+    grid.push(["-", "-", "-", "-", "-", "-" , "-", "-", "-", "-", "-", "-", "-" , "-", "-", "-", "-", "-", "-", "-" , "-","-", "-", "-", "-", "-", "-","-" ])
     //important, allows new line to display in the drawgrid
     HEIGHT++;
     //drawGrid(HEIGHT, WIDTH)
@@ -202,19 +202,22 @@ class RecursiveClass {
       let lengthOfFirstWordBottomRow = firstWordBottomRow.length;
       //get one rows worth - and reminder to pass into recursion
       const [newBottomRow, newRemainder] = this.splitAtIndex(combined, WIDTH);
-      if (
-        //code available before 2/6/25 - verticalcurs...
-        //no word passing across borders with shortcircuit
-        //short circuit
-        rowIndex != 0 &&
-        grid[rowIndex - 1][WIDTH - 1] === "-" ||
-        grid[rowIndex][0] === "-"
-      ) 
-      { 
+
+      // if (
+      //   //code available before 2/6/25 - verticalcurs...
+      //   //no word passing across borders with shortcircuit
+      //   //short circuit
+      //   rowIndex != 0 &&
+      //   grid[rowIndex - 1][WIDTH - 1] === "-" ||
+      //   grid[rowIndex][0] === "-"
+      // ) 
+      // { 
         
-        this.pushWordsDoThisSecond(grid, [""], rowIndex + 1, false);
-        return grid;
-      }
+      //   this.pushWordsDoThisSecond(grid, [""], rowIndex + 1, false);
+      //   return grid;
+      // }
+
+
       //Finally, set the row.
       grid[rowIndex] = newBottomRow;
       //fill in moved text space with dashes on top row
@@ -222,10 +225,12 @@ class RecursiveClass {
         grid[rowIndex - 1][i] = "-";
       }
       let flagContainedInBorderCrossing = false;
+      
+      
       //this is for upper row where both upper and lower rows are moveable (upper condition) 
       for(let i = WIDTH - lengthOfRightWordAtRowOne ;i < WIDTH; i++){
         //if on the current row and horizontal position is in top rightmost range
-        if(verticalCursorPosition/10 === rowIndex-1  && horizontalCursorPosition/5 === i + 1){
+        if(grid[rowIndex][0] != "-" && verticalCursorPosition/10 === rowIndex-1  && horizontalCursorPosition/5 === i + 1){
         //for cursor...goes on next row!
         verticalCursorPosition = rowIndex * 10;
         //horizontal positionis after the new total lower row of moved characters
@@ -241,7 +246,7 @@ class RecursiveClass {
       if (flagContainedInBorderCrossing === false){
 
         for(let i = 0; i< lengthOfFirstWordBottomRow; i++){
-          if(verticalCursorPosition/10 === rowIndex && horizontalCursorPosition/5 === i+1){
+          if(grid[rowIndex-1][WIDTH-1] != "-" && verticalCursorPosition/10 === rowIndex && horizontalCursorPosition/5 === i+1){
             //no verticalcursorposition change, because the row index is already on bottom row
             //set cursor after moved characters now on bottom
             horizontalCursorPosition = ((lengthOfRightWordAtRowOne* 5) + (lengthOfFirstWordBottomRow*5));
@@ -250,6 +255,7 @@ class RecursiveClass {
           }
         }
       }
+      
       
       console.log("2")
       ///alert("2")
